@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">Seoulmate</string>
+    <string name="app_name">서울메이트</string>
+
+    <!-- activity_main -->
+    <string name="main_tv_title"><b>%1$s</b>님,\n서울여행을 계획해보세요!</string>
+    <string name="main_tv_title_ex"><b>Breeze</b>님,\n서울여행을 계획해보세요!</string>
+    <string name="main_tv_my_trip">내 여행</string>
+    <string name="main_tv_list">추천 목록</string>
+    <string name="main_tv_upcoming_trip">다가오는 여행</string>
+    <string name="main_tv_last_trip">지난 여행</string>
+
+    <!-- item_my_trip -->
+    <string name="my_trip_tv_title_ex">경복궁 한복 투어</string>
+    <string name="my_trip_tv_date_ex">10월 1일 1PM-6PM</string>
+    <string name="my_trip_tv_member_ex">성인 2명</string>
+    <string name="my_trip_tv_with_mate_ex">with 메이트 수진</string>
+    <string name="my_trip_tv_with_mate">with 메이트 %1$s</string>
+
+    <!-- item_my_trip_menu -->
+    <string name="menu_tv_change_album_name">앨범 제목 변경</string>
+    <string name="menu_tv_change_album_cover">앨범 커버사진 변경</string>
+    <string name="menu_tv_delete_album">앨범 삭제</string>
 </resources>
