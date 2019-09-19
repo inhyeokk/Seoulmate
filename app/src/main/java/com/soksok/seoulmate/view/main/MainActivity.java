@@ -3,14 +3,12 @@ package com.soksok.seoulmate.view.main;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +22,9 @@ import com.soksok.seoulmate.view.main.data.MainRepositoryImpl;
 import com.soksok.seoulmate.view.main.domain.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static int REQUEST_CHANGE_ALBUM_TITLE = 2001;
+    public static String EXTRA_ALBUM_TITLE = "EXTRA_ALBUM_TITLE";
 
     private MainViewModel viewModel = new MainViewModel(new MainRepositoryImpl());
     private ActivityMainBinding binding;
@@ -108,9 +109,33 @@ public class MainActivity extends AppCompatActivity {
     private void showPopupMenu(View v) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ItemMyTripMenuBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_my_trip_menu, null, false);
+
         PopupWindow popupWindow = new PopupWindow(binding.getRoot(), 600, 500, true);
         Rect location = locateView(v);
         popupWindow.showAtLocation(v, Gravity.TOP|Gravity.START, location.left, location.top);
+
+        binding.tvChangeAlbumTitle.setOnClickListener(v1 -> {
+            // 앨범 제목 변경
+            showChangeAlbumTitleDialog();
+            popupWindow.dismiss();
+        });
+        binding.tvChangeAlbumCover.setOnClickListener(v1 -> {
+            // 앨범 커버사진 변경
+            popupWindow.dismiss();
+        });
+        binding.tvDeleteAlbum.setOnClickListener(v1 -> {
+            // 앨범 삭제
+            showDeleteAlbumDialog();
+            popupWindow.dismiss();
+        });
+    }
+
+    private void showChangeAlbumTitleDialog() {
+        new ChangeAlbumTitleDialog(this).show();
+    }
+
+    private void showDeleteAlbumDialog() {
+        new DeleteAlbumDialog(this).show();
     }
 
     public static Rect locateView(View v) {

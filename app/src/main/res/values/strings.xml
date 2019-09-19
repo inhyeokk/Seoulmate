@@ -17,7 +17,16 @@
     <string name="my_trip_tv_with_mate">with 메이트 %1$s</string>
 
     <!-- item_my_trip_menu -->
-    <string name="menu_tv_change_album_name">앨범 제목 변경</string>
+    <string name="menu_tv_change_album_title">앨범 제목 변경</string>
     <string name="menu_tv_change_album_cover">앨범 커버사진 변경</string>
     <string name="menu_tv_delete_album">앨범 삭제</string>
+
+    <!-- dialog_change_album_title -->
+    <string name="popup_tv_album_title">앨범 제목</string>
+    <string name="popup_ed_album_title_hint">경복궁 한복 투어</string>
+
+    <!-- dialog_delete_album -->
+    <string name="popup_tv_delete_album_title">앨범을 삭제하시겠습니까?</string>
+    <string name="popup_tv_delete_album_yes">네,할래요</string>
+    <string name="popup_tv_delete_album_cancel">아니요</string>
 </resources>
