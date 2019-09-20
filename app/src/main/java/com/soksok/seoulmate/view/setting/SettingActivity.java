@@ -58,7 +58,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void onLogoutClick(View v) {
-
+        showLogoutDialog();
     }
 
     public void onBottomCancelClick(View v) {
@@ -90,5 +90,9 @@ public class SettingActivity extends AppCompatActivity {
             binding.clBackground.setClickable(false);
             binding.clBackground.setFocusable(false);
         }
+    }
+
+    private void showLogoutDialog() {
+        new LogoutDialog(this).show();
     }
 }

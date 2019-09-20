@@ -6,50 +6,50 @@
     android:layout_width="240dp"
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_background"
-    tools:context=".view.main.DeleteAlbumDialog">
+    tools:context=".view.setting.LogoutDialog">
 
     <TextView
-        android:id="@+id/tv_delete_album"
+        android:id="@+id/tv_logout_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/popup_tv_delete_album_title"
+        android:text="@string/dialog_tv_logout_title"
         android:textColor="@color/colorTextGray"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_delete_album_cancel"
+        app:layout_constraintBottom_toTopOf="@+id/tv_logout_cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_delete_album_cancel"
+        android:id="@+id/tv_logout_cancel"
         android:layout_width="84dp"
         android:layout_height="30dp"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_cancel_background"
         android:gravity="center"
-        android:text="@string/popup_tv_delete_album_cancel"
+        android:text="@string/dialog_tv_logout_cancel"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_delete_album_yes"
+        app:layout_constraintEnd_toStartOf="@+id/tv_logout_yes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_delete_album" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_logout_title" />
 
     <TextView
-        android:id="@+id/tv_delete_album_yes"
+        android:id="@+id/tv_logout_yes"
         android:layout_width="84dp"
         android:layout_height="30dp"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_yes_background"
         android:gravity="center"
-        android:text="@string/popup_tv_delete_album_yes"
+        android:text="@string/dialog_tv_logout_yes"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_delete_album_cancel"
-        app:layout_constraintTop_toBottomOf="@+id/tv_delete_album" />
+        app:layout_constraintStart_toEndOf="@+id/tv_logout_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_logout_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>

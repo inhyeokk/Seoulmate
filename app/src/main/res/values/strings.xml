@@ -48,4 +48,9 @@
     </string>
     <string name="setting_bottom_cancel">취소</string>
     <string name="setting_bottom_contact">메일로 문의하기</string>
+
+    <!-- dialog_logout -->
+    <string name="dialog_tv_logout_title">로그아웃 하시겠습니까?</string>
+    <string name="dialog_tv_logout_yes">네,할래요</string>
+    <string name="dialog_tv_logout_cancel">아니요</string>
 </resources>
