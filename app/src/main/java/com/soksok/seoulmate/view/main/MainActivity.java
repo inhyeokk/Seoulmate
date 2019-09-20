@@ -1,6 +1,7 @@
 package com.soksok.seoulmate.view.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -20,6 +21,7 @@ import com.soksok.seoulmate.view.main.adapter.MyTripAdapter;
 import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
 import com.soksok.seoulmate.view.main.data.MainRepositoryImpl;
 import com.soksok.seoulmate.view.main.domain.MainViewModel;
+import com.soksok.seoulmate.view.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
      * 클릭 이벤트
      */
     public void onProfileClick(View v) {
-
+        goToSettingActivity();
     }
 
     public void onMyTripClick(View v) {
@@ -92,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onListClick(View v) {
 
+    }
+
+    private void goToSettingActivity() {
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 
     /*
