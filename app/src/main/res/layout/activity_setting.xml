@@ -5,183 +5,298 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.setting.SettingActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl_setting"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civ_profile"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="67dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_profile"
-            app:layout_constraintBottom_toTopOf="@+id/tv_user_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/view_top"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/colorPrimary"
+                app:layout_constraintBottom_toTopOf="@+id/civ_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_profile"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="67dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_profile"
+                app:layout_constraintBottom_toTopOf="@+id/tv_user_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_top" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/setting_user_name_ex"
+                android:textColor="@color/colorPrimary"
+                android:textSize="21sp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@+id/tv_user_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/civ_profile" />
+
+            <ImageView
+                android:id="@+id/iv_modify"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_modify"
+                app:layout_constraintBottom_toTopOf="@+id/tv_user_email"
+                app:layout_constraintStart_toEndOf="@+id/tv_user_name"
+                app:layout_constraintTop_toBottomOf="@+id/civ_profile" />
+
+            <TextView
+                android:id="@+id/tv_user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_user_email_ex"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_certify_seoul_mate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
+
+            <TextView
+                android:id="@+id/tv_certify_seoul_mate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:paddingBottom="12dp"
+                android:paddingEnd="28dp"
+                android:paddingStart="28dp"
+                android:paddingTop="12dp"
+                android:text="@string/setting_certify_seoul_mate"
+                android:textColor="@color/colorTextRed"
+                android:textSize="16sp"
+                android:onClick="onCertifyClick"
+                app:layout_constraintBottom_toTopOf="@+id/view_first"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_user_email" />
+
+            <View
+                android:id="@+id/view_first"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorTextLightGray"
+                app:layout_constraintBottom_toTopOf="@+id/tv_like_mate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_certify_seoul_mate" />
+
+            <TextView
+                android:id="@+id/tv_like_mate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:paddingEnd="28dp"
+                android:paddingStart="28dp"
+                android:paddingTop="12dp"
+                android:text="@string/setting_like_mate"
+                android:textColor="@color/colorText"
+                android:textSize="16sp"
+                android:onClick="onLikeMateClick"
+                app:layout_constraintBottom_toTopOf="@+id/view_second"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_first" />
+
+            <View
+                android:id="@+id/view_second"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorTextLightGray"
+                app:layout_constraintBottom_toTopOf="@+id/tv_like_spot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_like_mate" />
+
+            <TextView
+                android:id="@+id/tv_like_spot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:paddingEnd="28dp"
+                android:paddingStart="28dp"
+                android:paddingTop="12dp"
+                android:text="@string/setting_like_spot"
+                android:textColor="@color/colorText"
+                android:textSize="16sp"
+                android:onClick="onLikeSpotClick"
+                app:layout_constraintBottom_toTopOf="@+id/view_third"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_second" />
+
+            <View
+                android:id="@+id/view_third"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorTextLightGray"
+                app:layout_constraintBottom_toTopOf="@+id/tv_like_restaurant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_like_spot" />
+
+            <TextView
+                android:id="@+id/tv_like_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:paddingEnd="28dp"
+                android:paddingStart="28dp"
+                android:paddingTop="12dp"
+                android:text="@string/setting_like_restaurant"
+                android:textColor="@color/colorText"
+                android:textSize="16sp"
+                android:onClick="onLikeRestaurantClick"
+                app:layout_constraintBottom_toTopOf="@+id/view_fourth"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_third" />
+
+            <View
+                android:id="@+id/view_fourth"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorTextLightGray"
+                app:layout_constraintBottom_toTopOf="@+id/tv_logout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_like_restaurant" />
+
+            <TextView
+                android:id="@+id/tv_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:paddingEnd="28dp"
+                android:paddingStart="28dp"
+                android:paddingTop="12dp"
+                android:text="@string/setting_logout"
+                android:textColor="@color/colorTextLightGray"
+                android:textSize="16sp"
+                android:onClick="onLogoutClick"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_fourth" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackgroundGray"
+            android:clickable="false"
+            android:focusable="false"
+            android:onClick="onLayoutClick"
+            app:layout_constraintBottom_toTopOf="@+id/civ_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/setting_user_name_ex"
-            android:textColor="@color/colorPrimary"
-            android:textSize="21sp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintBottom_toTopOf="@+id/tv_user_email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/civ_profile" />
-
-        <ImageView
-            android:id="@+id/iv_modify"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="8dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_modify"
-            app:layout_constraintBottom_toTopOf="@+id/tv_user_email"
-            app:layout_constraintStart_toEndOf="@+id/tv_user_name"
-            app:layout_constraintTop_toBottomOf="@+id/civ_profile" />
-
-        <TextView
-            android:id="@+id/tv_user_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/setting_user_email_ex"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_certify_seoul_mate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
-
-        <TextView
-            android:id="@+id/tv_certify_seoul_mate"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:paddingBottom="12dp"
-            android:paddingEnd="28dp"
-            android:paddingStart="28dp"
-            android:paddingTop="12dp"
-            android:text="@string/setting_certify_seoul_mate"
-            android:textColor="@color/colorTextRed"
-            android:textSize="16sp"
-            android:onClick="onCertifyClick"
-            app:layout_constraintBottom_toTopOf="@+id/view_first"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_user_email" />
+            android:layout_height="450dp"
+            android:background="@drawable/bottom_sheet_background"
+            android:elevation="99dp"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="450dp"
+            app:layout_behavior="@string/bottom_sheet_behavior">
 
-        <View
-            android:id="@+id/view_first"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorTextLightGray"
-            app:layout_constraintBottom_toTopOf="@+id/tv_like_mate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_certify_seoul_mate" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_logo"
+                android:layout_width="76dp"
+                android:layout_height="76dp"
+                android:contentDescription="@null"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintBottom_toTopOf="@+id/tv_bottom_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_like_mate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingEnd="28dp"
-            android:paddingStart="28dp"
-            android:paddingTop="12dp"
-            android:text="@string/setting_like_mate"
-            android:textColor="@color/colorText"
-            android:textSize="16sp"
-            android:onClick="onLikeMateClick"
-            app:layout_constraintBottom_toTopOf="@+id/view_second"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_first" />
+            <TextView
+                android:id="@+id/tv_bottom_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="@string/setting_bottom_title"
+                android:textColor="@color/colorText"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_bottom_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/civ_logo" />
 
-        <View
-            android:id="@+id/view_second"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorTextLightGray"
-            app:layout_constraintBottom_toTopOf="@+id/tv_like_spot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_like_mate" />
+            <TextView
+                android:id="@+id/tv_bottom_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:text="@string/setting_bottom_description"
+                android:textColor="@color/colorTextGray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_bottom_cancel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bottom_title" />
 
-        <TextView
-            android:id="@+id/tv_like_spot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingEnd="28dp"
-            android:paddingStart="28dp"
-            android:paddingTop="12dp"
-            android:text="@string/setting_like_spot"
-            android:textColor="@color/colorText"
-            android:textSize="16sp"
-            android:onClick="onLikeSpotClick"
-            app:layout_constraintBottom_toTopOf="@+id/view_third"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_second" />
+            <TextView
+                android:id="@+id/tv_bottom_cancel"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/setting_bottom_cancel"
+                android:textColor="@color/colorTextLightGray"
+                android:textSize="16sp"
+                android:onClick="onBottomCancelClick"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_bottom_contact"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bottom_description" />
 
-        <View
-            android:id="@+id/view_third"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorTextLightGray"
-            app:layout_constraintBottom_toTopOf="@+id/tv_like_restaurant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_like_spot" />
-
-        <TextView
-            android:id="@+id/tv_like_restaurant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingEnd="28dp"
-            android:paddingStart="28dp"
-            android:paddingTop="12dp"
-            android:text="@string/setting_like_restaurant"
-            android:textColor="@color/colorText"
-            android:textSize="16sp"
-            android:onClick="onLikeRestaurantClick"
-            app:layout_constraintBottom_toTopOf="@+id/view_fourth"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_third" />
-
-        <View
-            android:id="@+id/view_fourth"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorTextLightGray"
-            app:layout_constraintBottom_toTopOf="@+id/tv_logout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_like_restaurant" />
-
-        <TextView
-            android:id="@+id/tv_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingEnd="28dp"
-            android:paddingStart="28dp"
-            android:paddingTop="12dp"
-            android:text="@string/setting_logout"
-            android:textColor="@color/colorTextLightGray"
-            android:textSize="16sp"
-            android:onClick="onLogoutClick"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_fourth" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_bottom_contact"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="50dp"
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/setting_bottom_contact"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:onClick="onBottomContactClick"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_bottom_cancel"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bottom_description" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
