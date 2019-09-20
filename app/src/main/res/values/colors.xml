@@ -10,4 +10,5 @@
     <color name="colorTextLightGray">#c6c6c6</color>
     <color name="colorDivide">#9d9d9d</color>
     <color name="colorTextRed">#d65754</color>
+    <color name="colorBackgroundGray">#66000000</color>
 </resources>

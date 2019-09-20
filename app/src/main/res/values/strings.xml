@@ -38,4 +38,14 @@
     <string name="setting_like_spot">좋아요 하는 관광지</string>
     <string name="setting_like_restaurant">좋아요 하는 맛집</string>
     <string name="setting_logout">로그아웃</string>
+    <string name="setting_bottom_title">서울메이트가 되고 싶으신가요?</string>
+    <string name="setting_bottom_description">
+        당신이 만든 여행 일정과 노하우를\n
+        서울에 놀러온 관광객에게 공유해주세요.\n
+        \n
+        메이트로 등록되면, 서울메이트의 모든 관광객과\n
+        함께 즐거운 여행일정을 공유할 수 있습니다.
+    </string>
+    <string name="setting_bottom_cancel">취소</string>
+    <string name="setting_bottom_contact">메일로 문의하기</string>
 </resources>
