@@ -8,12 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.databinding.ActivityMainBinding;
 import com.soksok.seoulmate.databinding.ItemMyTripMenuBinding;
 import com.soksok.seoulmate.view.main.adapter.MyTripAdapter;
@@ -110,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ItemMyTripMenuBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_my_trip_menu, null, false);
 
-        PopupWindow popupWindow = new PopupWindow(binding.getRoot(), 600, 500, true);
-        Rect location = locateView(v);
+        PopupWindow popupWindow = new PopupWindow(binding.getRoot(), BasicUtils.dpToPx(150), BasicUtils.dpToPx(140), true);
+        Rect location = BasicUtils.locateView(v);
         popupWindow.showAtLocation(v, Gravity.TOP|Gravity.START, location.left, location.top);
 
         binding.tvChangeAlbumTitle.setOnClickListener(v1 -> {
@@ -136,22 +136,5 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDeleteAlbumDialog() {
         new DeleteAlbumDialog(this).show();
-    }
-
-    public static Rect locateView(View v) {
-        int[] loc_int = new int[2];
-        if (v == null) return null;
-        try {
-            v.getLocationOnScreen(loc_int);
-        } catch (NullPointerException npe) {
-            //Happens when the view doesn't exist on screen anymore.
-            return null;
-        }
-        Rect location = new Rect();
-        location.left = loc_int[0] - 600;
-        location.top = loc_int[1];
-        location.right = location.left + v.getWidth();
-        location.bottom = location.top + v.getHeight();
-        return location;
     }
 }
