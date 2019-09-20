@@ -3,14 +3,21 @@ package com.soksok.seoulmate.view.setting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.databinding.ActivitySettingBinding;
+import com.soksok.seoulmate.view.like.LikeActivity;
 
 public class SettingActivity extends AppCompatActivity {
+
+    public static final String EXTRA_LIKE = "EXTRA_LIKE";
+    public static final String VALUE_LIKE_MATE = "VALUE_LIKE_MATE";
+    public static final String VALUE_LIKE_SPOT = "VALUE_LIKE_SPOT";
+    public static final String VALUE_LIKE_RESTAURANT = "VALUE_LIKE_RESTAURANT";
 
     private ActivitySettingBinding binding;
 
@@ -46,15 +53,15 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void onLikeMateClick(View v) {
-
+        goToLikeActivity(VALUE_LIKE_MATE);
     }
 
     public void onLikeSpotClick(View v) {
-
+        goToLikeActivity(VALUE_LIKE_SPOT);
     }
 
     public void onLikeRestaurantClick(View v) {
-
+        goToLikeActivity(VALUE_LIKE_RESTAURANT);
     }
 
     public void onLogoutClick(View v) {
@@ -90,6 +97,13 @@ public class SettingActivity extends AppCompatActivity {
             binding.clBackground.setClickable(false);
             binding.clBackground.setFocusable(false);
         }
+    }
+
+    private void goToLikeActivity(String value) {
+
+        Intent intent = new Intent(this, LikeActivity.class);
+        intent.putExtra(EXTRA_LIKE, value);
+        startActivity(intent);
     }
 
     private void showLogoutDialog() {

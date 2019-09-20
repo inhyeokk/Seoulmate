@@ -53,4 +53,15 @@
     <string name="dialog_tv_logout_title">로그아웃 하시겠습니까?</string>
     <string name="dialog_tv_logout_yes">네,할래요</string>
     <string name="dialog_tv_logout_cancel">아니요</string>
+
+    <!-- activity_like -->
+    <string name="like_tv_count">2</string>
+
+    <!-- item_like -->
+    <string name="like_tv_mate">메이트 %1$s</string>
+    <string name="like_tv_mate_description">"한국의 문화를 즐겨봐요!"</string>
+    <string name="like_tv_spot">북촌 한옥마을</string>
+    <string name="like_tv_spot_description">한옥에서 낭만적인 하룻밤</string>
+    <string name="like_tv_restaurant">청아람</string>
+    <string name="like_tv_restaurant_description">곱창전골과 소주 한잔</string>
 </resources>
