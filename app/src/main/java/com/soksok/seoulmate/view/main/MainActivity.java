@@ -3,6 +3,7 @@ package com.soksok.seoulmate.view.main;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.databinding.ActivityMainBinding;
 import com.soksok.seoulmate.databinding.ItemMyTripMenuBinding;
+import com.soksok.seoulmate.http.Test;
 import com.soksok.seoulmate.view.main.adapter.MyTripAdapter;
 import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
 import com.soksok.seoulmate.view.main.data.MainRepositoryImpl;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         onDataBinding();
         setupViews();
+
+//       new Test().testApiSet();
+
     }
 
     private void onDataBinding() {
@@ -144,4 +149,6 @@ public class MainActivity extends AppCompatActivity {
     private void showDeleteAlbumDialog() {
         new DeleteAlbumDialog(this).show();
     }
+
+
 }
