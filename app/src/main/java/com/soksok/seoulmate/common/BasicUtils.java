@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +16,15 @@ public class BasicUtils {
 
     public static void init(@NotNull Context context) {
         windowManager = (WindowManager) context.getSystemService(Activity.WINDOW_SERVICE);
+    }
+
+    public static void showToast(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @NotNull
+    public static String[] split(@NotNull String string, String regex) {
+        return string.split(regex);
     }
 
     public static int dpToPx(int dp) {

@@ -26,6 +26,9 @@
         </activity>
         <activity android:name=".view.setting.SettingActivity" />
         <activity android:name=".view.like.LikeActivity" />
+        <activity android:name=".view.match.MatchActivity" />
+        <activity android:name=".view.match.SelectActivity" />
+        <activity android:name=".view.match.SpotListActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.match.SelectActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_match">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_layout">
+
+            <TextView
+                android:id="@+id/tv_spot_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="37dp"
+                android:text="@string/select_tv_spot_title"
+                android:textColor="@color/colorText"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_spot_show_list"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_spot_show_list"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selector_btn_show_list"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_spot_show_list"
+                android:textColor="@color/selector_btn_show_list"
+                android:textSize="16sp"
+                android:onClick="onShowListClick"
+                app:layout_constraintBottom_toTopOf="@+id/tv_style_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_spot_title" />
+
+            <TextView
+                android:id="@+id/tv_style_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/select_tv_style_title"
+                android:textColor="@color/colorText"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_spot_show_list" />
+
+            <TextView
+                android:id="@+id/tv_style_restaurant"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_style_restaurant"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onStyleRestaurantClick"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintEnd_toStartOf="@+id/tv_style_recreation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_style_title" />
+
+            <TextView
+                android:id="@+id/tv_style_recreation"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_style_recreation"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onStyleRecreationClick"
+                app:layout_constraintEnd_toStartOf="@+id/tv_style_tourism"
+                app:layout_constraintStart_toEndOf="@+id/tv_style_restaurant"
+                app:layout_constraintTop_toBottomOf="@+id/tv_style_title" />
+
+            <TextView
+                android:id="@+id/tv_style_tourism"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_style_tourism"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onStyleTourismClick"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_style_recreation"
+                app:layout_constraintTop_toBottomOf="@+id/tv_style_title" />
+
+            <TextView
+                android:id="@+id/tv_style_activity"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_style_activity"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onStyleActivityClick"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintEnd_toStartOf="@+id/tv_style_culture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_style_restaurant" />
+
+            <TextView
+                android:id="@+id/tv_style_culture"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_style_culture"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onStyleCultureClick"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_style_activity"
+                app:layout_constraintTop_toBottomOf="@+id/tv_style_restaurant" />
+
+            <TextView
+                android:id="@+id/tv_type_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/select_tv_type_title"
+                android:textColor="@color/colorText"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_style_activity" />
+
+            <TextView
+                android:id="@+id/tv_type_active"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_type_active"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onTypeActiveClick"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintEnd_toStartOf="@+id/tv_type_challenging"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_type_title" />
+
+            <TextView
+                android:id="@+id/tv_type_challenging"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_type_challenging"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onTypeChallengingClick"
+                app:layout_constraintEnd_toStartOf="@+id/tv_type_free"
+                app:layout_constraintStart_toEndOf="@+id/tv_type_active"
+                app:layout_constraintTop_toBottomOf="@+id/tv_type_title" />
+
+            <TextView
+                android:id="@+id/tv_type_free"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_type_free"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onTypeFreeClick"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_type_challenging"
+                app:layout_constraintTop_toBottomOf="@+id/tv_type_title" />
+
+            <TextView
+                android:id="@+id/tv_type_rely"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_type_rely"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onTypeRelyClick"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintEnd_toStartOf="@+id/tv_style_culture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_type_active" />
+
+            <TextView
+                android:id="@+id/tv_type_busy"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/selector_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="@string/select_tv_type_busy"
+                android:textColor="@color/selector_btn"
+                android:textSize="12sp"
+                android:onClick="onTypeBusyClick"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_type_rely"
+                app:layout_constraintTop_toBottomOf="@+id/tv_type_active" />
+
+            <ImageView
+                android:id="@+id/iv_before"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="18dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_before"
+                android:onClick="onBeforeClick"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="18dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_complete"
+                android:onClick="onCompleteClick"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
