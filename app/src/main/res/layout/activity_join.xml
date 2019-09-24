@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.login.JoinActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="@string/join_tv_title"
+            android:textColor="@color/colorPrimary"
+            android:textSize="21sp"
+            app:layout_constraintBottom_toTopOf="@+id/civ_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_profile"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="34dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_profile_mate"
+            android:onClick="onProfileClick"
+            app:layout_constraintBottom_toTopOf="@+id/ed_email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <EditText
+            android:id="@+id/ed_email"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="36dp"
+            android:paddingEnd="18dp"
+            android:paddingStart="18dp"
+            android:background="@drawable/bg_view_join"
+            android:gravity="center_vertical"
+            android:inputType="textEmailAddress"
+            android:hint="@string/join_ed_email"
+            android:textColorHint="@color/colorDivide"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/ed_nickname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/civ_profile" />
+
+        <EditText
+            android:id="@+id/ed_nickname"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="18dp"
+            android:paddingStart="18dp"
+            android:background="@drawable/bg_view_join"
+            android:gravity="center_vertical"
+            android:inputType="text"
+            android:hint="@string/join_ed_nickname"
+            android:textColorHint="@color/colorDivide"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/ed_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_email" />
+
+        <EditText
+            android:id="@+id/ed_password"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="18dp"
+            android:paddingStart="18dp"
+            android:background="@drawable/bg_view_join"
+            android:gravity="center_vertical"
+            android:inputType="textPassword"
+            android:hint="@string/join_ed_password"
+            android:textColorHint="@color/colorDivide"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/ed_password_check"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_nickname" />
+
+        <EditText
+            android:id="@+id/ed_password_check"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:paddingEnd="18dp"
+            android:paddingStart="18dp"
+            android:background="@drawable/bg_view_join"
+            android:gravity="center_vertical"
+            android:inputType="textPassword"
+            android:hint="@string/join_ed_password_check"
+            android:textColorHint="@color/colorDivide"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_age"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_password" />
+
+        <TextView
+            android:id="@+id/tv_age"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_view_join"
+            android:gravity="center"
+            android:text="@string/join_tv_age_ex"
+            android:textColorHint="@color/colorDivide"
+            android:textSize="14sp"
+            android:onClick="onAgeClick"
+            app:layout_constraintBottom_toTopOf="@+id/tv_join"
+            app:layout_constraintEnd_toStartOf="@+id/tv_female"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_password_check" />
+
+        <TextView
+            android:id="@+id/tv_female"
+            android:layout_width="63dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_btn_join"
+            android:gravity="center"
+            android:text="@string/join_tv_female"
+            android:textColor="@color/selector_btn_join"
+            android:textSize="14sp"
+            android:onClick="onFemaleClick"
+            app:layout_constraintEnd_toStartOf="@+id/tv_male"
+            app:layout_constraintStart_toEndOf="@+id/tv_age"
+            app:layout_constraintTop_toBottomOf="@+id/ed_password_check" />
+
+        <TextView
+            android:id="@+id/tv_male"
+            android:layout_width="63dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_btn_join"
+            android:gravity="center"
+            android:text="@string/join_tv_male"
+            android:textColor="@color/selector_btn_join"
+            android:textSize="14sp"
+            android:onClick="onMaleClick"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_female"
+            app:layout_constraintTop_toBottomOf="@+id/ed_password_check" />
+
+        <TextView
+            android:id="@+id/tv_join"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="52dp"
+            android:background="@drawable/bg_btn_selected"
+            android:gravity="center"
+            android:text="@string/join_tv_join"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:onClick="onJoinClick"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_age" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

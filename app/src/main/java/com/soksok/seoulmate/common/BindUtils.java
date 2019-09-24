@@ -80,7 +80,6 @@ public class BindUtils {
         Glide.with(view.getContext())
                 .load(uri)
                 .into(view);
-        view.setScaleType(ImageView.ScaleType.FIT_XY);
     }
 
     @BindingAdapter("bind_mate_drawable")

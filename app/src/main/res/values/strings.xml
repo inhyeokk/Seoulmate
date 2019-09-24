@@ -122,4 +122,24 @@
         메이트와 대화를 나눌 수 있어요
     </string>
     <string name="dialog_tv_apply_ok">확 인</string>
+
+    <!-- activity_login -->
+    <string name="login_ed_email_id">이메일 아이디 입력</string>
+    <string name="login_ed_password">비밀번호 입력</string>
+    <string name="login_tv_login">로그인</string>
+    <string name="login_tv_join">회원가입</string>
+    <string name="login_tv_start_kakao">카카오로\n시작하기</string>
+    <string name="login_tv_start_naver">네이버로 시작하기</string>
+
+    <!-- activity_join -->
+    <string name="join_tv_title">회원가입</string>
+    <string name="join_ed_email">이메일 주소</string>
+    <string name="join_ed_nickname">닉네임</string>
+    <string name="join_ed_password">비밀번호</string>
+    <string name="join_ed_password_check">비밀번호 확인</string>
+    <string name="join_tv_age"><u>%1$d</u>세</string>
+    <string name="join_tv_age_ex">____세</string>
+    <string name="join_tv_female">여자</string>
+    <string name="join_tv_male">남자</string>
+    <string name="join_tv_join">가입하기</string>
 </resources>
