@@ -14,6 +14,9 @@ import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.databinding.ActivitySpotListBinding;
 import com.soksok.seoulmate.view.match.adapter.SpotAdapter;
 
+/**
+ * Mh2
+ */
 public class SpotListActivity extends AppCompatActivity {
 
     public static String EXTRA_SELECTED_POSITION = "EXTRA_SELECTED_POSITION";

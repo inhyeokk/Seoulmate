@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.match.FindMateActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_mate"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_apply_mate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_marginStart="36dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_left_white"
+            android:onClick="onLeftClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_marginEnd="36dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_right_white"
+            android:onClick="onRightClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_apply_mate"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="28dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_btn_green"
+            android:gravity="center"
+            android:text="@string/find_mate_tv_apply_mate"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:onClick="onApplyClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vp_mate" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

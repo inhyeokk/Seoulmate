@@ -11,12 +11,18 @@ import android.view.View;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.databinding.ActivitySelectBinding;
 
+/**
+ * Mh4,5,6
+ */
 public class SelectActivity extends AppCompatActivity {
 
     private static final int REQUEST_SPOT_LIST = 4001;
 
     /** MatchActivity 로부터 받은 데이터
      *  메이트 신청 탭까지 넘겨야함
+     *
+     *  SelectActivity 현재 탭에서 선택한 데이터는
+     *  메이트 선택 로직에 영향가지 않으므로 전달하지 않음
      */
     private String firstDateString;
     private String lastDateString;
@@ -118,11 +124,22 @@ public class SelectActivity extends AppCompatActivity {
     }
 
     public void onCompleteClick(View v) {
-
+        goToEnterTravelActivity();
     }
 
     private void goToSpotListActivity() {
         Intent intent = new Intent(this, SpotListActivity.class);
         startActivityForResult(intent, REQUEST_SPOT_LIST);
+    }
+
+    private void goToEnterTravelActivity() {
+
+        Intent intent = new Intent(this, EnterTravelActivity.class);
+        intent.putExtra(MatchActivity.EXTRA_FIRST_DATE, firstDateString);
+        intent.putExtra(MatchActivity.EXTRA_LAST_DATE, lastDateString);
+        intent.putExtra(MatchActivity.EXTRA_ADULT_COUNT, adultCount);
+        intent.putExtra(MatchActivity.EXTRA_CHILD_COUNT, childCount);
+        intent.putExtra(MatchActivity.EXTRA_BABY_COUNT, babyCount);
+        startActivity(intent);
     }
 }

@@ -17,6 +17,9 @@ import com.soksok.seoulmate.databinding.ActivityMatchBinding;
 
 import java.util.Calendar;
 
+/**
+ * Mh1
+ */
 public class MatchActivity extends AppCompatActivity {
 
     /** 여행 앨벙을 생성하기 위한 데이터
