@@ -2,11 +2,17 @@ package com.soksok.seoulmate.common;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.view.setting.SettingActivity;
 
@@ -67,5 +73,22 @@ public class BindUtils {
                 textView.setText(title);
                 break;
         }
+    }
+
+    public static void setGalleryURI(@NotNull ImageView view, Uri uri) {
+
+        Glide.with(view.getContext())
+                .load(uri)
+                .into(view);
+        view.setScaleType(ImageView.ScaleType.FIT_XY);
+    }
+
+    @BindingAdapter("bind_mate_drawable")
+    public static void setMateDrawable(@NotNull ImageView view, int drawableId) {
+
+        Drawable drawable = resources.getDrawable(drawableId, null);
+        Glide.with(view.getContext())
+                .load(drawable)
+                .into(view);
     }
 }

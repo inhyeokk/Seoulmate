@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.match.EnterTravelActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/ed_enter_travel_title"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="150dp"
+            android:paddingEnd="18dp"
+            android:paddingStart="18dp"
+            android:background="@drawable/bg_ed"
+            android:gravity="center_vertical"
+            android:inputType="text"
+            android:hint="@string/enter_travel_tv_title"
+            android:textColorHint="@color/colorDivide"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/iv_gallery"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_gallery"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_gallery"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_gallery"
+            android:onClick="onGalleryClick"
+            app:layout_constraintBottom_toTopOf="@+id/tv_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ed_enter_travel_title" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/enter_travel_tv_description"
+            android:textColor="@color/colorTextGray"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_gallery" />
+
+        <TextView
+            android:id="@+id/tv_find_mate"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/bg_btn_green"
+            android:gravity="center"
+            android:text="@string/enter_travel_tv_find_mate"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:onClick="onFindClick"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -23,6 +23,7 @@ import com.soksok.seoulmate.view.main.adapter.MyTripAdapter;
 import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
 import com.soksok.seoulmate.view.main.data.MainRepositoryImpl;
 import com.soksok.seoulmate.view.main.domain.MainViewModel;
+import com.soksok.seoulmate.view.match.MatchActivity;
 import com.soksok.seoulmate.view.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSearchClick(View v) {
-
+        goToMatchActivity();
     }
 
     public void onListClick(View v) {
@@ -103,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToSettingActivity() {
         Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToMatchActivity() {
+        Intent intent = new Intent(this, MatchActivity.class);
         startActivity(intent);
     }
 
