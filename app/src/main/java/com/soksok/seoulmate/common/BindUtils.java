@@ -91,8 +91,8 @@ public class BindUtils {
                 .into(view);
     }
 
-    @BindingAdapter("bind_mate_drawable")
-    public static void setMateDrawable(@NotNull ImageView view, int drawableId) {
+    @BindingAdapter("bind_image_drawable")
+    public static void setImageDrawable(@NotNull ImageView view, int drawableId) {
 
         Drawable drawable = resources.getDrawable(drawableId, null);
         Glide.with(view.getContext())

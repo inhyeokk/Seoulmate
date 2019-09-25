@@ -141,7 +141,7 @@
 
             <ImageView
                 android:id="@+id/iv_my_trip"
-                android:layout_width="30dp"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="11dp"
                 android:contentDescription="@null"
@@ -180,7 +180,7 @@
 
             <ImageView
                 android:id="@+id/iv_list"
-                android:layout_width="30dp"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_list"

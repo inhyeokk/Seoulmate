@@ -30,6 +30,9 @@ import com.soksok.seoulmate.view.main.MainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final int FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0L;
+
     private SessionCallback callback;
     private OAuthLogin oAuthLoginModule;
 
@@ -50,6 +53,23 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setupViews() {
 
+    }
+
+    /**
+     * 뒤로가기 버튼 연속 두번 클릭 시 앱 종료
+     */
+    @Override
+    public void onBackPressed() {
+
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (!(0 > intervalTime || FINISH_INTERVAL_TIME < intervalTime)) {
+            super.onBackPressed();
+        } else {
+            backPressedTime = tempTime;
+            BasicUtils.showToast(this, getString(R.string.common_toast_back_press));
+        }
     }
 
     /*

@@ -24,9 +24,13 @@ import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
 import com.soksok.seoulmate.view.main.data.MainRepositoryImpl;
 import com.soksok.seoulmate.view.main.domain.MainViewModel;
 import com.soksok.seoulmate.view.match.MatchActivity;
+import com.soksok.seoulmate.view.recommend.RecommendActivity;
 import com.soksok.seoulmate.view.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0L;
 
     public static int REQUEST_CHANGE_ALBUM_TITLE = 2001;
     public static String EXTRA_ALBUM_TITLE = "EXTRA_ALBUM_TITLE";
@@ -83,6 +87,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * 뒤로가기 버튼 연속 두번 클릭 시 앱 종료
+     */
+    @Override
+    public void onBackPressed() {
+
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (!(0 > intervalTime || FINISH_INTERVAL_TIME < intervalTime)) {
+            super.onBackPressed();
+        } else {
+            backPressedTime = tempTime;
+            BasicUtils.showToast(this, getString(R.string.common_toast_back_press));
+        }
+    }
+
     /*
      * 클릭 이벤트
      */
@@ -99,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onListClick(View v) {
-
+        goToRecommendActivity();
     }
 
     private void goToSettingActivity() {
@@ -109,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToMatchActivity() {
         Intent intent = new Intent(this, MatchActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToRecommendActivity() {
+        Intent intent = new Intent(this, RecommendActivity.class);
         startActivity(intent);
     }
 
