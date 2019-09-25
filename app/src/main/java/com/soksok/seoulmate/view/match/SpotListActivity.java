@@ -14,6 +14,8 @@ import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.databinding.ActivitySpotListBinding;
 import com.soksok.seoulmate.view.match.adapter.SpotAdapter;
 
+import java.util.ArrayList;
+
 /**
  * Mh2
  */
@@ -24,11 +26,10 @@ public class SpotListActivity extends AppCompatActivity {
 
     /** EXTRA_SELECTED_POSITION
      *
-     * -2: 선택되지 않음
-     * -1: "서울 어디나 좋아요!" 선택됨
+     * -1: 선택되지 않음
      * 0 ~ n: 리스트 중 한개 선택됨
      */
-    private int selectedPosition = -2;
+    private int selectedPosition = -1;
 
     private ActivitySpotListBinding binding;
 
@@ -49,7 +50,7 @@ public class SpotListActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         binding.rcvSpotList.setLayoutManager(layoutManager);
-        spotAdapter = new SpotAdapter((v, position) -> {
+        spotAdapter = new SpotAdapter(getSpots(), (v, position) -> {
             if (!isSelected) {
                 v.setSelected(true);
                 isSelected = true;
@@ -57,10 +58,29 @@ public class SpotListActivity extends AppCompatActivity {
             } else if (selectedPosition == position){
                 v.setSelected(false);
                 isSelected = false;
-                selectedPosition = -2;
+                selectedPosition = -1;
             }
         });
         binding.rcvSpotList.setAdapter(spotAdapter);
+    }
+
+    private ArrayList<Integer> getSpots() {
+
+        ArrayList<Integer> spots = new ArrayList<>();
+
+        spots.add(R.drawable.selector_list_spot0);
+        spots.add(R.drawable.selector_list_spot1);
+        spots.add(R.drawable.selector_list_spot2);
+        spots.add(R.drawable.selector_list_spot3);
+        spots.add(R.drawable.selector_list_spot4);
+        spots.add(R.drawable.selector_list_spot5);
+        spots.add(R.drawable.selector_list_spot6);
+        spots.add(R.drawable.selector_list_spot7);
+        spots.add(R.drawable.selector_list_spot8);
+        spots.add(R.drawable.selector_list_spot9);
+        spots.add(R.drawable.selector_list_spot10);
+
+        return spots;
     }
 
     /*
@@ -72,25 +92,13 @@ public class SpotListActivity extends AppCompatActivity {
     }
 
     public void onSelectCompleteClick(View v) {
-        if (selectedPosition > -2) {
+        if (selectedPosition > -1) {
             Intent intent = new Intent();
             intent.putExtra(EXTRA_SELECTED_POSITION, selectedPosition);
             setResult(Activity.RESULT_OK);
             finish();
         } else {
             BasicUtils.showToast(this, getString(R.string.spot_list_msg));
-        }
-    }
-
-    public void onAllClick(View v) {
-        if (!isSelected) {
-            v.setSelected(true);
-            isSelected = true;
-            selectedPosition = -1;
-        } else if (selectedPosition == -1) {
-            v.setSelected(false);
-            isSelected = false;
-            selectedPosition = -2;
         }
     }
 }
