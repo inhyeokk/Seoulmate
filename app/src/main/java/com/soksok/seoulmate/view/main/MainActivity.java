@@ -28,6 +28,9 @@ import com.soksok.seoulmate.view.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0L;
+
     public static int REQUEST_CHANGE_ALBUM_TITLE = 2001;
     public static String EXTRA_ALBUM_TITLE = "EXTRA_ALBUM_TITLE";
 
@@ -81,6 +84,23 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean isMyTripList() {
         return true;
+    }
+
+    /**
+     * 뒤로가기 버튼 연속 두번 클릭 시 앱 종료
+     */
+    @Override
+    public void onBackPressed() {
+
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (!(0 > intervalTime || FINISH_INTERVAL_TIME < intervalTime)) {
+            super.onBackPressed();
+        } else {
+            backPressedTime = tempTime;
+            BasicUtils.showToast(this, getString(R.string.common_toast_back_press));
+        }
     }
 
     /*

@@ -3,6 +3,7 @@
 
     <!-- common -->
     <string name="common_date">%1$s-%2$s-%3$s %4$s</string>
+    <string name="common_toast_back_press">\'뒤로\'버튼 한번 더 누르시면 종료됩니다.</string>
 
     <!-- activity_main -->
     <string name="main_tv_title"><b>%1$s</b>님,\n서울여행을 계획해보세요!</string>
