@@ -13,11 +13,18 @@ import android.view.View;
 
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.databinding.ActivityFindMateBinding;
+import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.model.request.TourRequest;
+import com.soksok.seoulmate.http.service.ApiService;
 import com.soksok.seoulmate.view.main.ChangeAlbumTitleDialog;
 import com.soksok.seoulmate.view.main.MainActivity;
 import com.soksok.seoulmate.view.match.adapter.MateAdapter;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Mh4-2
@@ -146,6 +153,43 @@ public class FindMateActivity extends AppCompatActivity {
          *
          *  메이트 번호:     matePosition / Type: int
          */
+
+        System.out.println("#goToMainActivity !!!!");
+        System.out.println("#firstDateString " +firstDateString);
+        System.out.println("#lastDateString " +lastDateString);
+        System.out.println("#adultCount " +adultCount);
+        System.out.println("#childCount " +childCount);
+        System.out.println("#babyCount " +babyCount);
+        System.out.println("#travelTitle " +travelTitle);
+        System.out.println("#travelImage " +travelImage);
+        System.out.println("#matePosition " +matePosition);
+
+        ApiService apiService = ApiService.retrofit.create(ApiService.class);
+        Call<BaseResponse<String>> addTourCall = apiService.addTour(new TourRequest(
+                travelTitle,
+                firstDateString,
+                lastDateString,
+                adultCount,childCount,babyCount,
+                "경복궁",
+                "GG","GG",
+                "kys6879@naver.com"));
+
+        addTourCall.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if(response.code() == 200){
+                    // 서버와 통신하여 여행 추가 성공시
+                } else {
+                    // 그밖에 실패시.
+                    System.out.println(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                System.out.println("실패!!");
+            }
+        });
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

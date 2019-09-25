@@ -86,7 +86,7 @@ public interface ApiService {
 
     // # 여행 추가하기
     //  - 리퀘스트할때만 쓰는 Model을 따로 작성. Class TourRequest.
-    //  - 200 - 성공 , 409 - 여행등록시 메이트가 일반유저일경우 (메이트가 아닌 유저를 메이트로 등록 할 경우)
+    //  - 200 - 성공 , 409 - 여행등록시 메이트가 일반유저일경우 (메이트가 아닌 유저를 메이트로 등록 할 경우), 400 - 파라미터 미제공
     @POST("tour")
     Call<BaseResponse<String>> addTour(@Body TourRequest body);
 
