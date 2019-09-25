@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.view.setting.SettingActivity;
 
@@ -80,7 +81,14 @@ public class BindUtils {
         Glide.with(view.getContext())
                 .load(uri)
                 .into(view);
-        view.setScaleType(ImageView.ScaleType.FIT_XY);
+    }
+
+    public static void setCircleGalleryURI(@NotNull ImageView view, Uri uri) {
+
+        Glide.with(view.getContext())
+                .load(uri)
+                .apply(RequestOptions.circleCropTransform())
+                .into(view);
     }
 
     @BindingAdapter("bind_mate_drawable")

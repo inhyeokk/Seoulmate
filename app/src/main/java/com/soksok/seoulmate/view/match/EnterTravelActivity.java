@@ -1,13 +1,18 @@
 package com.soksok.seoulmate.view.match;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BasicUtils;
@@ -40,6 +45,7 @@ public class EnterTravelActivity extends AppCompatActivity {
     private String travelTitle = "";
     private String travelImage = "";
 
+    private static final int REQUEST_PERMISSION = 1001;
     private static final int REQUEST_GALLERY = 5001;
 
     private ActivityEnterTravelBinding binding;
@@ -81,6 +87,7 @@ public class EnterTravelActivity extends AppCompatActivity {
                     case RESULT_OK:
                         Uri uri = data.getData();
                         BindUtils.setGalleryURI(binding.ivGallery, uri);
+                        binding.ivGallery.setScaleType(ImageView.ScaleType.FIT_XY);
                         break;
 
                     case RESULT_CANCELED:
@@ -91,15 +98,45 @@ public class EnterTravelActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0]
+                        == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted
+                    goToGallery();
+                } else {
+                    // permission denied
+                    // do nothing
+                }
+                break;
+        }
+    }
+
     /*
      * 클릭 이벤트
      */
     public void onGalleryClick(View v) {
-        goToGallery();
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            goToGallery();
+        } else {
+            requestPermission();
+        }
     }
 
     public void onFindClick(View v) {
         goToFindMateActivity();
+    }
+
+    private void requestPermission() {
+
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                REQUEST_PERMISSION
+        );
     }
 
     private void goToGallery() {

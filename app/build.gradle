@@ -64,6 +64,12 @@ dependencies {
     // View
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
+    // Kakao
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.22.0'
+
+    // Naver
+    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.5'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "androidx.test:runner:1.2.0"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
