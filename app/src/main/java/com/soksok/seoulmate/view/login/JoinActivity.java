@@ -56,7 +56,7 @@ public class JoinActivity extends AppCompatActivity {
                 switch (resultCode) {
                     case RESULT_OK:
                         Uri uri = data.getData();
-                        BindUtils.setGalleryURI(binding.civProfile, uri);
+                        BindUtils.setCircleGalleryURI(binding.ivProfile, uri);
                         break;
                     case RESULT_CANCELED:
                         // do nothing
@@ -141,7 +141,7 @@ public class JoinActivity extends AppCompatActivity {
          *  나이:         age          / Type: int
          *  성별:         isMale       / Type: boolean / true(남성) false(여성)
          */
-        String profileImage = BasicUtils.toBase64(binding.civProfile);
+        String profileImage = BasicUtils.toBase64(binding.ivProfile);
         String email = binding.edEmail.getText().toString();
         String nickname = binding.edEmail.getText().toString();
         String password = binding.edPassword.getText().toString();
