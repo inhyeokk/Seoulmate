@@ -24,6 +24,7 @@ import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
 import com.soksok.seoulmate.view.main.data.MainRepositoryImpl;
 import com.soksok.seoulmate.view.main.domain.MainViewModel;
 import com.soksok.seoulmate.view.match.MatchActivity;
+import com.soksok.seoulmate.view.recommend.RecommendActivity;
 import com.soksok.seoulmate.view.setting.SettingActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onListClick(View v) {
-
+        goToRecommendActivity();
     }
 
     private void goToSettingActivity() {
@@ -129,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToMatchActivity() {
         Intent intent = new Intent(this, MatchActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToRecommendActivity() {
+        Intent intent = new Intent(this, RecommendActivity.class);
         startActivity(intent);
     }
 

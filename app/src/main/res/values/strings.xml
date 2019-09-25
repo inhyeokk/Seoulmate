@@ -143,4 +143,11 @@
     <string name="join_tv_female">여자</string>
     <string name="join_tv_male">남자</string>
     <string name="join_tv_join">가입하기</string>
+
+    <!-- activity_recommend -->
+    <string name="recommend_ed_search">검색</string>
+    <string name="recommend_tab_mate">메이트</string>
+    <string name="recommend_tab_spot">관광지</string>
+    <string name="recommend_tab_restaurant">맛집</string>
+    <string name="recommend_tab_information">정보</string>
 </resources>
