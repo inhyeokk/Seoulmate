@@ -160,4 +160,7 @@
     <!-- item_chat -->
     <string name="chat_tv_content">hello breeze!</string>
     <string name="chat_tv_time">10:24</string>
+
+    <!-- activity_album -->
+    <string name="album_tv_title">앨범</string>
 </resources>

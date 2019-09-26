@@ -13,7 +13,13 @@ import com.soksok.seoulmate.databinding.FragmentChatMenuBinding;
 
 public class ChatMenuFragment extends Fragment {
 
+    private ChatFragmentListener listener;
+
     private FragmentChatMenuBinding binding;
+
+    public ChatMenuFragment(ChatFragmentListener listener) {
+        this.listener = listener;
+    }
 
     @Nullable
     @Override
@@ -21,11 +27,20 @@ public class ChatMenuFragment extends Fragment {
         binding = FragmentChatMenuBinding.inflate(
                 LayoutInflater.from(container.getContext()), container, false
         );
+        binding.setView(this);
+        binding.executePendingBindings();
         setupViews();
         return binding.getRoot();
     }
 
     private void setupViews() {
 
+    }
+
+    /*
+     * 클릭 이벤트
+     */
+    public void onLayoutClick(View v) {
+        listener.onLayoutClick(v);
     }
 }

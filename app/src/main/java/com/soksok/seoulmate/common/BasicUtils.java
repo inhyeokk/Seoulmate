@@ -111,7 +111,7 @@ public class BasicUtils {
             tempBitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            tempBitmap.compress(Bitmap.CompressFormat.JPEG,70,bos);
+            tempBitmap.compress(Bitmap.CompressFormat.JPEG,10,bos);
             byte[] data = bos.toByteArray();
             result = Base64.encodeToString(data, Base64.DEFAULT);
         } catch (FileNotFoundException e) {

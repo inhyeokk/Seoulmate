@@ -109,6 +109,17 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyItemRangeInserted(oldSize, items.size());
     }
 
+    public ArrayList<String> getImages() {
+
+        ArrayList<String> images = new ArrayList<>();
+        for (ChatItem item: items) {
+            if (item.getType() == ChatItem.Type.USER_IMAGE) {
+                images.add(item.getImage());
+            }
+        }
+        return images;
+    }
+
     public void clear() {
         items.clear();
         notifyDataSetChanged();

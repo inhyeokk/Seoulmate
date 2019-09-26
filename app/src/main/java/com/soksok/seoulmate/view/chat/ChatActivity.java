@@ -33,13 +33,13 @@ public class ChatActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION = 1001;
     private static final int REQUEST_GALLERY = 5001;
 
+    public static String EXTRA_ALBUM = "EXTRA_ALBUM";
+
     private String title = "";
 
     private ActivityChatBinding binding;
 
     private ChatAdapter chatAdapter;
-
-    private ChatMenuFragment menuFragment = new ChatMenuFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +135,14 @@ public class ChatActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_menu, new ChatMenuFragment(v -> {
+                    // FIXME Base64 압축필요
+//                    goToAlbumActivity();
+                }))
+                .commit();
     }
 
     private ArrayList<ChatItem> getChatItems() {
@@ -194,15 +202,6 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fl_menu, menuFragment)
-                .commit();
-    }
-
     /*
      * 클릭 이벤트
      */
@@ -251,5 +250,12 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent. setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, REQUEST_GALLERY);
+    }
+
+    private void goToAlbumActivity() {
+
+        Intent intent = new Intent(this, AlbumActivity.class);
+        intent.putStringArrayListExtra(ChatActivity.EXTRA_ALBUM, chatAdapter.getImages());
+        startActivity(intent);
     }
 }
