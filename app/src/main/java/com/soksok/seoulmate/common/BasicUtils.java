@@ -1,6 +1,7 @@
 package com.soksok.seoulmate.common;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,6 +11,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -19,24 +22,25 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
 import com.soksok.seoulmate.R;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.Calendar;
-import java.util.Date;
 
 public class BasicUtils {
 
+    private static ContentResolver contentResolver;
     private static InputMethodManager inputMethodManager;
     private static Resources resources;
     private static WindowManager windowManager;
 
     public static void init(@NotNull Context context) {
+        contentResolver = context.getContentResolver();
         inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         resources = context.getResources();
         windowManager = (WindowManager) context.getSystemService(Activity.WINDOW_SERVICE);
@@ -97,6 +101,25 @@ public class BasicUtils {
         tempBitmap.compress(Bitmap.CompressFormat.JPEG,70,bos);
         byte[] data = bos.toByteArray();
         return Base64.encodeToString(data, Base64.DEFAULT);
+    }
+
+    public static String fromURIToBase64(Uri uri) {
+
+        Bitmap tempBitmap;
+        String result = "";
+        try {
+            tempBitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            tempBitmap.compress(Bitmap.CompressFormat.JPEG,70,bos);
+            byte[] data = bos.toByteArray();
+            result = Base64.encodeToString(data, Base64.DEFAULT);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public static Bitmap fromBase64(String encodedImage) {

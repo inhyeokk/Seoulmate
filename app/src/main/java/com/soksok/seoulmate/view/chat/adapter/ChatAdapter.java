@@ -13,6 +13,7 @@ import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.databinding.ItemChatPartnerBinding;
 import com.soksok.seoulmate.databinding.ItemChatTempBinding;
 import com.soksok.seoulmate.databinding.ItemChatUserBinding;
+import com.soksok.seoulmate.databinding.ItemChatUserImageBinding;
 import com.soksok.seoulmate.view.chat.entity.ChatItem;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +35,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        switch (viewType) { // user: 0, partner: 1, temp: 2
+        switch (viewType) { // user: 0, partner: 1, temp: 2, user_image: 3
             case 0:
                 ItemChatUserBinding userBinding = DataBindingUtil.inflate(inflater, R.layout.item_chat_user, parent, false);
                 return new ChatUserViewHolder(userBinding);
@@ -44,6 +45,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case 2:
                 ItemChatTempBinding tempBinding = DataBindingUtil.inflate(inflater, R.layout.item_chat_temp, parent, false);
                 return new ChatTempViewHolder(tempBinding);
+            case 3:
+                ItemChatUserImageBinding userImageBinding = DataBindingUtil.inflate(inflater, R.layout.item_chat_user_image, parent, false);
+                return new ChatUserImageViewHolder(userImageBinding);
             default:
                 throw new IllegalArgumentException("unexpected viewType: " + viewType);
         }
@@ -52,7 +56,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        switch (holder.getItemViewType()) { // user: 0, partner: 1, temp: 2
+        switch (holder.getItemViewType()) { // user: 0, partner: 1, temp: 2, user_image: 3
             case 0:
                 onBindChatUserViewHolder((ChatUserViewHolder) holder, position);
                 break;
@@ -61,6 +65,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
             case 2:
                 onBindChatTempViewHolder((ChatTempViewHolder) holder, position);
+                break;
+            case 3:
+                onBindChatUserImageViewHolder((ChatUserImageViewHolder) holder, position);
                 break;
         }
     }
@@ -74,6 +81,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void onBindChatTempViewHolder(@NotNull ChatTempViewHolder holder, int position) {
+        holder.bind(items.get(position));
+    }
+
+    private void onBindChatUserImageViewHolder(@NotNull ChatUserImageViewHolder holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -148,6 +159,26 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ItemChatTempBinding binding;
 
         public ChatTempViewHolder(@NonNull ItemChatTempBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bind(ChatItem item) {
+            binding.setHolder(this);
+            binding.setItem(item);
+            binding.executePendingBindings();
+        }
+
+        public void onLayoutClick(View v) {
+            listener.onLayoutClick(v);
+        }
+    }
+
+    public class ChatUserImageViewHolder extends RecyclerView.ViewHolder {
+
+        private ItemChatUserImageBinding binding;
+
+        public ChatUserImageViewHolder(@NonNull ItemChatUserImageBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

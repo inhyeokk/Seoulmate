@@ -1,12 +1,18 @@
 package com.soksok.seoulmate.view.chat;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
@@ -18,9 +24,14 @@ import com.soksok.seoulmate.view.chat.adapter.ChatItemListener;
 import com.soksok.seoulmate.view.chat.entity.ChatItem;
 import com.soksok.seoulmate.view.main.MainActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
+
+    private static final int REQUEST_PERMISSION = 1001;
+    private static final int REQUEST_GALLERY = 5001;
 
     private String title = "";
 
@@ -38,6 +49,44 @@ public class ChatActivity extends AppCompatActivity {
         setupViews();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+
+            case REQUEST_GALLERY:
+                switch (resultCode) {
+
+                    case RESULT_OK:
+                        Uri uri = data.getData();
+                        sendImage(BasicUtils.fromURIToBase64(uri));
+                        break;
+
+                    case RESULT_CANCELED:
+                        // do nothing
+                        break;
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0]
+                        == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted
+                    goToGallery();
+                } else {
+                    // permission denied
+                    // do nothing
+                }
+                break;
+        }
+    }
+
     private void getData() {
         title = getIntent().getStringExtra(MainActivity.EXTRA_CHAT_TITLE);
     }
@@ -48,7 +97,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private void setupViews() {
 
-        binding.tvTitle.setText(title);
+        if (title != null && !title.equals("")) {
+            binding.tvTitle.setText(title);
+        }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
@@ -135,6 +186,14 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    private void sendImage(@NotNull String image) {
+
+        if (!image.equals("")) {
+            chatAdapter.add(new ChatItem(ChatItem.Type.USER_IMAGE, image, BasicUtils.getTime()));
+            binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -165,7 +224,32 @@ public class ChatActivity extends AppCompatActivity {
         BasicUtils.onCloseKeyboard(binding.edMessage);
     }
 
+    public void onGalleryClick(View v) {
+
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            goToGallery();
+        } else {
+            requestPermission();
+        }
+    }
+
     public void onSendClick(View v) {
         sendMessage();
+    }
+
+    private void requestPermission() {
+
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                REQUEST_PERMISSION
+        );
+    }
+
+    private void goToGallery() {
+
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent. setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent, REQUEST_GALLERY);
     }
 }

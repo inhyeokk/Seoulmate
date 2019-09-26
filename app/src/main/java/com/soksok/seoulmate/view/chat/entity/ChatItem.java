@@ -5,7 +5,8 @@ public class ChatItem {
     public enum Type {
         USER(0),
         PARTNER(1),
-        TEMP(2);
+        TEMP(2),
+        USER_IMAGE(3);
 
         private int value;
 
@@ -22,12 +23,17 @@ public class ChatItem {
     private String profile;
     private int profileDrawable;
     private String content;
+    private String image;
     private String time;
 
-    // user
+    // user or user_image
     public ChatItem(Type type, String content, String time) {
         this.type = type;
-        this.content = content;
+        if (type == Type.USER) {
+            this.content = content;
+        } else if (type == Type.USER_IMAGE) {
+            this.image = content;
+        }
         this.time = time;
     }
 
@@ -77,6 +83,14 @@ public class ChatItem {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getTime() {

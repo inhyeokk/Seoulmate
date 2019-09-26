@@ -85,6 +85,7 @@
                     android:focusable="true"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_gallery_blue"
+                    android:onClick="onGalleryClick"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

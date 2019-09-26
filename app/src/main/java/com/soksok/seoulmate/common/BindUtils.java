@@ -2,6 +2,7 @@ package com.soksok.seoulmate.common;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Spannable;
@@ -97,6 +98,15 @@ public class BindUtils {
         Drawable drawable = resources.getDrawable(drawableId, null);
         Glide.with(view.getContext())
                 .load(drawable)
+                .into(view);
+    }
+
+    @BindingAdapter("bind_image_base64")
+    public static void setImageDrawable(@NotNull ImageView view, String encodedImage) {
+
+        Bitmap bitmap = BasicUtils.fromBase64(encodedImage);
+        Glide.with(view.getContext())
+                .load(bitmap)
                 .into(view);
     }
 }
