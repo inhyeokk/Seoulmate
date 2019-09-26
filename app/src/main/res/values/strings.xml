@@ -151,4 +151,16 @@
     <string name="recommend_tab_spot">관광지</string>
     <string name="recommend_tab_restaurant">맛집</string>
     <string name="recommend_tab_information">정보</string>
+
+    <!-- activity_chat -->
+    <string name="chat_tv_title">경복궁 한복 투어</string>
+    <string name="chat_ed_message">메시지 작성</string>
+    <string name="chat_tv_send">보내기</string>
+
+    <!-- item_chat -->
+    <string name="chat_tv_content">hello breeze!</string>
+    <string name="chat_tv_time">10:24</string>
+
+    <!-- activity_album -->
+    <string name="album_tv_title">앨범</string>
 </resources>

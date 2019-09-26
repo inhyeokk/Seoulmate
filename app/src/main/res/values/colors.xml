@@ -13,4 +13,7 @@
     <color name="colorBackgroundGray">#66000000</color>
     <color name="colorBtnGreen">#4cb5ab</color>
     <color name="colorBackgroundImg">#efefef</color>
+    <color name="colorBackgroundChat">#edeffc</color>
+    <color name="colorBorderAlbum">#707070</color>
+    <color name="colorBackgroundAlbum">#f9f9f9</color>
 </resources>
