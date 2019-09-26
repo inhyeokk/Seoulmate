@@ -19,6 +19,7 @@ import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.databinding.ActivityMainBinding;
 import com.soksok.seoulmate.databinding.ItemMyTripMenuBinding;
 import com.soksok.seoulmate.http.Test;
+import com.soksok.seoulmate.view.chat.ChatActivity;
 import com.soksok.seoulmate.view.main.adapter.MyTripAdapter;
 import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
 import com.soksok.seoulmate.view.main.data.MainRepositoryImpl;
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int FINISH_INTERVAL_TIME = 2000;
     private long backPressedTime = 0L;
 
-    public static int REQUEST_CHANGE_ALBUM_TITLE = 2001;
-    public static String EXTRA_ALBUM_TITLE = "EXTRA_ALBUM_TITLE";
+    public static int REQUEST_CHAT = 2001;
+    public static String EXTRA_CHAT_TITLE = "EXTRA_CHAT_TITLE";
 
     private MainViewModel viewModel = new MainViewModel(new MainRepositoryImpl());
     private ActivityMainBinding binding;
@@ -65,13 +66,33 @@ public class MainActivity extends AppCompatActivity {
             // 다가오는 여행
             LinearLayoutManager upcomingLayoutManager = new LinearLayoutManager(this);
             binding.rcvUpcomingTrip.setLayoutManager(upcomingLayoutManager);
-            upcomingTripAdapter = new MyTripAdapter(upComingListener);
+            upcomingTripAdapter = new MyTripAdapter(new MyTripItemListener() {
+                @Override
+                public void onLayoutClick(View v, String title) {
+                    goToChatActivity(title);
+                }
+
+                @Override
+                public void onMenuClick(View v, int position) {
+                    showPopupMenu(v);
+                }
+            });
             binding.rcvUpcomingTrip.setAdapter(upcomingTripAdapter);
 
             // 지난 여행
             LinearLayoutManager lastLayoutManager = new LinearLayoutManager(this);
             binding.rcvLastTrip.setLayoutManager(lastLayoutManager);
-            lastTripAdapter = new MyTripAdapter(lastListener);
+            lastTripAdapter = new MyTripAdapter(new MyTripItemListener() {
+                @Override
+                public void onLayoutClick(View v, String title) {
+                    goToChatActivity(title);
+                }
+
+                @Override
+                public void onMenuClick(View v, int position) {
+                    showPopupMenu(v);
+                }
+            });
             binding.rcvLastTrip.setAdapter(lastTripAdapter);
         } else {
             binding.layoutMain.setBackground(getResources().getDrawable(R.drawable.ic_main_bg, null));
@@ -128,6 +149,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void goToChatActivity(String title) {
+
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra(EXTRA_CHAT_TITLE, title);
+        startActivity(intent);
+    }
+
     private void goToMatchActivity() {
         Intent intent = new Intent(this, MatchActivity.class);
         startActivity(intent);
@@ -142,14 +170,6 @@ public class MainActivity extends AppCompatActivity {
      * 내 여행 리스트의 메뉴버튼을
      * 눌렀을 때 나타나는 팝업 메뉴
      */
-    private MyTripItemListener upComingListener = (v, position) -> {
-        showPopupMenu(v);
-    };
-
-    private MyTripItemListener lastListener = (v, position) -> {
-        showPopupMenu(v);
-    };
-
     private void showPopupMenu(View v) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ItemMyTripMenuBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_my_trip_menu, null, false);

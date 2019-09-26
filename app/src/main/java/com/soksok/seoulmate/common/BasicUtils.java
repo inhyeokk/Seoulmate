@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
@@ -14,26 +15,48 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.soksok.seoulmate.R;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
+import java.util.Calendar;
+import java.util.Date;
 
 public class BasicUtils {
 
+    private static InputMethodManager inputMethodManager;
+    private static Resources resources;
     private static WindowManager windowManager;
 
     public static void init(@NotNull Context context) {
+        inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        resources = context.getResources();
         windowManager = (WindowManager) context.getSystemService(Activity.WINDOW_SERVICE);
     }
 
     public static void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void onCloseKeyboard(@NotNull View v) {
+        inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+    @NotNull
+    public static String getTime() {
+
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        return resources.getString(R.string.match_tv_time, hour, minute);
     }
 
     @NotNull

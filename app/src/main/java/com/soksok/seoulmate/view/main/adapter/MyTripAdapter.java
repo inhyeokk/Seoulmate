@@ -54,6 +54,10 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.MyTripView
             binding.executePendingBindings();
         }
 
+        public void onLayoutClick(View v) {
+            listener.onLayoutClick(v, binding.tvTitle.getText().toString());
+        }
+
         public void onMenuClick(View v) {
             listener.onMenuClick(v, getAdapterPosition());
         }

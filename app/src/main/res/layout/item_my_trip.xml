@@ -14,6 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{holder::onLayoutClick}"
         card_view:cardCornerRadius="30dp"
         card_view:cardElevation="2dp">
 
