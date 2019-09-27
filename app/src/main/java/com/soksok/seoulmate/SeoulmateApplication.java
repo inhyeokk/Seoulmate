@@ -3,6 +3,7 @@ package com.soksok.seoulmate;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.stetho.Stetho;
 import com.kakao.auth.ApprovalType;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.IApplicationConfig;
@@ -12,6 +13,7 @@ import com.kakao.auth.KakaoSDK;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.BindUtils;
+import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.view.login.KakaoSDKAdapter;
 
 import java.lang.ref.WeakReference;
@@ -27,12 +29,17 @@ public class SeoulmateApplication extends Application {
         initUtils();
         KakaoSDK.init(new KakaoSDKAdapter());
         initNaverLoginModule();
+
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
+        }
     }
 
     private void initUtils() {
 
         BasicUtils.init(this);
         BindUtils.init(this);
+        PrefUtils.init(this);
     }
 
     private void initNaverLoginModule() {

@@ -91,8 +91,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onKakaoLoginClick(View v) {
         initKakaoLoginModule();
-        callback.loginResult.observe(this, aBoolean -> {
-            if (aBoolean) {
+        callback.isLogin.observe(this, isLogin -> {
+            if (isLogin) {
                 // 로그인 성공
                 goToMainActivity();
             } else {

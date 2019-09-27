@@ -9,10 +9,13 @@ import android.view.Window;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.soksok.seoulmate.R;
 
 public class LogoutDialog extends Dialog {
+
+    public MutableLiveData<Boolean> isLogout = new MutableLiveData<>();
 
     public LogoutDialog(@NonNull Context context) {
         super(context);
@@ -27,11 +30,12 @@ public class LogoutDialog extends Dialog {
         setCanceledOnTouchOutside(true);
 
         TextView tvCancel = findViewById(R.id.tv_logout_cancel);
-        tvCancel.setOnClickListener(v -> dismiss());
+        tvCancel.setOnClickListener(v -> {
+            isLogout.postValue(false);
+            dismiss();
+        });
 
         TextView tvYes = findViewById(R.id.tv_logout_yes);
-        tvYes.setOnClickListener(v -> {
-            // 로그아웃
-        });
+        tvYes.setOnClickListener(v -> isLogout.postValue(true));
     }
 }
