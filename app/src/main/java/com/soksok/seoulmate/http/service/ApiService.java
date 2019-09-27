@@ -149,9 +149,12 @@ public interface ApiService {
             }).build();
 
     // static 으로 선언하여 정적으로 사용
+    String localhost = "http://10.0.2.2:3000";
+    String aws = "13.125.241.39";
+
     public static final Retrofit retrofit = new Retrofit.Builder()
             .client(client)
-            .baseUrl("http://10.0.2.2:3000")
+            .baseUrl(aws)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
