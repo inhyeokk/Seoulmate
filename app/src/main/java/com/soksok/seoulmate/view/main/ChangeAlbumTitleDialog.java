@@ -52,6 +52,7 @@ public class ChangeAlbumTitleDialog extends Dialog {
 
             String title = edTitle.getText().toString();
             if (title.equals("")) {
+                System.out.println("title 안씀");
                 dismiss();
                 return ;
             }

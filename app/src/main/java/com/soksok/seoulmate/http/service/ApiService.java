@@ -2,6 +2,7 @@ package com.soksok.seoulmate.http.service;
 
 import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.model.Recommend;
 import com.soksok.seoulmate.http.model.Tour;
 import com.soksok.seoulmate.http.model.Tourist;
 import com.soksok.seoulmate.http.model.User;
@@ -94,7 +95,7 @@ public interface ApiService {
     // # 여행 제목 수정하기
     //   - 각 여행의 고유 idx 를 파라미터로 필요로 함.
     //   - 200 성공
-    @DELETE("tour")
+    @PUT("tour")
     Call<BaseResponse<String>> updateTitleTour(@Body String title, @Body String idx);
 
     // # 여행 삭제하기
@@ -108,6 +109,24 @@ public interface ApiService {
     //  - 관광지 목록은 여행을 추가할 때 선택 할 수 있음
     @GET("tourist")
     Call<BaseResponse<Tourist>> getAllTourists();
+
+    // # 맛집 불러오기
+    //   - 맛집 추천목록을 불러옴
+    //   - 성공 200
+    @GET("tourist/eat")
+    Call<BaseResponse<Recommend>> getAlleats();
+
+    // # 정보 불러오기
+    //   - 정보 추천목록을 불러옴
+    //   - 성공 200
+    @GET("tourist/info")
+    Call<BaseResponse<Recommend>> getAllinfos();
+
+    // # 명소 불러오기
+    //   - 명소 추천목록을 불러옴
+    //   - 성공 200
+    @GET("tourist/attr")
+    Call<BaseResponse<Recommend>> getAllattrs();
 
     // 자동으로 API 요청시 토큰을 담을 수 있도로 Intercepter 설정
     OkHttpClient client = new OkHttpClient.Builder()
