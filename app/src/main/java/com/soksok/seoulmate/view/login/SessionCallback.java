@@ -13,7 +13,7 @@ import com.kakao.util.exception.KakaoException;
 
 public class SessionCallback implements ISessionCallback {
 
-    public MutableLiveData<Boolean> loginResult = new MutableLiveData<>();
+    public MutableLiveData<Boolean> isLogin = new MutableLiveData<>();
 
     // 로그인에 성공한 상태
     @Override
@@ -35,7 +35,7 @@ public class SessionCallback implements ISessionCallback {
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
                 Log.e("SessionCallback :: ", "onSessionClosed : " + errorResult.getErrorMessage());
-                loginResult.postValue(false);
+                isLogin.postValue(false);
             }
 
             // 사용자정보 요청에 성공한 경우,
@@ -53,14 +53,14 @@ public class SessionCallback implements ISessionCallback {
                  */
 
                 // 로그인 성공시 결과 전송
-                loginResult.postValue(true);
+                isLogin.postValue(true);
             }
 
             // 사용자 정보 요청 실패
             @Override
             public void onFailure(ErrorResult errorResult) {
                 Log.e("SessionCallback :: ", "onFailure : " + errorResult.getErrorMessage());
-                loginResult.postValue(false);
+                isLogin.postValue(false);
             }
         });
     }

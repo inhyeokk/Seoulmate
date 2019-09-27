@@ -9,8 +9,10 @@ import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivitySettingBinding;
 import com.soksok.seoulmate.view.like.LikeActivity;
+import com.soksok.seoulmate.view.login.LoginActivity;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -106,7 +108,28 @@ public class SettingActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void goToLoginActivity() {
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
     private void showLogoutDialog() {
-        new LogoutDialog(this).show();
+
+        LogoutDialog dialog = new LogoutDialog(this);
+        dialog.show();
+
+        dialog.isLogout.observe(this, isLogout -> {
+            if (isLogout) {
+                /**
+                 * 토큰 폐기 후 로그아웃
+                 */
+                PrefUtils.setToken("");
+                goToLoginActivity();
+            } else {
+                // do nothing
+            }
+        });
     }
 }
