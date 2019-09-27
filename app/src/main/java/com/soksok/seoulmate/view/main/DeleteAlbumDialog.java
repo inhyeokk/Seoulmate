@@ -10,10 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.soksok.seoulmate.R;
 
 public class DeleteAlbumDialog extends Dialog {
+
+    public MutableLiveData<Boolean> isDelete = new MutableLiveData<>();
 
     public DeleteAlbumDialog(@NonNull Context context) {
         super(context);
@@ -28,11 +31,16 @@ public class DeleteAlbumDialog extends Dialog {
         setCanceledOnTouchOutside(true);
 
         TextView tvCancel = findViewById(R.id.tv_delete_album_cancel);
-        tvCancel.setOnClickListener(v -> dismiss());
+        tvCancel.setOnClickListener(v -> {
+            isDelete.postValue(false);
+            dismiss();
+        });
 
         TextView tvYes = findViewById(R.id.tv_delete_album_yes);
         tvYes.setOnClickListener(v -> {
             // 앨범 삭제
+            isDelete.postValue(true);
+            dismiss();
         });
     }
 }

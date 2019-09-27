@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ItemMyTripMenuBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_my_trip_menu, null, false);
 
-        PopupWindow popupWindow = new PopupWindow(binding.getRoot(), BasicUtils.dpToPx(150), BasicUtils.dpToPx(140), true);
+        PopupWindow popupWindow = new PopupWindow(binding.getRoot(), BasicUtils.dpToPx(150), BasicUtils.dpToPx(90), true);
         Rect location = BasicUtils.locateView(v);
         popupWindow.showAtLocation(v, Gravity.TOP|Gravity.START, location.left, location.top);
 
@@ -183,10 +183,10 @@ public class MainActivity extends AppCompatActivity {
             showChangeAlbumTitleDialog();
             popupWindow.dismiss();
         });
-        binding.tvChangeAlbumCover.setOnClickListener(v1 -> {
-            // 앨범 커버사진 변경
-            popupWindow.dismiss();
-        });
+//        binding.tvChangeAlbumCover.setOnClickListener(v1 -> {
+//            // 앨범 커버사진 변경
+//            popupWindow.dismiss();
+//        });
         binding.tvDeleteAlbum.setOnClickListener(v1 -> {
             // 앨범 삭제
             showDeleteAlbumDialog();
@@ -195,12 +195,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showChangeAlbumTitleDialog() {
-        new ChangeAlbumTitleDialog(this).show();
+        ChangeAlbumTitleDialog dialog = new ChangeAlbumTitleDialog(this);
+        dialog.show();
+
+        dialog.albumTitle.observe(this, title -> {
+            /** 변경된 앨범 제목
+             *  입력된 텍스트가 있고 확인버튼 눌렀을 때 값 전달
+             */
+        });
     }
 
     private void showDeleteAlbumDialog() {
-        new DeleteAlbumDialog(this).show();
+        DeleteAlbumDialog dialog = new DeleteAlbumDialog(this);
+        dialog.show();
+
+        dialog.isDelete.observe(this, isDelete -> {
+            if (isDelete) {
+                /** 앨범 삭제
+                 */
+            } else {
+                // do nothing
+            }
+        });
     }
-
-
 }

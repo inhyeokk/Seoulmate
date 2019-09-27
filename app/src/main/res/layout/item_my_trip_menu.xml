@@ -35,36 +35,10 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="12dp"
                 android:background="@color/colorTextLightGray"
-                app:layout_constraintBottom_toTopOf="@+id/tv_change_album_cover"
+                app:layout_constraintBottom_toTopOf="@+id/tv_delete_album"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_change_album_title" />
-
-            <TextView
-                android:id="@+id/tv_change_album_cover"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/menu_tv_change_album_cover"
-                android:textColor="@color/colorTextGray"
-                android:textSize="12sp"
-                android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintBottom_toTopOf="@+id/view_second"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_first" />
-
-            <View
-                android:id="@+id/view_second"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="12dp"
-                android:background="@color/colorTextLightGray"
-                app:layout_constraintBottom_toTopOf="@+id/view_first"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_change_album_cover" />
 
             <TextView
                 android:id="@+id/tv_delete_album"
@@ -79,7 +53,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_second" />
+                app:layout_constraintTop_toBottomOf="@+id/view_first" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
