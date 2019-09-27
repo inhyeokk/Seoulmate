@@ -16,9 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BasicUtils;
+import com.soksok.seoulmate.common.BindUtils;
+import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivityMainBinding;
 import com.soksok.seoulmate.databinding.ItemMyTripMenuBinding;
 import com.soksok.seoulmate.http.Test;
+import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.model.User;
+import com.soksok.seoulmate.http.model.request.LoginRequest;
+import com.soksok.seoulmate.http.model.request.TourRequest;
+import com.soksok.seoulmate.http.service.ApiService;
 import com.soksok.seoulmate.view.chat.ChatActivity;
 import com.soksok.seoulmate.view.main.adapter.MyTripAdapter;
 import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
@@ -27,6 +34,10 @@ import com.soksok.seoulmate.view.main.domain.MainViewModel;
 import com.soksok.seoulmate.view.match.MatchActivity;
 import com.soksok.seoulmate.view.recommend.RecommendActivity;
 import com.soksok.seoulmate.view.setting.SettingActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         onDataBinding();
         setupViews();
+        getProfile();
 
 //       new Test().testApiSet();
 
@@ -202,6 +214,33 @@ public class MainActivity extends AppCompatActivity {
             /** 변경된 앨범 제목
              *  입력된 텍스트가 있고 확인버튼 눌렀을 때 값 전달
              */
+            ApiService apiService = ApiService.retrofit.create(ApiService.class);
+
+            TourRequest tour = new TourRequest();
+            tour.setIdx("1234");
+            tour.setName(title);
+
+            Call<BaseResponse<String>> updateTitleTour = apiService.updateTitleTour(tour);
+
+            updateTitleTour.enqueue(new Callback<BaseResponse<String>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                    if(response.code() == 200){
+                        System.out.println("성공~!");
+                        // 서버와 통신하여 로그인 성공시
+                    } else {
+                        // 그밖에 실패시.
+                        BasicUtils.showToast(getApplicationContext(),"삭제 실패");
+                        System.out.println(response.code());
+                        System.out.println(response.errorBody().toString());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                    System.out.println("실패!!");
+                }
+            });
         });
     }
 
@@ -213,8 +252,66 @@ public class MainActivity extends AppCompatActivity {
             if (isDelete) {
                 /** 앨범 삭제
                  */
+
+                ApiService apiService = ApiService.retrofit.create(ApiService.class);
+
+                TourRequest tourRequest = new TourRequest("123456");
+
+                Call<BaseResponse<String>> deleteTourCall = apiService.deleteTour(tourRequest);
+
+                deleteTourCall.enqueue(new Callback<BaseResponse<String>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                        if(response.code() == 200){
+                            System.out.println("성공~!");
+                            // 서버와 통신하여 로그인 성공시
+                        } else {
+                            // 그밖에 실패시.
+                            BasicUtils.showToast(getApplicationContext(),"삭제 실패");
+                            System.out.println(response.code());
+                            System.out.println(response.errorBody().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                        System.out.println("실패!!");
+                    }
+                });
             } else {
                 // do nothing
+            }
+        });
+    }
+
+
+    // 메인엑티비티접근시 가지고있는 token 으로 현재 유저의 정보를 가져옴
+    private void getProfile(){
+
+        System.out.println("#MainActivity !!!! #getProfile");
+
+        ApiService apiService = ApiService.retrofit.create(ApiService.class);
+        Call<BaseResponse<User>> myCall = apiService.getMyProfile();
+
+        myCall.enqueue(new Callback<BaseResponse<User>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
+                if(response.code() == 200){
+                    System.out.println("성공~!");
+                    System.out.println("현재유저정보 : " + response.body().getMessage());
+                    User user = response.body().getMessage();
+                    String title = BindUtils.setMainTitle(user.getNickname());
+                    binding.tvTitle.setText(title);
+                } else {
+                    BasicUtils.showToast(getApplicationContext(),"유저 정보 로딩 실패");
+                    System.out.println(response.code());
+                    System.out.println(response.errorBody().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
+                System.out.println("실패!!");
             }
         });
     }

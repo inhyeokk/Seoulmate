@@ -23,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -47,6 +48,12 @@ public interface ApiService {
     // # 모든 유저 불러오기
     //   - 저장된 모든 유저의 정보를 불러옴.
     //   - 200 - 정상 불러오기
+    @GET("user/token")
+    Call<BaseResponse<User>> getMyProfile();
+
+    // # 내정보 불러오기
+    //   -  나의 정보를 불러옴.
+    //   - 200 - 정상 불러오기 , 409 - 없는유저
     @GET("user")
     Call<BaseResponse<List<User>>> getAllUsers();
 
@@ -93,16 +100,17 @@ public interface ApiService {
     Call<BaseResponse<String>> addTour(@Body TourRequest body);
 
     // # 여행 제목 수정하기
-    //   - 각 여행의 고유 idx 를 파라미터로 필요로 함.
+    //   -  Tour.title , Tour.idx 를 파라미터로 필요로 함.
     //   - 200 성공
     @PUT("tour")
-    Call<BaseResponse<String>> updateTitleTour(@Body String title, @Body String idx);
+    Call<BaseResponse<String>> updateTitleTour(@Body TourRequest tour);
 
     // # 여행 삭제하기
     //   - 각 여행의 고유 idx 를 파라미터로 필요로 함.
     //   - 여행 불러오기 API는 idx를 포함한 정보를 응답함.
-    @DELETE("tour")
-    Call<BaseResponse<String>> deleteTour(@Body String idx);
+//    @DELETE("tour")
+    @HTTP(method = "DELETE",path = "/tour", hasBody = true)
+    Call<BaseResponse<String>> deleteTour(@Body TourRequest tour);
 
     // # 관광지 불러오기
     //  - 모든 서울특별시의 관광지 목록을 불러옴.

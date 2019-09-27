@@ -60,6 +60,8 @@ public class RecommendActivity extends AppCompatActivity {
         });
     }
 
+
+
     private ArrayList<Integer> getBanners() {
 
         ArrayList<Integer> banners = new ArrayList<>();

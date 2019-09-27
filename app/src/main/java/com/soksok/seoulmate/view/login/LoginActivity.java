@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             /**
              * 요청 성공
              */
+            System.out.println("네이버로그인 후 : " + email );
             goToMainActivity();
         });
     }
@@ -152,6 +153,8 @@ public class LoginActivity extends AppCompatActivity {
         initKakaoLoginModule();
         callback.isLogin.observe(this, isLogin -> {
             if (isLogin) {
+                // 일단 더미 JWT 토큰 넣어둠
+                PrefUtils.setToken("eyJhbGciOiJIUzI1NiJ9.a3lzNjg3OUBuYXZlci5jb20.Jqb7ZtryZapuIbjYB4_bL8hPKB-jRRave1H9QYJYgMM");
                 // 로그인 성공
                 goToMainActivity();
             } else {

@@ -17,11 +17,13 @@ import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.http.model.BaseResponse;
 import com.soksok.seoulmate.http.model.request.LoginRequest;
+import com.soksok.seoulmate.http.model.request.TourRequest;
 import com.soksok.seoulmate.http.service.ApiService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.HTTP;
 
 public class DeleteAlbumDialog extends Dialog {
 
@@ -47,34 +49,8 @@ public class DeleteAlbumDialog extends Dialog {
 
         TextView tvYes = findViewById(R.id.tv_delete_album_yes);
         tvYes.setOnClickListener(v -> {
-            // 앨범 삭제
-            ApiService apiService = ApiService.retrofit.create(ApiService.class);
-            Call<BaseResponse<String>> deleteTourCall = apiService.deleteTour("123456");
-
-            deleteTourCall.enqueue(new Callback<BaseResponse<String>>() {
-                @Override
-                public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                    if(response.code() == 200){
-                        System.out.println("성공~!");
-                        isDelete.postValue(true);
-                        dismiss();
-                        // 서버와 통신하여 로그인 성공시
-                    } else {
-                        // 그밖에 실패시.
-                        BasicUtils.showToast(getContext(),"삭제 실패");
-                        System.out.println(response.code());
-                        System.out.println(response.errorBody().toString());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
-                    System.out.println("실패!!");
-                }
-            });
-
-
-
+            isDelete.postValue(true);
+            dismiss();
         });
     }
 }
