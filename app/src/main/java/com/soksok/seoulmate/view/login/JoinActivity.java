@@ -19,7 +19,17 @@ import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.BindUtils;
 import com.soksok.seoulmate.common.NumberPickerDialog;
 import com.soksok.seoulmate.databinding.ActivityJoinBinding;
+import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.model.request.RegisterRequest;
+import com.soksok.seoulmate.http.model.request.TourRequest;
+import com.soksok.seoulmate.http.service.ApiService;
 import com.soksok.seoulmate.view.main.MainActivity;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -27,7 +37,8 @@ public class JoinActivity extends AppCompatActivity {
     private static final int REQUEST_GALLERY = 5001;
 
     private int age = 20;
-    private boolean isMale = true;
+//    private boolean isMale = true;
+    private String isMale = "M";
 
     private ActivityJoinBinding binding;
 
@@ -90,7 +101,7 @@ public class JoinActivity extends AppCompatActivity {
 
     private void setGender() {
 
-        if (isMale) {
+        if (isMale == "M") {
             binding.tvMale.setSelected(true);
             binding.tvFemale.setSelected(false);
         } else {
@@ -121,13 +132,13 @@ public class JoinActivity extends AppCompatActivity {
 
     public void onFemaleClick(View v) {
 
-        isMale = false;
+        isMale = "W";
         setGender();
     }
 
     public void onMaleClick(View v) {
 
-        isMale = true;
+        isMale = "M";
         setGender();
     }
 
@@ -140,12 +151,60 @@ public class JoinActivity extends AppCompatActivity {
          *  비밀번호:     password     / Type: String
          *  나이:         age          / Type: int
          *  성별:         isMale       / Type: boolean / true(남성) false(여성)
+         *  성별:         isMale       / Type: string / M(남성) W(여성) / by yskim
          */
         String profileImage = BasicUtils.toBase64(binding.ivProfile);
         String email = binding.edEmail.getText().toString();
-        String nickname = binding.edEmail.getText().toString();
+        String nickname = binding.edNickname.getText().toString();
         String password = binding.edPassword.getText().toString();
 
+        System.out.println("#JoinActiviy !!!!");
+        System.out.println("#profileImage " +profileImage);
+        System.out.println("#email " +email);
+        System.out.println("#nickname " +nickname);
+        System.out.println("#password " +password);
+        System.out.println("#age " +age);
+        System.out.println("#isMale " +isMale);
+
+        ApiService apiService = ApiService.retrofit.create(ApiService.class);
+        Call<BaseResponse<String>> registerCall = apiService.register(new RegisterRequest(
+                email,
+                password,
+                nickname,
+                age,
+                isMale,
+                profileImage
+        ));
+
+        registerCall.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if(response.code() == 200){
+                    // 서버와 통신하여 회원가입 성공시
+                    System.out.println("성공~!~!");
+                    System.out.println("성공~!~! :" +response.body().getMessage() );
+                } else {
+                    // 그밖에 실패시.
+                    try {
+                        System.out.println("실패!!");
+                        System.out.println(response.code());
+                        System.out.println(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                System.out.println("실패!!");
+            }
+        });
+
+        goLoginbyIntent();
+    }
+
+    private void goLoginbyIntent(){
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
