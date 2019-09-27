@@ -24,8 +24,10 @@ import com.kakao.util.exception.KakaoException;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.api.naver.NaverAPI;
 import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.databinding.ActivityLoginBinding;
+import com.soksok.seoulmate.view.login.domain.LoginViewModel;
 import com.soksok.seoulmate.view.main.MainActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private OAuthLogin oAuthLoginModule;
 
     private ActivityLoginBinding binding;
+    private LoginViewModel loginViewModel = new LoginViewModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         setupViews();
 //        initKakaoLoginModule();
         initNaverLoginModule();
+        subscribe();
     }
 
     private void onDataBinding() {
@@ -53,6 +57,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setupViews() {
 
+    }
+
+    private void subscribe() {
+
+        /**
+         * 네이버 로그인 후 이메일 수신
+         */
+        loginViewModel.naverEmail.observe(LoginActivity.this, email -> {
+            /**
+             * 요청 성공
+             */
+            goToMainActivity();
+        });
     }
 
     /**
@@ -173,8 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                  *    또한 refreshAccessToken() 을 사용하시는 경우 메쏘드의 실행이 끝나면 access token 을
                  *    받을 수 있기 때문에 좀 더 편리하게 개발하실 수 있습니다.
                  */
-
-                goToMainActivity();
+                loginViewModel.getNaverEmail(accessToken);
             } else {
                 String errorCode = oAuthLoginModule.getLastErrorCode(getApplicationContext()).getCode();
                 String errorDesc = oAuthLoginModule.getLastErrorDesc(getApplicationContext());
