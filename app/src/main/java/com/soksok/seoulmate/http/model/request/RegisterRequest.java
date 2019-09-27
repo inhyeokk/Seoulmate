@@ -6,12 +6,14 @@ public class RegisterRequest {
     String nickname; // 유저의 닉네임
     int age; // 유저의 나이
     String gender; // 유저의 성별 M or W 남자는 M 여자는 W
+    String profileImage; // 프로필 이미지 String (base64)
 
-    public RegisterRequest(String email, String password, String nickname, int age, String gender) {
+    public RegisterRequest(String email, String password, String nickname, int age, String gender , String profileImage) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.age = age;
         this.gender = gender;
+        this.profileImage = profileImage;
     }
 }

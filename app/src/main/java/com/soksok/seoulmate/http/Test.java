@@ -39,7 +39,8 @@ public class Test  {
             "1234",
             "testUser",
             20,
-            "M"));
+            "M",
+            "dummyImage"));
 
     Call<BaseResponse<String>> loginCall = apiService.login(new LoginRequest(
             "test@google.com",
