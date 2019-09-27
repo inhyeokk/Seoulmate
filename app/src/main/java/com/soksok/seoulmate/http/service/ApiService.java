@@ -1,5 +1,6 @@
 package com.soksok.seoulmate.http.service;
 
+import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.http.model.BaseResponse;
 import com.soksok.seoulmate.http.model.Tour;
 import com.soksok.seoulmate.http.model.Tourist;
@@ -108,7 +109,7 @@ public interface ApiService {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request req = chain.request().newBuilder()
-                            .addHeader("Authorization","bearer eyJhbGciOiJIUzI1NiJ9.a3lzNjg3OUBuYXZlci5jb20.Jqb7ZtryZapuIbjYB4_bL8hPKB-jRRave1H9QYJYgMM")
+                            .addHeader("Authorization","bearer "+ PrefUtils.getToken())
                             .build();
                     return chain.proceed(req);
                 }
