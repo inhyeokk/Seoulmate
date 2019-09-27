@@ -15,6 +15,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.BasicUtils;
+import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.service.ApiService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChangeAlbumTitleDialog extends Dialog {
 
@@ -42,11 +49,42 @@ public class ChangeAlbumTitleDialog extends Dialog {
             /** 텍스트 있는 경우만
              *  앨범 제목 변경
              */
+
             String title = edTitle.getText().toString();
-            if (!title.equals("")) {
-                albumTitle.postValue(title);
+            if (title.equals("")) {
+                dismiss();
+                return ;
             }
-            dismiss();
+//            albumTitle.postValue(title);
+
+            ApiService apiService = ApiService.retrofit.create(ApiService.class);
+            Call<BaseResponse<String>> updateTitleTour = apiService.updateTitleTour(title, "1234");
+
+            updateTitleTour.enqueue(new Callback<BaseResponse<String>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                    if(response.code() == 200){
+                        System.out.println("성공~!");
+                        String title = edTitle.getText().toString();
+//                        albumTitle.postValue(title);
+
+//                        isDelete.postValue(true);
+//                        dismiss();
+                        // 서버와 통신하여 로그인 성공시
+                    } else {
+                        // 그밖에 실패시.
+                        BasicUtils.showToast(getContext(),"삭제 실패");
+                        System.out.println(response.code());
+                        System.out.println(response.errorBody().toString());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                    System.out.println("실패!!");
+                }
+            });
+
         });
     }
 }

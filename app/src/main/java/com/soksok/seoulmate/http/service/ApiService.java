@@ -91,11 +91,17 @@ public interface ApiService {
     @POST("tour")
     Call<BaseResponse<String>> addTour(@Body TourRequest body);
 
+    // # 여행 제목 수정하기
+    //   - 각 여행의 고유 idx 를 파라미터로 필요로 함.
+    //   - 200 성공
+    @DELETE("tour")
+    Call<BaseResponse<String>> updateTitleTour(@Body String title, @Body String idx);
+
     // # 여행 삭제하기
     //   - 각 여행의 고유 idx 를 파라미터로 필요로 함.
     //   - 여행 불러오기 API는 idx를 포함한 정보를 응답함.
     @DELETE("tour")
-    Call<BaseResponse> deleteTour(@Body String idx);
+    Call<BaseResponse<String>> deleteTour(@Body String idx);
 
     // # 관광지 불러오기
     //  - 모든 서울특별시의 관광지 목록을 불러옴.
