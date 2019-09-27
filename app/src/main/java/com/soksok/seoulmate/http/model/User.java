@@ -8,6 +8,15 @@ public class User {
     String gender; // 유저의 성별 M or W   M 은 남자 W 는 여자임.
     String type; // 유저의 타입. USR 은 일반유저 , MAT 는 메이트
     String cred_dt; // 생성일
+    String profile_image;
+
+    public String getProfileImage() {
+        return profile_image;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profile_image = profileImage;
+    }
 
     public String getEmail() {
         return email;

@@ -300,8 +300,14 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("성공~!");
                     System.out.println("현재유저정보 : " + response.body().getMessage());
                     User user = response.body().getMessage();
+
                     String title = BindUtils.setMainTitle(user.getNickname());
+                    String profileImage = user.getProfileImage();
+                    System.out.println("현재유저이미지 : " + profileImage);
+
                     binding.tvTitle.setText(title);
+
+
                 } else {
                     BasicUtils.showToast(getApplicationContext(),"유저 정보 로딩 실패");
                     System.out.println(response.code());
