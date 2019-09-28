@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.databinding.ActivityRecommendBinding;
+import com.soksok.seoulmate.http.model.Recommend;
 import com.soksok.seoulmate.view.recommend.adapter.BannerAdapter;
 import com.soksok.seoulmate.view.recommend.adapter.RecommendAdapter;
 
@@ -41,7 +42,10 @@ public class RecommendActivity extends AppCompatActivity {
 
         RecommendAdapter recommendAdapter = new RecommendAdapter(
                 getSupportFragmentManager(),
-                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+                getSpots(),
+                getRestaurants(),
+                getInformations()
         );
 
         binding.vpList.setAdapter(recommendAdapter);
@@ -60,7 +64,53 @@ public class RecommendActivity extends AppCompatActivity {
         });
     }
 
+    private ArrayList<Recommend> getSpots() {
 
+        ArrayList<Recommend> spots = new ArrayList<>();
+
+        spots.add(new Recommend(
+                "",
+                0,
+                "청계천",
+                "서울시 종로구 무교로",
+                "연등,서울축제,문화",
+                "")
+        );
+
+        return spots;
+    }
+
+    private ArrayList<Recommend> getRestaurants() {
+
+        ArrayList<Recommend> restaurants = new ArrayList<>();
+
+        restaurants.add(new Recommend(
+                "",
+                0,
+                "강식당",
+                "서울시 용산구",
+                "연등,서울축제,문화",
+                "")
+        );
+
+        return restaurants;
+    }
+
+    private ArrayList<Recommend> getInformations() {
+
+        ArrayList<Recommend> restaurants = new ArrayList<>();
+
+        restaurants.add(new Recommend(
+                "",
+                0,
+                "서울 방문",
+                "서울 방문에 관한 모든 것",
+                "#비자 #출입국",
+                "")
+        );
+
+        return restaurants;
+    }
 
     private ArrayList<Integer> getBanners() {
 

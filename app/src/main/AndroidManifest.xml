@@ -75,6 +75,9 @@
         <activity
             android:name=".view.chat.AlbumActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.recommend.MateActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

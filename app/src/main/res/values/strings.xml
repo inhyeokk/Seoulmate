@@ -169,4 +169,7 @@
 
     <!-- activity_album -->
     <string name="album_tv_title">앨범</string>
+
+    <!-- activity_mate -->
+    <string name="mate_tv_title">메이트 정보보기</string>
 </resources>

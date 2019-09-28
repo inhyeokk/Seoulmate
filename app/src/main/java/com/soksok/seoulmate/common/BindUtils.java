@@ -266,4 +266,45 @@ public class BindUtils {
                 .load(drawable)
                 .into(view);
     }
+
+    public static void setImageMate(@NotNull ImageView view, @NotNull int position) {
+
+        int drawableId = R.drawable.ic_mate2;
+        switch (position) {
+            case 0:
+                drawableId = R.drawable.ic_mate2;
+                break;
+            case 1:
+                drawableId = R.drawable.ic_mate3;
+                break;
+            case 2:
+                drawableId = R.drawable.ic_mate4;
+                break;
+            case 3:
+                drawableId = R.drawable.ic_mate5;
+                break;
+            case 4:
+                drawableId = R.drawable.ic_mate6;
+                break;
+            case 5:
+                drawableId = R.drawable.ic_mate7;
+                break;
+            case 6:
+                drawableId = R.drawable.ic_mate8;
+                break;
+            case 7:
+                drawableId = R.drawable.ic_mate9;
+                break;
+            case 8:
+                drawableId = R.drawable.ic_mate10;
+                break;
+            case 9:
+                drawableId = R.drawable.ic_mate11;
+                break;
+        }
+        Drawable drawable = resources.getDrawable(drawableId, null);
+        Glide.with(view.getContext())
+                .load(drawable)
+                .into(view);
+    }
 }

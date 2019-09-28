@@ -8,6 +8,15 @@ public class Recommend {
     String tag;
     String image;
 
+    public Recommend(String classname, int num, String name, String addr, String tag, String image) {
+        this.classname = classname;
+        this.num = num;
+        this.name = name;
+        this.addr = addr;
+        this.tag = tag;
+        this.image = image;
+    }
+
     public String getClassname() {
         return classname;
     }

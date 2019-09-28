@@ -2,6 +2,7 @@ package com.soksok.seoulmate.view.recommend.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -9,9 +10,22 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.BindUtils;
 import com.soksok.seoulmate.databinding.ItemListBinding;
+import com.soksok.seoulmate.http.model.Recommend;
+
+import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
+
+    private ArrayList<Recommend> recommends;
+
+    private ListItemListener listener;
+
+    public ListAdapter(ArrayList<Recommend> recommends, ListItemListener listener) {
+        this.recommends = recommends;
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -25,12 +39,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        holder.bind();
+        holder.bind(recommends.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return recommends.size();
     }
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
@@ -42,8 +56,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             this.binding = binding;
         }
 
-        public void bind() {
+        public void bind(Recommend recommend) {
+            /** 이미지 정보 있을 경우 데이터 셋
+             */
+            if (!recommend.getImage().equals("")) {
+                BindUtils.setImageBase64(binding.ivImage, recommend.getImage());
+            }
+            binding.setHolder(this);
+            binding.setRecommend(recommend);
+            binding.executePendingBindings();
+        }
 
+        public void onLayoutClick(View v) {
+            listener.onLayoutClick(v, getAdapterPosition());
         }
     }
 }
