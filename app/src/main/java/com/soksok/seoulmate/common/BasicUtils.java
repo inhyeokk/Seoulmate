@@ -30,6 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class BasicUtils {
@@ -52,6 +53,31 @@ public class BasicUtils {
 
     public static void onCloseKeyboard(@NotNull View v) {
         inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+    public static ArrayList<Integer> getDateTime(String date) {
+
+        String[] dateTimeSplit = split(date, " ");
+
+        String dateString = dateTimeSplit[0]; // date "yyyy.MM.dd"
+        String timeString = dateTimeSplit[1]; // time "hh:MM"
+
+        String[] dateSplit = split(dateString, "\\.");
+        int year = Integer.parseInt(dateSplit[0]);
+        int month = Integer.parseInt(dateSplit[1]);
+        int day = Integer.parseInt(dateSplit[2]);
+
+        String[] timeSplit = split(timeString, "\\:");
+        int hour = Integer.parseInt(timeSplit[0]);
+        int minute = Integer.parseInt(timeSplit[1]);
+
+        ArrayList<Integer> dateTime = new ArrayList<>();
+        dateTime.add(year);
+        dateTime.add(month);
+        dateTime.add(day);
+        dateTime.add(hour);
+        dateTime.add(minute);
+        return dateTime;
     }
 
     @NotNull
