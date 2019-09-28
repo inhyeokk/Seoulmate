@@ -3,6 +3,7 @@ package com.soksok.seoulmate.http.service;
 import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.http.model.BaseResponse;
 import com.soksok.seoulmate.http.model.Recommend;
+import com.soksok.seoulmate.http.model.TitleRecommend;
 import com.soksok.seoulmate.http.model.Tour;
 import com.soksok.seoulmate.http.model.Tourist;
 import com.soksok.seoulmate.http.model.User;
@@ -130,6 +131,12 @@ public interface ApiService {
     //   - 성공 200
     @GET("tourist/info")
     Call<BaseResponse<Recommend>> getAllinfos();
+
+    // # 모든 추천리스트 불러오기
+    //   - 모든 추천목록을 불러옴
+    //   - 성공 200
+    @GET("tourist/all")
+    Call<BaseResponse<TitleRecommend>> getAllRecommands();
 
     // # 명소 불러오기
     //   - 명소 추천목록을 불러옴

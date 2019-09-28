@@ -101,17 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // 현재 시간을 구한다
                         long now = getCorrentTime();
-
                         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
-                        try {
-                            Date d1 = f.parse("2019-9-28 14:52");
-                            Date d2 = f.parse("2019-9-29 14:52");
-//                            System.out.println("now : " + now);
-                            System.out.println("now : " + d1.getTime());
-                            System.out.println("diff : " + (d1.getTime()-d2.getTime())); // 음수가 나오면 미래 아니면 과거
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
 
                         ArrayList<Tour> futureTours = new ArrayList<>();
                         ArrayList<Tour> pastTours = new ArrayList<>();
@@ -183,101 +173,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void subscribeUI() {
 
-    }
-
-    public boolean isMyTripList() {
-        /**
-         * 내 여행 데이터가 있는 경우 true
-         * 없는 경우 false
-         */
-
-        return true;
-    }
-
-    // 다가오는 여행
-    private ArrayList<Tour> getUpcomingTours() throws IOException {
-
-        ArrayList<Tour> tours = new ArrayList<>();
-        tours.add(new Tour(
-                "0",
-                "경복궁 한복 투어",
-                "2019-09-27 11:30",
-                "2019-09-27 18:00",
-                2,
-                0,
-                0,
-                "mate0@korea.com",
-                "")
-        );
-
-        tours.add(new Tour(
-                "1",
-                "남산서울타워 여행",
-                "2019-09-27 11:30",
-                "2019-09-30 18:00",
-                2,
-                1,
-                2,
-                "mate1@korea.com",
-                "")
-        );
-
-        tours.add(new Tour(
-                "2",
-                "서울 한양도성 관람",
-                "2019-10-09 11:30",
-                "2019-10-27 18:00",
-                0,
-                2,
-                0,
-                "mate2@kor   ea.com",
-                "")
-        );
-
-        return tours;
-    }
-
-    // 지난 여행
-    private ArrayList<Tour> getLastTours() {
-
-        ArrayList<Tour> tours = new ArrayList<>();
-        tours.add(new Tour(
-                "0",
-                "경복궁 한복 투어",
-                "2019-09-27 11:30",
-                "2019-09-27 18:00",
-                2,
-                0,
-                0,
-                "mate0@korea.com",
-                "")
-        );
-
-        tours.add(new Tour(
-                "1",
-                "남산서울타워 여행",
-                "2019-09-27 11:30",
-                "2019-09-30 18:00",
-                2,
-                1,
-                2,
-                "mate1@korea.com",
-                "")
-        );
-
-        tours.add(new Tour(
-                "2",
-                "서울 한양도성 관람",
-                "2019-10-09 11:30",
-                "2019-10-27 18:00",
-                0,
-                2,
-                0,
-                "mate2@korea.com",
-                "")
-        );
-
-        return tours;
     }
 
     /**
