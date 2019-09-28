@@ -15,6 +15,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.BasicUtils;
+import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.model.Tour;
+import com.soksok.seoulmate.http.model.request.TourRequest;
+import com.soksok.seoulmate.http.service.ApiService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChangeAlbumTitleDialog extends Dialog {
 
@@ -42,11 +51,13 @@ public class ChangeAlbumTitleDialog extends Dialog {
             /** 텍스트 있는 경우만
              *  앨범 제목 변경
              */
+
             String title = edTitle.getText().toString();
             if (!title.equals("")) {
                 albumTitle.postValue(title);
             }
             dismiss();
+
         });
     }
 }

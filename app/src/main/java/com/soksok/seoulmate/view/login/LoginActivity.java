@@ -26,9 +26,18 @@ import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.api.naver.NaverAPI;
 import com.soksok.seoulmate.common.BasicUtils;
+import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivityLoginBinding;
 import com.soksok.seoulmate.view.login.domain.LoginViewModel;
+import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.model.request.LoginRequest;
+import com.soksok.seoulmate.http.model.request.TourRequest;
+import com.soksok.seoulmate.http.service.ApiService;
 import com.soksok.seoulmate.view.main.MainActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -68,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             /**
              * 요청 성공
              */
+            System.out.println("네이버로그인 후 : " + email );
             goToMainActivity();
         });
     }
@@ -99,7 +109,40 @@ public class LoginActivity extends AppCompatActivity {
         String emailId = binding.edEmailId.getText().toString();
         String password = binding.edPassword.getText().toString();
 
-        goToMainActivity();
+        System.out.println("#LoginActivity !!!!");
+        System.out.println("#emailId " +emailId);
+        System.out.println("#password " +password);
+
+        ApiService apiService = ApiService.retrofit.create(ApiService.class);
+        Call<BaseResponse<String>> loginCall = apiService.login(new LoginRequest(
+                emailId,
+                password
+        ));
+
+        loginCall.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if(response.code() == 200){
+                    System.out.println("성공~!");
+                    String token = response.body().getMessage();
+                    PrefUtils.setToken(token);
+                    goToMainActivity();
+                    // 서버와 통신하여 로그인 성공시
+                } else {
+                    // 그밖에 실패시.
+                    BasicUtils.showToast(getApplicationContext(),"로그인 실패");
+                    System.out.println(response.code());
+                    System.out.println(response.errorBody().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                System.out.println("실패!!");
+            }
+        });
+
+
     }
 
     public void onJoinClick(View v) {
@@ -110,6 +153,8 @@ public class LoginActivity extends AppCompatActivity {
         initKakaoLoginModule();
         callback.isLogin.observe(this, isLogin -> {
             if (isLogin) {
+                // 일단 더미 JWT 토큰 넣어둠
+                PrefUtils.setToken("eyJhbGciOiJIUzI1NiJ9.a3lzNjg3OUBuYXZlci5jb20.Jqb7ZtryZapuIbjYB4_bL8hPKB-jRRave1H9QYJYgMM");
                 // 로그인 성공
                 goToMainActivity();
             } else {

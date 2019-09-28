@@ -13,6 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.BasicUtils;
+import com.soksok.seoulmate.common.PrefUtils;
+import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.model.request.LoginRequest;
+import com.soksok.seoulmate.http.model.request.TourRequest;
+import com.soksok.seoulmate.http.service.ApiService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.HTTP;
 
 public class DeleteAlbumDialog extends Dialog {
 
@@ -38,7 +49,6 @@ public class DeleteAlbumDialog extends Dialog {
 
         TextView tvYes = findViewById(R.id.tv_delete_album_yes);
         tvYes.setOnClickListener(v -> {
-            // 앨범 삭제
             isDelete.postValue(true);
             dismiss();
         });
