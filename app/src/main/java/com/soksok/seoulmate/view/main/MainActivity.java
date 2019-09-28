@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onMenuClick(View v, int position) {
-                                showPopupMenu(v);
+                                showPopupMenu(v,myTour.get(position).getIdx());
                             }
                         });
                         binding.rcvUpcomingTrip.setAdapter(upcomingTripAdapter);
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onMenuClick(View v, int position) {
-                                showPopupMenu(v);
+                                showPopupMenu(v,"");
                             }
                         });
                         binding.rcvLastTrip.setAdapter(lastTripAdapter);
@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
      * 내 여행 리스트의 메뉴버튼을
      * 눌렀을 때 나타나는 팝업 메뉴
      */
-    private void showPopupMenu(View v) {
+    private void showPopupMenu(View v,String idx) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ItemMyTripMenuBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_my_trip_menu, null, false);
 
@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.tvChangeAlbumTitle.setOnClickListener(v1 -> {
             // 앨범 제목 변경
-            showChangeAlbumTitleDialog();
+            showChangeAlbumTitleDialog(idx);
             popupWindow.dismiss();
         });
 //        binding.tvChangeAlbumCover.setOnClickListener(v1 -> {
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showChangeAlbumTitleDialog() {
+    private void showChangeAlbumTitleDialog(String idx) {
         ChangeAlbumTitleDialog dialog = new ChangeAlbumTitleDialog(this);
         dialog.show();
 
@@ -340,8 +340,10 @@ public class MainActivity extends AppCompatActivity {
             ApiService apiService = ApiService.retrofit.create(ApiService.class);
 
             TourRequest tour = new TourRequest();
-            tour.setIdx("1234");
+            tour.setIdx(idx);
             tour.setName(title);
+
+            System.out.println("#showChangeAlbumTitleDialog : " + title);
 
             Call<BaseResponse<String>> updateTitleTour = apiService.updateTitleTour(tour);
 
@@ -350,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                     if(response.code() == 200){
                         System.out.println("성공~!");
+                        setupViews();
                         // 서버와 통신하여 로그인 성공시
                     } else {
                         // 그밖에 실패시.
