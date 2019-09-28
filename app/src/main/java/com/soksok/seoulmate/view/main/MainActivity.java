@@ -37,8 +37,12 @@ import com.soksok.seoulmate.view.recommend.RecommendActivity;
 import com.soksok.seoulmate.view.setting.SettingActivity;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,12 +99,45 @@ public class MainActivity extends AppCompatActivity {
                         binding.layoutMain.setBackgroundColor(getResources().getColor(R.color.colorBackground, null));
                         binding.nsvMyTrip.setVisibility(View.VISIBLE);
 
+                        // 현재 시간을 구한다
+                        long now = getCorrentTime();
+
+                        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
+                        try {
+                            Date d1 = f.parse("2019-9-28 14:52");
+                            Date d2 = f.parse("2019-9-29 14:52");
+//                            System.out.println("now : " + now);
+                            System.out.println("now : " + d1.getTime());
+                            System.out.println("diff : " + (d1.getTime()-d2.getTime())); // 음수가 나오면 미래 아니면 과거
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        ArrayList<Tour> futureTours = new ArrayList<>();
+                        ArrayList<Tour> pastTours = new ArrayList<>();
+                        long diff;
+                        for(int i =0; i<myTour.size(); i++){
+                            try {
+                                Date tourDate = f.parse(myTour.get(i).getStart_date());
+                                diff = now - tourDate.getTime();
+                                if(diff < 0){
+                                    futureTours.add(myTour.get(i));
+                                }else{
+                                    pastTours.add(myTour.get(i));
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+
                         // TODO 현재날짜에 따른 분기
                         // 다가오는 여행
                         LinearLayoutManager upcomingLayoutManager = new LinearLayoutManager(getApplicationContext());
                         binding.rcvUpcomingTrip.setLayoutManager(upcomingLayoutManager);
 
-                        upcomingTripAdapter = new MyTripAdapter(myTour, new MyTripItemListener() {
+                        upcomingTripAdapter = new MyTripAdapter(futureTours, new MyTripItemListener() {
                             @Override
                             public void onLayoutClick(View v, Tour tour) {
                                 goToChatActivity(tour);
@@ -108,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onMenuClick(View v, int position) {
-                                showPopupMenu(v,myTour.get(position).getIdx());
+                                showPopupMenu(v,futureTours.get(position).getIdx());
                             }
                         });
                         binding.rcvUpcomingTrip.setAdapter(upcomingTripAdapter);
@@ -116,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         // 지난 여행
                         LinearLayoutManager lastLayoutManager = new LinearLayoutManager(getApplicationContext());
                         binding.rcvLastTrip.setLayoutManager(lastLayoutManager);
-                        lastTripAdapter = new MyTripAdapter(getLastTours(), new MyTripItemListener() {
+                        lastTripAdapter = new MyTripAdapter(pastTours, new MyTripItemListener() {
                             @Override
                             public void onLayoutClick(View v, Tour tour) {
                                 goToChatActivity(tour);
@@ -124,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onMenuClick(View v, int position) {
-                                showPopupMenu(v,"");
+                                showPopupMenu(v,pastTours.get(position).getIdx());
                             }
                         });
                         binding.rcvLastTrip.setAdapter(lastTripAdapter);
@@ -447,11 +484,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private class netCallTour extends AsyncTask<Call,Void,String>{
-
-        @Override
-        protected String doInBackground(Call... calls) {
-            return null;
-        }
+    private long getCorrentTime(){
+        long now = System.currentTimeMillis();
+        return now;
     }
 }
