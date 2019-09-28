@@ -41,7 +41,9 @@ public class ListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcvMate.setLayoutManager(layoutManager);
         ListAdapter mateAdapter = new ListAdapter(recommends, (v, position) -> {
-//            goToExternalBrowser(recommends.get(position).getAddr());
+
+            goToExternalBrowser(recommends.get(position).getUrl());
+//            recommends.get(0).get
         });
         binding.rcvMate.setAdapter(mateAdapter);
     }

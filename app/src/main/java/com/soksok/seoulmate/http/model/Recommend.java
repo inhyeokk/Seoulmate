@@ -7,14 +7,16 @@ public class Recommend {
     String addr;
     String tag;
     String image;
+    String url;
 
-    public Recommend(String classname, int num, String name, String addr, String tag, String image) {
+    public Recommend(String classname, int num, String name, String addr, String tag, String image , String url) {
         this.classname = classname;
         this.num = num;
         this.name = name;
         this.addr = addr;
         this.tag = tag;
         this.image = image;
+        this.url = url;
     }
 
     public String getClassname() {
@@ -65,6 +67,14 @@ public class Recommend {
         this.image = image;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "Recommend{" +
@@ -74,6 +84,7 @@ public class Recommend {
                 ", addr='" + addr + '\'' +
                 ", tag='" + tag + '\'' +
                 ", image='" + image + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

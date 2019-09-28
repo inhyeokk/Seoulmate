@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.soksok.seoulmate.http.model.Recommend;
+import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
 import com.soksok.seoulmate.view.recommend.ListFragment;
 import com.soksok.seoulmate.view.recommend.MateFragment;
 

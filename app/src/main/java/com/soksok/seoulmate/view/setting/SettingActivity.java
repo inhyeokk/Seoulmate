@@ -33,9 +33,6 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         onDataBinding();
         setupViews();
-
-
-
     }
 
     private void onDataBinding() {

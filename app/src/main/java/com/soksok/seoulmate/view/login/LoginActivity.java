@@ -141,8 +141,6 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("실패!!");
             }
         });
-
-
     }
 
     public void onJoinClick(View v) {
