@@ -60,9 +60,9 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.MyTripView
 
             /** 여행 이미지, 메이트 정보 있을 경우 데이터 셋
              */
-            if (!tour.getImage().equals("")) {
-                BindUtils.setImageBase64(binding.ivImage, tour.getImage());
-            }
+//            if (!tour.getImage().equals("")) {
+//                BindUtils.setImageBase64(binding.ivImage, tour.getImage());
+//            }
             if (!tour.getMate().equals("")) {
                 BindUtils.setImageMateProfile(binding.civProfile, tour.getMate());
             }

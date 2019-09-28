@@ -15,6 +15,7 @@ import com.soksok.seoulmate.http.service.ApiService;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class Test  {
 
     Call<BaseResponse<List<Tour>>> getAllToursCall = apiService.getAllTours();
 
-    Call<BaseResponse<List<Tour>>> getMyToursCall = apiService.getMyTour();
+    Call<BaseResponse<ArrayList<Tour>>> getMyToursCall = apiService.getMyTour();
 
     Call<BaseResponse<List<Tour>>> getToursByEmailCall = apiService.getTourByEmail("test@google.com");
 

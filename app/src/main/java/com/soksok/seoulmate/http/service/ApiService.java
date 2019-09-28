@@ -11,6 +11,7 @@ import com.soksok.seoulmate.http.model.request.RegisterRequest;
 import com.soksok.seoulmate.http.model.request.TourRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Interceptor;
@@ -84,7 +85,7 @@ public interface ApiService {
     //  - 등록된 여행이 없는 유저일 경우 빈 배열 응답
     //  - 200 - 성공 , 409 - 일치하는 정보가 없음 (없는 이메일)
     @GET("tour/token")
-    Call<BaseResponse<List<Tour>>> getMyTour();
+    Call<BaseResponse<ArrayList<Tour>>> getMyTour();
 
     // # 특정 여행 불러오기
     //  - 이메일을 파라미터로 전달함.

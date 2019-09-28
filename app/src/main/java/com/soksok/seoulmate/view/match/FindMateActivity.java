@@ -164,7 +164,8 @@ public class FindMateActivity extends AppCompatActivity {
         System.out.println("#travelTitle " +travelTitle);
         System.out.println("#travelImage " +travelImage);
         System.out.println("#matePosition " +matePosition);
-        String mateEmail = getString(R.string.common_mate_email, matePosition);
+//        String mateEmail = getString(R.string.common_mate_email, matePosition);
+        String mateEmail = "kys6879@naver.com";
 
         ApiService apiService = ApiService.retrofit.create(ApiService.class);
         Call<BaseResponse<String>> addTourCall = apiService.addTour(new TourRequest(
@@ -181,6 +182,9 @@ public class FindMateActivity extends AppCompatActivity {
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                 if(response.code() == 200){
                     // 서버와 통신하여 여행 추가 성공시
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 } else {
                     // 그밖에 실패시.
                     System.out.println(response.code());
@@ -193,8 +197,6 @@ public class FindMateActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+
     }
 }
