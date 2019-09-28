@@ -19,6 +19,7 @@ import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.databinding.ActivityMainBinding;
 import com.soksok.seoulmate.databinding.ItemMyTripMenuBinding;
 import com.soksok.seoulmate.http.Test;
+import com.soksok.seoulmate.http.model.Tour;
 import com.soksok.seoulmate.view.chat.ChatActivity;
 import com.soksok.seoulmate.view.main.adapter.MyTripAdapter;
 import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
@@ -27,6 +28,8 @@ import com.soksok.seoulmate.view.main.domain.MainViewModel;
 import com.soksok.seoulmate.view.match.MatchActivity;
 import com.soksok.seoulmate.view.recommend.RecommendActivity;
 import com.soksok.seoulmate.view.setting.SettingActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             // 다가오는 여행
             LinearLayoutManager upcomingLayoutManager = new LinearLayoutManager(this);
             binding.rcvUpcomingTrip.setLayoutManager(upcomingLayoutManager);
-            upcomingTripAdapter = new MyTripAdapter(new MyTripItemListener() {
+            upcomingTripAdapter = new MyTripAdapter(getUpcomingTours(), new MyTripItemListener() {
                 @Override
                 public void onLayoutClick(View v, String title) {
                     goToChatActivity(title);
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             // 지난 여행
             LinearLayoutManager lastLayoutManager = new LinearLayoutManager(this);
             binding.rcvLastTrip.setLayoutManager(lastLayoutManager);
-            lastTripAdapter = new MyTripAdapter(new MyTripItemListener() {
+            lastTripAdapter = new MyTripAdapter(getLastTours(), new MyTripItemListener() {
                 @Override
                 public void onLayoutClick(View v, String title) {
                     goToChatActivity(title);
@@ -105,7 +108,97 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean isMyTripList() {
+        /**
+         * 내 여행 데이터가 있는 경우 true
+         * 없는 경우 false
+         */
         return true;
+    }
+
+    // 다가오는 여행
+    private ArrayList<Tour> getUpcomingTours() {
+
+        ArrayList<Tour> tours = new ArrayList<>();
+        tours.add(new Tour(
+                "0",
+                "경복궁 한복 투어",
+                "2019.09.27 11:30",
+                "2019.09.27 18:00",
+                2,
+                0,
+                0,
+                "mate0@korea.com",
+                "")
+        );
+
+        tours.add(new Tour(
+                "1",
+                "남산서울타워 여행",
+                "2019.09.27 11:30",
+                "2019.09.30 18:00",
+                2,
+                1,
+                2,
+                "mate1@korea.com",
+                "")
+        );
+
+        tours.add(new Tour(
+                "2",
+                "서울 한양도성 관람",
+                "2019.10.09 11:30",
+                "2019.10.27 18:00",
+                0,
+                2,
+                0,
+                "mate2@korea.com",
+                "")
+        );
+
+        return tours;
+    }
+
+    // 지난 여행
+    private ArrayList<Tour> getLastTours() {
+
+        ArrayList<Tour> tours = new ArrayList<>();
+        tours.add(new Tour(
+                "0",
+                "경복궁 한복 투어",
+                "2019.09.27 11:30",
+                "2019.09.27 18:00",
+                2,
+                0,
+                0,
+                "mate0@korea.com",
+                "")
+        );
+
+        tours.add(new Tour(
+                "1",
+                "남산서울타워 여행",
+                "2019.09.27 11:30",
+                "2019.09.30 18:00",
+                2,
+                1,
+                2,
+                "mate1@korea.com",
+                "")
+        );
+
+        tours.add(new Tour(
+                "2",
+                "서울 한양도성 관람",
+                "2019.10.09 11:30",
+                "2019.10.27 18:00",
+                0,
+                2,
+                0,
+                "mate2@korea.com",
+                "")
+        );
+
+        return tours;
     }
 
     /**

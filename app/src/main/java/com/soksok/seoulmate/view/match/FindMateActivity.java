@@ -95,7 +95,7 @@ public class FindMateActivity extends AppCompatActivity {
     private ArrayList<Integer> getMates() {
 
         ArrayList<Integer> mates = new ArrayList<>();
-        mates.add(R.drawable.ic_mate1);
+        // position 0 ~ 9
         mates.add(R.drawable.ic_mate2);
         mates.add(R.drawable.ic_mate3);
         mates.add(R.drawable.ic_mate4);
@@ -152,6 +152,7 @@ public class FindMateActivity extends AppCompatActivity {
          *  여행 이미지: travelImage / Type: String / Base64
          *
          *  메이트 번호:     matePosition / Type: int
+         *  메이트 이메일:   mateEmail / Type: String / mate0@korea.com
          */
 
         System.out.println("#goToMainActivity !!!!");
@@ -163,6 +164,7 @@ public class FindMateActivity extends AppCompatActivity {
         System.out.println("#travelTitle " +travelTitle);
         System.out.println("#travelImage " +travelImage);
         System.out.println("#matePosition " +matePosition);
+        String mateEmail = getString(R.string.common_mate_email, matePosition);
 
         ApiService apiService = ApiService.retrofit.create(ApiService.class);
         Call<BaseResponse<String>> addTourCall = apiService.addTour(new TourRequest(
@@ -172,7 +174,7 @@ public class FindMateActivity extends AppCompatActivity {
                 adultCount,childCount,babyCount,
                 "경복궁",
                 "GG","GG",
-                "kys6879@naver.com"));
+                mateEmail));
 
         addTourCall.enqueue(new Callback<BaseResponse<String>>() {
             @Override

@@ -4,6 +4,7 @@
     <!-- common -->
     <string name="common_date">%1$s-%2$s-%3$s %4$s</string>
     <string name="common_toast_back_press">\'뒤로\'버튼 한번 더 누르시면 종료됩니다.</string>
+    <string name="common_mate_email">mate%1$d@korea.com</string>
 
     <!-- activity_main -->
     <string name="main_tv_title"><b>%1$s</b>님,\n서울여행을 계획해보세요!</string>
@@ -16,7 +17,12 @@
     <!-- item_my_trip -->
     <string name="my_trip_tv_title_ex">경복궁 한복 투어</string>
     <string name="my_trip_tv_date_ex">10월 1일 1PM-6PM</string>
+    <string name="my_trip_tv_date_short">%1$d월 %2$d일 %3$d%4$s-%5$d%6$s</string>
+    <string name="my_trip_tv_date_long">%1$d월 %2$d일 %3$d%4$s - %5$d월 %6$d일 %7$d%8$s</string>
     <string name="my_trip_tv_member_ex">성인 2명</string>
+    <string name="my_trip_tv_member_adult">성인 %1$d명</string>
+    <string name="my_trip_tv_member_children">어린이 %1$d명</string>
+    <string name="my_trip_tv_member_baby">유아 %1$d명</string>
     <string name="my_trip_tv_with_mate_ex">with 메이트 수진</string>
     <string name="my_trip_tv_with_mate">with 메이트 %1$s</string>
 

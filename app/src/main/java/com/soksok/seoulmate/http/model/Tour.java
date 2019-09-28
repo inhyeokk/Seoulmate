@@ -19,6 +19,37 @@ public class Tour {
     String tour_style;
     String tour_type;
 
+    // constructor using MyTripAdapter
+    public Tour(String idx, String name, String start_date, String end_date, int adult, int child, int infant, String mate, String image) {
+        this.idx = idx;
+        this.name = name;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.adult = adult;
+        this.child = child;
+        this.infant = infant;
+        this.mate = mate;
+        this.image = image;
+    }
+
+    // constructor general
+    public Tour(String idx, String user_email, String name, String start_date, String end_date, int adult, int child, int infant, String mate, String image, String soon, String tourist_name, String tour_style, String tour_type) {
+        this.idx = idx;
+        this.user_email = user_email;
+        this.name = name;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.adult = adult;
+        this.child = child;
+        this.infant = infant;
+        this.mate = mate;
+        this.image = image;
+        this.soon = soon;
+        this.tourist_name = tourist_name;
+        this.tour_style = tour_style;
+        this.tour_type = tour_type;
+    }
+
     public String getIdx() {
         return idx;
     }
