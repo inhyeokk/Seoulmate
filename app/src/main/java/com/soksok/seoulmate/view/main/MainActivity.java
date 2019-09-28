@@ -36,7 +36,9 @@ import com.soksok.seoulmate.view.match.MatchActivity;
 import com.soksok.seoulmate.view.recommend.RecommendActivity;
 import com.soksok.seoulmate.view.setting.SettingActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,46 +75,73 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViews() {
 
-        if (isMyTripList()) {
-            binding.layoutMain.setBackgroundColor(getResources().getColor(R.color.colorBackground, null));
-            binding.nsvMyTrip.setVisibility(View.VISIBLE);
+        ApiService apiService = ApiService.retrofit.create(ApiService.class);
 
-            // TODO 현재날짜에 따른 분기
-            // 다가오는 여행
-            LinearLayoutManager upcomingLayoutManager = new LinearLayoutManager(this);
-            binding.rcvUpcomingTrip.setLayoutManager(upcomingLayoutManager);
-            upcomingTripAdapter = new MyTripAdapter(getUpcomingTours(), new MyTripItemListener() {
-                @Override
-                public void onLayoutClick(View v, Tour tour) {
-                    goToChatActivity(tour);
-                }
+        Call<BaseResponse<ArrayList<Tour>>> myTourCall = apiService.getMyTour();
 
-                @Override
-                public void onMenuClick(View v, int position) {
-                    showPopupMenu(v);
-                }
-            });
-            binding.rcvUpcomingTrip.setAdapter(upcomingTripAdapter);
+        // 나의 여행 가져오기
+        myTourCall.enqueue(new Callback<BaseResponse<ArrayList<Tour>>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<ArrayList<Tour>>> call, Response<BaseResponse<ArrayList<Tour>>> response) {
+                if(response.code() == 200){
+                    ArrayList<Tour> myTour = response.body().getMessage();
 
-            // 지난 여행
-            LinearLayoutManager lastLayoutManager = new LinearLayoutManager(this);
-            binding.rcvLastTrip.setLayoutManager(lastLayoutManager);
-            lastTripAdapter = new MyTripAdapter(getLastTours(), new MyTripItemListener() {
-                @Override
-                public void onLayoutClick(View v, Tour tour) {
-                    goToChatActivity(tour);
-                }
+                    // 등록된 여행이 없을때
+                    if(myTour.size() == 0){
+                        binding.layoutMain.setBackground(getResources().getDrawable(R.drawable.ic_main_bg, null));
+                        binding.nsvMyTrip.setVisibility(View.INVISIBLE);
+                    } else {
 
-                @Override
-                public void onMenuClick(View v, int position) {
-                    showPopupMenu(v);
+                        binding.layoutMain.setBackgroundColor(getResources().getColor(R.color.colorBackground, null));
+                        binding.nsvMyTrip.setVisibility(View.VISIBLE);
+
+                        // TODO 현재날짜에 따른 분기
+                        // 다가오는 여행
+                        LinearLayoutManager upcomingLayoutManager = new LinearLayoutManager(getApplicationContext());
+                        binding.rcvUpcomingTrip.setLayoutManager(upcomingLayoutManager);
+
+                        upcomingTripAdapter = new MyTripAdapter(myTour, new MyTripItemListener() {
+                            @Override
+                            public void onLayoutClick(View v, String title) {
+                                goToChatActivity(title);
+                            }
+
+                            @Override
+                            public void onMenuClick(View v, int position) {
+                                showPopupMenu(v);
+                            }
+                        });
+                        binding.rcvUpcomingTrip.setAdapter(upcomingTripAdapter);
+
+                        // 지난 여행
+                        LinearLayoutManager lastLayoutManager = new LinearLayoutManager(getApplicationContext());
+                        binding.rcvLastTrip.setLayoutManager(lastLayoutManager);
+                        lastTripAdapter = new MyTripAdapter(getLastTours(), new MyTripItemListener() {
+                            @Override
+                            public void onLayoutClick(View v, String title) {
+                                goToChatActivity(title);
+                            }
+
+                            @Override
+                            public void onMenuClick(View v, int position) {
+                                showPopupMenu(v);
+                            }
+                        });
+                        binding.rcvLastTrip.setAdapter(lastTripAdapter);
+                    }
+                } else {
+                    // 그밖에 실패시.
+                    BasicUtils.showToast(getApplicationContext(),"여행 불러오기 실패");
+                    System.out.println(response.code());
+                    System.out.println(response.errorBody().toString());
                 }
-            });
-            binding.rcvLastTrip.setAdapter(lastTripAdapter);
-        } else {
-            binding.layoutMain.setBackground(getResources().getDrawable(R.drawable.ic_main_bg, null));
-            binding.nsvMyTrip.setVisibility(View.INVISIBLE);
-        }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<ArrayList<Tour>>> call, Throwable t) {
+                System.out.println("실패!!");
+            }
+        });
     }
 
     private void subscribeUI() {
@@ -124,18 +153,19 @@ public class MainActivity extends AppCompatActivity {
          * 내 여행 데이터가 있는 경우 true
          * 없는 경우 false
          */
+
         return true;
     }
 
     // 다가오는 여행
-    private ArrayList<Tour> getUpcomingTours() {
+    private ArrayList<Tour> getUpcomingTours() throws IOException {
 
         ArrayList<Tour> tours = new ArrayList<>();
         tours.add(new Tour(
                 "0",
                 "경복궁 한복 투어",
-                "2019.09.27 11:30",
-                "2019.09.27 18:00",
+                "2019-09-27 11:30",
+                "2019-09-27 18:00",
                 2,
                 0,
                 0,
@@ -146,8 +176,8 @@ public class MainActivity extends AppCompatActivity {
         tours.add(new Tour(
                 "1",
                 "남산서울타워 여행",
-                "2019.09.27 11:30",
-                "2019.09.30 18:00",
+                "2019-09-27 11:30",
+                "2019-09-30 18:00",
                 2,
                 1,
                 2,
@@ -158,12 +188,12 @@ public class MainActivity extends AppCompatActivity {
         tours.add(new Tour(
                 "2",
                 "서울 한양도성 관람",
-                "2019.10.09 11:30",
-                "2019.10.27 18:00",
+                "2019-10-09 11:30",
+                "2019-10-27 18:00",
                 0,
                 2,
                 0,
-                "mate2@korea.com",
+                "mate2@kor   ea.com",
                 "")
         );
 
@@ -177,8 +207,8 @@ public class MainActivity extends AppCompatActivity {
         tours.add(new Tour(
                 "0",
                 "경복궁 한복 투어",
-                "2019.09.27 11:30",
-                "2019.09.27 18:00",
+                "2019-09-27 11:30",
+                "2019-09-27 18:00",
                 2,
                 0,
                 0,
@@ -189,8 +219,8 @@ public class MainActivity extends AppCompatActivity {
         tours.add(new Tour(
                 "1",
                 "남산서울타워 여행",
-                "2019.09.27 11:30",
-                "2019.09.30 18:00",
+                "2019-09-27 11:30",
+                "2019-09-30 18:00",
                 2,
                 1,
                 2,
@@ -201,8 +231,8 @@ public class MainActivity extends AppCompatActivity {
         tours.add(new Tour(
                 "2",
                 "서울 한양도성 관람",
-                "2019.10.09 11:30",
-                "2019.10.27 18:00",
+                "2019-10-09 11:30",
+                "2019-10-27 18:00",
                 0,
                 2,
                 0,
@@ -396,10 +426,9 @@ public class MainActivity extends AppCompatActivity {
 
                     String title = BindUtils.setMainTitle(user.getNickname());
                     String profileImage = user.getProfileImage();
-                    System.out.println("현재유저이미지 : " + profileImage);
+//                    System.out.println("현재유저이미지 : " + profileImage);
 
                     binding.tvTitle.setText(title);
-
 
                 } else {
                     BasicUtils.showToast(getApplicationContext(),"유저 정보 로딩 실패");
@@ -413,5 +442,13 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("실패!!");
             }
         });
+    }
+
+    private class netCallTour extends AsyncTask<Call,Void,String>{
+
+        @Override
+        protected String doInBackground(Call... calls) {
+            return null;
+        }
     }
 }

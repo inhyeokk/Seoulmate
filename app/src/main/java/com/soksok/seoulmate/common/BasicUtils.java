@@ -71,12 +71,17 @@ public class BasicUtils {
 
     public static ArrayList<Integer> getDateTime(String date) {
 
+        System.out.println("getDateTime : " + date);
+
         String[] dateTimeSplit = split(date, " ");
+        for(int i=0 ; i<dateTimeSplit.length ; i++){
+            System.out.println("dateTimeSplit : " + dateTimeSplit[i]);
+        }
 
         String dateString = dateTimeSplit[0]; // date "yyyy.MM.dd"
         String timeString = dateTimeSplit[1]; // time "hh:MM"
 
-        String[] dateSplit = split(dateString, "\\.");
+        String[] dateSplit = split(dateString, "\\-");
         int year = Integer.parseInt(dateSplit[0]);
         int month = Integer.parseInt(dateSplit[1]);
         int day = Integer.parseInt(dateSplit[2]);
