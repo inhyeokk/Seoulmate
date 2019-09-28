@@ -21,6 +21,7 @@ import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.databinding.ActivityChatBinding;
 import com.soksok.seoulmate.view.chat.adapter.ChatAdapter;
 import com.soksok.seoulmate.view.chat.adapter.ChatItemListener;
+import com.soksok.seoulmate.view.chat.domain.ChatViewModel;
 import com.soksok.seoulmate.view.chat.entity.ChatItem;
 import com.soksok.seoulmate.view.main.MainActivity;
 
@@ -39,6 +40,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private ActivityChatBinding binding;
 
+    private ChatViewModel chatViewModel = new ChatViewModel();
+
     private ChatAdapter chatAdapter;
 
     @Override
@@ -47,6 +50,7 @@ public class ChatActivity extends AppCompatActivity {
         getData();
         onDataBinding();
         setupViews();
+        subscribe();
     }
 
     @Override
@@ -59,7 +63,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     case RESULT_OK:
                         Uri uri = data.getData();
-                        sendImage(BasicUtils.fromURIToBase64(uri));
+                        sendImage(uri);
                         break;
 
                     case RESULT_CANCELED:
@@ -139,8 +143,7 @@ public class ChatActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fl_menu, new ChatMenuFragment(v -> {
-                    // FIXME Base64 압축필요
-//                    goToAlbumActivity();
+                    goToAlbumActivity();
                 }))
                 .commit();
     }
@@ -194,12 +197,22 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-    private void sendImage(@NotNull String image) {
+    private void sendImage(@NotNull Uri uri) {
 
+        String image = BasicUtils.fromURIToBase64(uri);
         if (!image.equals("")) {
-            chatAdapter.add(new ChatItem(ChatItem.Type.USER_IMAGE, image, BasicUtils.getTime()));
-            binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+            ChatItem item = new ChatItem(ChatItem.Type.USER_IMAGE, image, BasicUtils.getTime());
+            chatViewModel.getImageCachePath(item, uri);
         }
+    }
+
+    private void subscribe() {
+
+        chatViewModel.chatItem.observe(this, chatItem -> {
+            // 캐싱된 이미지 주소가 set 된 item add
+            chatAdapter.add(chatItem);
+            binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+        });
     }
 
     /*

@@ -114,7 +114,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ArrayList<String> images = new ArrayList<>();
         for (ChatItem item: items) {
             if (item.getType() == ChatItem.Type.USER_IMAGE) {
-                images.add(item.getImage());
+                images.add(item.getImagePath());
             }
         }
         return images;

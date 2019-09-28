@@ -20,7 +20,7 @@
             android:layout_margin="1dp"
             android:contentDescription="@null"
             android:scaleType="fitXY"
-            app:bind_image_base64="@{image}"
+            app:bind_image_url="@{image}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

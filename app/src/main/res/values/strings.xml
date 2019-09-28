@@ -167,6 +167,11 @@
     <string name="chat_tv_content">hello breeze!</string>
     <string name="chat_tv_time">10:24</string>
 
+    <!-- fragment_chat_menu -->
+    <string name="chat_tv_show_chat_partner">대화상대 정보보기</string>
+    <string name="chat_tv_album">사진첩</string>
+    <string name="chat_tv_date">일정</string>
+
     <!-- activity_album -->
     <string name="album_tv_title">앨범</string>
 

@@ -197,6 +197,7 @@ public class BindUtils {
 
         Glide.with(view.getContext())
                 .load(uri)
+                .skipMemoryCache(false)
                 .into(view);
     }
 
@@ -204,8 +205,26 @@ public class BindUtils {
 
         Glide.with(view.getContext())
                 .load(uri)
+                .skipMemoryCache(false)
                 .apply(RequestOptions.circleCropTransform())
                 .into(view);
+    }
+
+    @BindingAdapter("bind_image_url")
+    public static void setImageUrl(ImageView view, String url) {
+
+        if (url == null) {
+            Glide.with(view.getContext()).load(Uri.EMPTY).into(view);
+        } else {
+            if (url.isEmpty()) {
+                Glide.with(view.getContext()).load(Uri.EMPTY).into(view);
+            } else {
+                Glide.with(view.getContext())
+                        .load(url)
+                        .skipMemoryCache(false)
+                        .into(view);
+            }
+        }
     }
 
     @BindingAdapter("bind_image_drawable")
@@ -214,6 +233,7 @@ public class BindUtils {
         Drawable drawable = resources.getDrawable(drawableId, null);
         Glide.with(view.getContext())
                 .load(drawable)
+                .skipMemoryCache(false)
                 .into(view);
     }
 
@@ -223,6 +243,7 @@ public class BindUtils {
         Bitmap bitmap = BasicUtils.fromBase64(encodedImage);
         Glide.with(view.getContext())
                 .load(bitmap)
+                .skipMemoryCache(false)
                 .into(view);
     }
 
@@ -264,6 +285,7 @@ public class BindUtils {
         Drawable drawable = resources.getDrawable(drawableId, null);
         Glide.with(view.getContext())
                 .load(drawable)
+                .skipMemoryCache(false)
                 .into(view);
     }
 
@@ -305,6 +327,7 @@ public class BindUtils {
         Drawable drawable = resources.getDrawable(drawableId, null);
         Glide.with(view.getContext())
                 .load(drawable)
+                .skipMemoryCache(false)
                 .into(view);
     }
 }

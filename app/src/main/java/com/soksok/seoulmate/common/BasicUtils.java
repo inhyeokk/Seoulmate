@@ -22,27 +22,37 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.Target;
 import com.soksok.seoulmate.R;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
+
+import io.reactivex.Observable;
 
 public class BasicUtils {
 
     private static ContentResolver contentResolver;
     private static InputMethodManager inputMethodManager;
+    private static RequestManager requestManager;
     private static Resources resources;
     private static WindowManager windowManager;
 
     public static void init(@NotNull Context context) {
         contentResolver = context.getContentResolver();
         inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        requestManager = Glide.with(context);
         resources = context.getResources();
         windowManager = (WindowManager) context.getSystemService(Activity.WINDOW_SERVICE);
     }
@@ -118,6 +128,26 @@ public class BasicUtils {
         return location;
     }
 
+    // 비트맵 이미지 캐싱
+    @NotNull
+    public static Observable<String> getImageCachePathFromURI(Uri uri) {
+
+        return Observable.fromCallable(() -> {
+            String path = "";
+            try {
+                File file = requestManager.asFile()
+                        .load(uri)
+                        .submit().get();
+                path = file.getPath();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return path;
+        });
+    }
+
     public static String toBase64(@NotNull ImageView iv) {
 
         BitmapDrawable bitmapDrawable = (BitmapDrawable) iv.getDrawable();
@@ -137,7 +167,7 @@ public class BasicUtils {
             tempBitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            tempBitmap.compress(Bitmap.CompressFormat.JPEG,10,bos);
+            tempBitmap.compress(Bitmap.CompressFormat.JPEG,70,bos);
             byte[] data = bos.toByteArray();
             result = Base64.encodeToString(data, Base64.DEFAULT);
         } catch (FileNotFoundException e) {

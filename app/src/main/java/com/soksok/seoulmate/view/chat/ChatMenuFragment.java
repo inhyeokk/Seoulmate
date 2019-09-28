@@ -40,7 +40,11 @@ public class ChatMenuFragment extends Fragment {
     /*
      * 클릭 이벤트
      */
-    public void onLayoutClick(View v) {
+    public void onShowChatPartnerClick(View v) {
+        
+    }
+
+    public void onAlbumClick(View v) {
         listener.onLayoutClick(v);
     }
 }
