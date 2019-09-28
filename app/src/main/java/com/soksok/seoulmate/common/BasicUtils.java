@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.FutureTarget;
-import com.bumptech.glide.request.target.Target;
 import com.soksok.seoulmate.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +35,7 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Observable;
@@ -63,6 +62,11 @@ public class BasicUtils {
 
     public static void onCloseKeyboard(@NotNull View v) {
         inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+    public static int getRandomValue(int num) {
+        Random random = new Random();
+        return random.nextInt(num);
     }
 
     public static ArrayList<Integer> getDateTime(String date) {

@@ -410,4 +410,46 @@ public class BindUtils {
                 .skipMemoryCache(false)
                 .into(view);
     }
+
+    public static void setImageTour(@NotNull ImageView view, @NotNull String mateEmail) {
+
+        int drawableId = R.drawable.bg_mate_tour0;
+        switch (mateEmail) {
+            case "mate0@korea.com":
+                drawableId = R.drawable.bg_mate_tour0;
+                break;
+            case "mate1@korea.com":
+                drawableId = R.drawable.bg_mate_tour1;
+                break;
+            case "mate2@korea.com":
+                drawableId = R.drawable.bg_mate_tour2;
+                break;
+            case "mate3@korea.com":
+                drawableId = R.drawable.bg_mate_tour3;
+                break;
+            case "mate4@korea.com":
+                drawableId = R.drawable.bg_mate_tour4;
+                break;
+            case "mate5@korea.com":
+                drawableId = R.drawable.bg_mate_tour5;
+                break;
+            case "mate6@korea.com":
+                drawableId = R.drawable.bg_mate_tour6;
+                break;
+            case "mate7@korea.com":
+                drawableId = R.drawable.bg_mate_tour7;
+                break;
+            case "mate8@korea.com":
+                drawableId = R.drawable.bg_mate_tour8;
+                break;
+            case "mate9@korea.com":
+                drawableId = R.drawable.bg_mate_tour9;
+                break;
+        }
+        Drawable drawable = resources.getDrawable(drawableId, null);
+        Glide.with(view.getContext())
+                .load(drawable)
+                .skipMemoryCache(false)
+                .into(view);
+    }
 }

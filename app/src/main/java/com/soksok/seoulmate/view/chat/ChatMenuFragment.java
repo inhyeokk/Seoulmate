@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BasicUtils;
+import com.soksok.seoulmate.common.BindUtils;
 import com.soksok.seoulmate.databinding.FragmentChatMenuBinding;
 import com.soksok.seoulmate.http.model.Tour;
 
@@ -19,6 +21,11 @@ public class ChatMenuFragment extends Fragment {
 
     private Tour tour;
     private ChatFragmentListener listener;
+
+    private int first = 0;
+    private int second = 0;
+    private int third = 0;
+    private int fourth = 0;
 
     private FragmentChatMenuBinding binding;
 
@@ -40,8 +47,14 @@ public class ChatMenuFragment extends Fragment {
     }
 
     private void setupViews() {
+        initViews();
         setDaysVisibility();
-        setDaysGone();
+        setValue();
+    }
+
+    private void initViews() {
+        BindUtils.setImageTour(binding.ivTour, tour.getMate());
+        binding.ivDayFirst.setSelected(true);
     }
 
     private void setDaysVisibility() {
@@ -99,6 +112,23 @@ public class ChatMenuFragment extends Fragment {
         }
     }
 
+    private void setValue() {
+
+        first = Character.getNumericValue(tour.getMate().charAt(4));
+        second = BasicUtils.getRandomValue(10);
+        while (first == second) {
+            second = BasicUtils.getRandomValue(10);
+        }
+        third = BasicUtils.getRandomValue(10);
+        while (first == third || second == third) {
+            third = BasicUtils.getRandomValue(10);
+        }
+        fourth = BasicUtils.getRandomValue(10);
+        while (first == fourth || second == fourth || third == fourth) {
+            fourth = BasicUtils.getRandomValue(10);
+        }
+    }
+
     /*
      * 클릭 이벤트
      */
@@ -108,5 +138,49 @@ public class ChatMenuFragment extends Fragment {
 
     public void onAlbumClick(View v) {
         listener.onAlbumClick(v);
+    }
+
+    public void onDayFirstClick(View v) {
+
+        if (!binding.ivDayFirst.isSelected()) {
+            binding.ivDayFirst.setSelected(true);
+            binding.ivDaySecond.setSelected(false);
+            binding.ivDayThird.setSelected(false);
+            binding.ivDayFourth.setSelected(false);
+            BindUtils.setImageTour(binding.ivTour, tour.getMate());
+        }
+    }
+
+    public void onDaySecondClick(View v) {
+
+        if (!binding.ivDaySecond.isSelected()) {
+            binding.ivDayFirst.setSelected(false);
+            binding.ivDaySecond.setSelected(true);
+            binding.ivDayThird.setSelected(false);
+            binding.ivDayFourth.setSelected(false);
+            BindUtils.setImageTour(binding.ivTour, getString(R.string.common_mate_email, second));
+        }
+    }
+
+    public void onDayThirdClick(View v) {
+
+        if (!binding.ivDayThird.isSelected()) {
+            binding.ivDayFirst.setSelected(false);
+            binding.ivDaySecond.setSelected(false);
+            binding.ivDayThird.setSelected(true);
+            binding.ivDayFourth.setSelected(false);
+            BindUtils.setImageTour(binding.ivTour, getString(R.string.common_mate_email, third));
+        }
+    }
+
+    public void onDayFourthClick(View v) {
+
+        if (!binding.ivDayFourth.isSelected()) {
+            binding.ivDayFirst.setSelected(false);
+            binding.ivDaySecond.setSelected(false);
+            binding.ivDayThird.setSelected(false);
+            binding.ivDayFourth.setSelected(true);
+            BindUtils.setImageTour(binding.ivTour, getString(R.string.common_mate_email, fourth));
+        }
     }
 }
