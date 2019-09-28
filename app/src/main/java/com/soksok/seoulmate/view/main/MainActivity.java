@@ -361,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
         binding.tvDeleteAlbum.setOnClickListener(v1 -> {
             // 앨범 삭제
-            showDeleteAlbumDialog();
+            showDeleteAlbumDialog(idx);
             popupWindow.dismiss();
         });
     }
@@ -390,7 +390,6 @@ public class MainActivity extends AppCompatActivity {
                     if(response.code() == 200){
                         System.out.println("성공~!");
                         setupViews();
-                        // 서버와 통신하여 로그인 성공시
                     } else {
                         // 그밖에 실패시.
                         BasicUtils.showToast(getApplicationContext(),"삭제 실패");
@@ -407,7 +406,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showDeleteAlbumDialog() {
+    private void showDeleteAlbumDialog(String idx) {
         DeleteAlbumDialog dialog = new DeleteAlbumDialog(this);
         dialog.show();
 
@@ -418,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ApiService apiService = ApiService.retrofit.create(ApiService.class);
 
-                TourRequest tourRequest = new TourRequest("123456");
+                TourRequest tourRequest = new TourRequest(idx);
 
                 Call<BaseResponse<String>> deleteTourCall = apiService.deleteTour(tourRequest);
 
@@ -427,7 +426,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                         if(response.code() == 200){
                             System.out.println("성공~!");
-                            // 서버와 통신하여 로그인 성공시
+                            setupViews();
                         } else {
                             // 그밖에 실패시.
                             BasicUtils.showToast(getApplicationContext(),"삭제 실패");
