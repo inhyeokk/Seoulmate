@@ -145,7 +145,7 @@ public class ChatActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fl_menu, new ChatMenuFragment(new ChatFragmentListener() {
+                .replace(R.id.fl_menu, new ChatMenuFragment(tour, new ChatFragmentListener() {
                     @Override
                     public void onShowChatPartnerClick(View v) {
                         goToChatPartnerActivity();

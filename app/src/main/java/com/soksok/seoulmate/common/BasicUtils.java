@@ -90,6 +90,20 @@ public class BasicUtils {
         return dateTime;
     }
 
+    public static ArrayList<Integer> getDate() {
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH)+1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        ArrayList<Integer> date = new ArrayList<>();
+        date.add(year); // date.get(0)
+        date.add(month);// date.get(1)
+        date.add(day);  // date.get(2)
+        return date;
+    }
+
     @NotNull
     public static String getTime() {
 
