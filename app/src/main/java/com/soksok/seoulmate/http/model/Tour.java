@@ -1,9 +1,10 @@
 package com.soksok.seoulmate.http.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Tour {
+public class Tour implements Serializable {
     String idx;
     String user_email;
     String name;

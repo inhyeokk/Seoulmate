@@ -4,5 +4,7 @@ import android.view.View;
 
 public interface ChatFragmentListener {
 
-    void onLayoutClick(View v);
+    void onShowChatPartnerClick(View v);
+
+    void onAlbumClick(View v);
 }

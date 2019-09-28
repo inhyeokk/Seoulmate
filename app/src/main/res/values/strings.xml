@@ -177,4 +177,7 @@
 
     <!-- activity_mate -->
     <string name="mate_tv_title">메이트 정보보기</string>
+
+    <!-- activity_chat_partner -->
+    <string name="partner_tv_title">대화상대 정보보기</string>
 </resources>

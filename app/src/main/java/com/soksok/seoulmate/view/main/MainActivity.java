@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private long backPressedTime = 0L;
 
     public static int REQUEST_CHAT = 2001;
-    public static String EXTRA_CHAT_TITLE = "EXTRA_CHAT_TITLE";
+    public static String EXTRA_TOUR = "EXTRA_TOUR";
 
     private MainViewModel viewModel = new MainViewModel(new MainRepositoryImpl());
     private ActivityMainBinding binding;
@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
             binding.rcvUpcomingTrip.setLayoutManager(upcomingLayoutManager);
             upcomingTripAdapter = new MyTripAdapter(getUpcomingTours(), new MyTripItemListener() {
                 @Override
-                public void onLayoutClick(View v, String title) {
-                    goToChatActivity(title);
+                public void onLayoutClick(View v, Tour tour) {
+                    goToChatActivity(tour);
                 }
 
                 @Override
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
             binding.rcvLastTrip.setLayoutManager(lastLayoutManager);
             lastTripAdapter = new MyTripAdapter(getLastTours(), new MyTripItemListener() {
                 @Override
-                public void onLayoutClick(View v, String title) {
-                    goToChatActivity(title);
+                public void onLayoutClick(View v, Tour tour) {
+                    goToChatActivity(tour);
                 }
 
                 @Override
@@ -254,10 +254,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void goToChatActivity(String title) {
+    private void goToChatActivity(Tour tour) {
 
         Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra(EXTRA_CHAT_TITLE, title);
+        intent.putExtra(EXTRA_TOUR, tour);
         startActivity(intent);
     }
 

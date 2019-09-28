@@ -247,6 +247,44 @@ public class BindUtils {
                 .into(view);
     }
 
+    public static int getImageMateProfile(@NotNull String mateEmail) {
+
+        int drawableId = R.drawable.ic_mate_profile2;
+        switch (mateEmail) {
+            case "mate0@korea.com":
+                drawableId = R.drawable.ic_mate_profile2;
+                break;
+            case "mate1@korea.com":
+                drawableId = R.drawable.ic_mate_profile3;
+                break;
+            case "mate2@korea.com":
+                drawableId = R.drawable.ic_mate_profile4;
+                break;
+            case "mate3@korea.com":
+                drawableId = R.drawable.ic_mate_profile5;
+                break;
+            case "mate4@korea.com":
+                drawableId = R.drawable.ic_mate_profile6;
+                break;
+            case "mate5@korea.com":
+                drawableId = R.drawable.ic_mate_profile7;
+                break;
+            case "mate6@korea.com":
+                drawableId = R.drawable.ic_mate_profile8;
+                break;
+            case "mate7@korea.com":
+                drawableId = R.drawable.ic_mate_profile9;
+                break;
+            case "mate8@korea.com":
+                drawableId = R.drawable.ic_mate_profile10;
+                break;
+            case "mate9@korea.com":
+                drawableId = R.drawable.ic_mate_profile11;
+                break;
+        }
+        return drawableId;
+    }
+
     public static void setImageMateProfile(@NotNull ImageView view, @NotNull String mateEmail) {
 
         int drawableId = R.drawable.ic_mate_profile2;
@@ -321,6 +359,48 @@ public class BindUtils {
                 drawableId = R.drawable.ic_mate10;
                 break;
             case 9:
+                drawableId = R.drawable.ic_mate11;
+                break;
+        }
+        Drawable drawable = resources.getDrawable(drawableId, null);
+        Glide.with(view.getContext())
+                .load(drawable)
+                .skipMemoryCache(false)
+                .into(view);
+    }
+
+    public static void setImageMate(@NotNull ImageView view, @NotNull String mateEmail) {
+
+        int drawableId = R.drawable.ic_mate2;
+        switch (mateEmail) {
+            case "mate0@korea.com":
+                drawableId = R.drawable.ic_mate2;
+                break;
+            case "mate1@korea.com":
+                drawableId = R.drawable.ic_mate3;
+                break;
+            case "mate2@korea.com":
+                drawableId = R.drawable.ic_mate4;
+                break;
+            case "mate3@korea.com":
+                drawableId = R.drawable.ic_mate5;
+                break;
+            case "mate4@korea.com":
+                drawableId = R.drawable.ic_mate6;
+                break;
+            case "mate5@korea.com":
+                drawableId = R.drawable.ic_mate7;
+                break;
+            case "mate6@korea.com":
+                drawableId = R.drawable.ic_mate8;
+                break;
+            case "mate7@korea.com":
+                drawableId = R.drawable.ic_mate9;
+                break;
+            case "mate8@korea.com":
+                drawableId = R.drawable.ic_mate10;
+                break;
+            case "mate9@korea.com":
                 drawableId = R.drawable.ic_mate11;
                 break;
         }

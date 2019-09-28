@@ -6,5 +6,5 @@ public interface ChatItemListener {
 
     void onLayoutClick(View v);
 
-    void onProfileClick(View v, int position);
+    void onProfileClick(View v);
 }

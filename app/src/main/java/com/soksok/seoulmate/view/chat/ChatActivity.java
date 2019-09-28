@@ -18,7 +18,9 @@ import android.view.inputmethod.EditorInfo;
 
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BasicUtils;
+import com.soksok.seoulmate.common.BindUtils;
 import com.soksok.seoulmate.databinding.ActivityChatBinding;
+import com.soksok.seoulmate.http.model.Tour;
 import com.soksok.seoulmate.view.chat.adapter.ChatAdapter;
 import com.soksok.seoulmate.view.chat.adapter.ChatItemListener;
 import com.soksok.seoulmate.view.chat.domain.ChatViewModel;
@@ -35,8 +37,9 @@ public class ChatActivity extends AppCompatActivity {
     private static final int REQUEST_GALLERY = 5001;
 
     public static String EXTRA_ALBUM = "EXTRA_ALBUM";
+    public static String EXTRA_CHAT_PARTNER_EMAIL = "EXTRA_CHAT_PARTNER_EMAIL";
 
-    private String title = "";
+    private Tour tour;
 
     private ActivityChatBinding binding;
 
@@ -92,7 +95,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        title = getIntent().getStringExtra(MainActivity.EXTRA_CHAT_TITLE);
+        tour = (Tour) getIntent().getSerializableExtra(MainActivity.EXTRA_TOUR);
     }
 
     private void onDataBinding() {
@@ -101,8 +104,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private void setupViews() {
 
-        if (title != null && !title.equals("")) {
-            binding.tvTitle.setText(title);
+        if (tour != null && !tour.getName().equals("")) {
+            binding.tvTitle.setText(tour.getName());
         }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -115,8 +118,8 @@ public class ChatActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onProfileClick(View v, int position) {
-
+            public void onProfileClick(View v) {
+                goToChatPartnerActivity();
             }
         });
         binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
@@ -142,8 +145,16 @@ public class ChatActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fl_menu, new ChatMenuFragment(v -> {
-                    goToAlbumActivity();
+                .replace(R.id.fl_menu, new ChatMenuFragment(new ChatFragmentListener() {
+                    @Override
+                    public void onShowChatPartnerClick(View v) {
+                        goToChatPartnerActivity();
+                    }
+
+                    @Override
+                    public void onAlbumClick(View v) {
+                        goToAlbumActivity();
+                    }
                 }))
                 .commit();
     }
@@ -154,7 +165,7 @@ public class ChatActivity extends AppCompatActivity {
 
         items.add(new ChatItem(
                 ChatItem.Type.TEMP,
-                R.drawable.ic_profile_mate,
+                BindUtils.getImageMateProfile(tour.getMate()), // 메이트 프로필 이미지
                 "hello breeze! welcome to seoul",
                 "10:24")
         );
@@ -167,7 +178,7 @@ public class ChatActivity extends AppCompatActivity {
 
         items.add(new ChatItem(
                 ChatItem.Type.TEMP,
-                R.drawable.ic_profile_mate,
+                BindUtils.getImageMateProfile(tour.getMate()),
                 "Can you give me a common mailbox? I will send you a road map.",
                 "10:37")
         );
@@ -263,6 +274,13 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent. setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, REQUEST_GALLERY);
+    }
+
+    private void goToChatPartnerActivity() {
+
+        Intent intent = new Intent(this, ChatPartnerActivity.class);
+        intent.putExtra(EXTRA_CHAT_PARTNER_EMAIL, tour.getMate());
+        startActivity(intent);
     }
 
     private void goToAlbumActivity() {
