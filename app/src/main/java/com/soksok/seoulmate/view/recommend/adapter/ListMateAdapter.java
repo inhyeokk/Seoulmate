@@ -2,6 +2,7 @@ package com.soksok.seoulmate.view.recommend.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,11 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
 
     private ArrayList<Integer> mates;
 
-    public ListMateAdapter(ArrayList<Integer> mates) {
+    private ListItemListener listener;
+
+    public ListMateAdapter(ArrayList<Integer> mates, ListItemListener listener) {
         this.mates = mates;
+        this.listener = listener;
     }
 
     @NonNull
@@ -51,8 +55,13 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
         }
 
         public void bind(int position) {
+            binding.setHolder(this);
             binding.setMate(position);
             binding.executePendingBindings();
+        }
+
+        public void onLayoutClick(View v) {
+            listener.onLayoutClick(v, getAdapterPosition());
         }
     }
 }
