@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
                         upcomingTripAdapter = new MyTripAdapter(myTour, new MyTripItemListener() {
                             @Override
-                            public void onLayoutClick(View v, String title) {
-                                goToChatActivity(title);
+                            public void onLayoutClick(View v, Tour tour) {
+                                goToChatActivity(tour);
                             }
 
                             @Override
@@ -118,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
                         binding.rcvLastTrip.setLayoutManager(lastLayoutManager);
                         lastTripAdapter = new MyTripAdapter(getLastTours(), new MyTripItemListener() {
                             @Override
-                            public void onLayoutClick(View v, String title) {
-                                goToChatActivity(title);
+                            public void onLayoutClick(View v, Tour tour) {
+                                goToChatActivity(tour);
                             }
 
                             @Override
