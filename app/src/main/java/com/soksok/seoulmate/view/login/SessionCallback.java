@@ -52,6 +52,12 @@ public class SessionCallback implements ISessionCallback {
                  *
                  */
 
+                System.out.println("#onSuccess : " +nickname);
+                System.out.println("#onSuccess : " +email);
+                System.out.println("#onSuccess : " +profileImagePath);
+                System.out.println("#onSuccess : " +thumbnailPath);
+                System.out.println("#onSuccess : " +id);
+
                 // 로그인 성공시 결과 전송
                 isLogin.postValue(true);
             }

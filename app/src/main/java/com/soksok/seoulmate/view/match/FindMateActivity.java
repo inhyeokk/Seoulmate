@@ -20,6 +20,7 @@ import com.soksok.seoulmate.view.main.ChangeAlbumTitleDialog;
 import com.soksok.seoulmate.view.main.MainActivity;
 import com.soksok.seoulmate.view.match.adapter.MateAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -175,7 +176,8 @@ public class FindMateActivity extends AppCompatActivity {
                 adultCount,childCount,babyCount,
                 "경복궁",
                 "GG","GG",
-                mateEmail));
+                mateEmail,
+                travelImage));
 
         addTourCall.enqueue(new Callback<BaseResponse<String>>() {
             @Override
@@ -188,6 +190,12 @@ public class FindMateActivity extends AppCompatActivity {
                 } else {
                     // 그밖에 실패시.
                     System.out.println(response.code());
+                    System.out.println(response.errorBody().toString());
+                    try {
+                        System.out.println(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

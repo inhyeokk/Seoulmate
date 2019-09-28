@@ -105,15 +105,30 @@ public class MainActivity extends AppCompatActivity {
                         ArrayList<Tour> futureTours = new ArrayList<>();
                         ArrayList<Tour> pastTours = new ArrayList<>();
                         long diff;
+                        long endDateTime;
                         for(int i =0; i<myTour.size(); i++){
                             try {
                                 Date tourDate = f.parse(myTour.get(i).getStart_date());
                                 diff = now - tourDate.getTime();
-                                if(diff < 0){
+                                if(diff < 0){ // 음수면 미래
+                                    System.out.println("#myTourCall 1111: " + myTour.get(i).getName());
                                     futureTours.add(myTour.get(i));
-                                }else{
-                                    pastTours.add(myTour.get(i));
+                                }else{ // 양수면 과거
+
+                                    Date tourEndDate = f.parse(myTour.get(i).getEnd_date());
+                                    endDateTime =  tourEndDate.getTime();
+                                    diff = now - endDateTime;
+                                    if(diff < 0){
+                                        System.out.println("#myTourCall2222 : " + myTour.get(i).getName());
+
+                                        futureTours.add(myTour.get(i));
+                                    } else {
+                                        System.out.println("#myTourCall3333 : " + myTour.get(i).getName());
+
+                                        pastTours.add(myTour.get(i));
+                                    }
                                 }
+
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }

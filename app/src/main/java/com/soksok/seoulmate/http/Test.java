@@ -68,7 +68,8 @@ public class Test  {
             2,0,0,
             "경복궁",
             "GG","BB",
-            "kys6879@naver.com"));
+            "kys6879@naver.com",
+            ""));
 
     public void testApiSet(){
         new TestHttpCall().execute(
