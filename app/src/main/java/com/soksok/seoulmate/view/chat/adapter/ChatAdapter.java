@@ -114,7 +114,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ArrayList<String> images = new ArrayList<>();
         for (ChatItem item: items) {
             if (item.getType() == ChatItem.Type.USER_IMAGE) {
-                images.add(item.getImage());
+                images.add(item.getImagePath());
             }
         }
         return images;
@@ -163,6 +163,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onLayoutClick(View v) {
             listener.onLayoutClick(v);
         }
+
+        public void onProfileClick(View v) {
+            listener.onProfileClick(v);
+        }
     }
 
     public class ChatTempViewHolder extends RecyclerView.ViewHolder {
@@ -182,6 +186,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public void onLayoutClick(View v) {
             listener.onLayoutClick(v);
+        }
+
+        public void onProfileClick(View v) {
+            listener.onProfileClick(v);
         }
     }
 

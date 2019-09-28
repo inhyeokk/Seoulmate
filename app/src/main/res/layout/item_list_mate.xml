@@ -9,7 +9,7 @@
             type="com.soksok.seoulmate.view.recommend.adapter.ListMateAdapter.ListMateViewHolder" />
         <variable
             name="mate"
-            type="Integer" />
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="banner"
-            type="Integer" />
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

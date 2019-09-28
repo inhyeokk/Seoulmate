@@ -197,6 +197,7 @@ public class BindUtils {
 
         Glide.with(view.getContext())
                 .load(uri)
+                .skipMemoryCache(false)
                 .into(view);
     }
 
@@ -204,8 +205,26 @@ public class BindUtils {
 
         Glide.with(view.getContext())
                 .load(uri)
+                .skipMemoryCache(false)
                 .apply(RequestOptions.circleCropTransform())
                 .into(view);
+    }
+
+    @BindingAdapter("bind_image_url")
+    public static void setImageUrl(ImageView view, String url) {
+
+        if (url == null) {
+            Glide.with(view.getContext()).load(Uri.EMPTY).into(view);
+        } else {
+            if (url.isEmpty()) {
+                Glide.with(view.getContext()).load(Uri.EMPTY).into(view);
+            } else {
+                Glide.with(view.getContext())
+                        .load(url)
+                        .skipMemoryCache(false)
+                        .into(view);
+            }
+        }
     }
 
     @BindingAdapter("bind_image_drawable")
@@ -214,6 +233,7 @@ public class BindUtils {
         Drawable drawable = resources.getDrawable(drawableId, null);
         Glide.with(view.getContext())
                 .load(drawable)
+                .skipMemoryCache(false)
                 .into(view);
     }
 
@@ -223,7 +243,46 @@ public class BindUtils {
         Bitmap bitmap = BasicUtils.fromBase64(encodedImage);
         Glide.with(view.getContext())
                 .load(bitmap)
+                .skipMemoryCache(false)
                 .into(view);
+    }
+
+    public static int getImageMateProfile(@NotNull String mateEmail) {
+
+        int drawableId = R.drawable.ic_mate_profile2;
+        switch (mateEmail) {
+            case "mate0@korea.com":
+                drawableId = R.drawable.ic_mate_profile2;
+                break;
+            case "mate1@korea.com":
+                drawableId = R.drawable.ic_mate_profile3;
+                break;
+            case "mate2@korea.com":
+                drawableId = R.drawable.ic_mate_profile4;
+                break;
+            case "mate3@korea.com":
+                drawableId = R.drawable.ic_mate_profile5;
+                break;
+            case "mate4@korea.com":
+                drawableId = R.drawable.ic_mate_profile6;
+                break;
+            case "mate5@korea.com":
+                drawableId = R.drawable.ic_mate_profile7;
+                break;
+            case "mate6@korea.com":
+                drawableId = R.drawable.ic_mate_profile8;
+                break;
+            case "mate7@korea.com":
+                drawableId = R.drawable.ic_mate_profile9;
+                break;
+            case "mate8@korea.com":
+                drawableId = R.drawable.ic_mate_profile10;
+                break;
+            case "mate9@korea.com":
+                drawableId = R.drawable.ic_mate_profile11;
+                break;
+        }
+        return drawableId;
     }
 
     public static void setImageMateProfile(@NotNull ImageView view, @NotNull String mateEmail) {
@@ -264,6 +323,7 @@ public class BindUtils {
         Drawable drawable = resources.getDrawable(drawableId, null);
         Glide.with(view.getContext())
                 .load(drawable)
+                .skipMemoryCache(false)
                 .into(view);
     }
 
@@ -305,6 +365,91 @@ public class BindUtils {
         Drawable drawable = resources.getDrawable(drawableId, null);
         Glide.with(view.getContext())
                 .load(drawable)
+                .skipMemoryCache(false)
+                .into(view);
+    }
+
+    public static void setImageMate(@NotNull ImageView view, @NotNull String mateEmail) {
+
+        int drawableId = R.drawable.ic_mate2;
+        switch (mateEmail) {
+            case "mate0@korea.com":
+                drawableId = R.drawable.ic_mate2;
+                break;
+            case "mate1@korea.com":
+                drawableId = R.drawable.ic_mate3;
+                break;
+            case "mate2@korea.com":
+                drawableId = R.drawable.ic_mate4;
+                break;
+            case "mate3@korea.com":
+                drawableId = R.drawable.ic_mate5;
+                break;
+            case "mate4@korea.com":
+                drawableId = R.drawable.ic_mate6;
+                break;
+            case "mate5@korea.com":
+                drawableId = R.drawable.ic_mate7;
+                break;
+            case "mate6@korea.com":
+                drawableId = R.drawable.ic_mate8;
+                break;
+            case "mate7@korea.com":
+                drawableId = R.drawable.ic_mate9;
+                break;
+            case "mate8@korea.com":
+                drawableId = R.drawable.ic_mate10;
+                break;
+            case "mate9@korea.com":
+                drawableId = R.drawable.ic_mate11;
+                break;
+        }
+        Drawable drawable = resources.getDrawable(drawableId, null);
+        Glide.with(view.getContext())
+                .load(drawable)
+                .skipMemoryCache(false)
+                .into(view);
+    }
+
+    public static void setImageTour(@NotNull ImageView view, @NotNull String mateEmail) {
+
+        int drawableId = R.drawable.bg_mate_tour0;
+        switch (mateEmail) {
+            case "mate0@korea.com":
+                drawableId = R.drawable.bg_mate_tour0;
+                break;
+            case "mate1@korea.com":
+                drawableId = R.drawable.bg_mate_tour1;
+                break;
+            case "mate2@korea.com":
+                drawableId = R.drawable.bg_mate_tour2;
+                break;
+            case "mate3@korea.com":
+                drawableId = R.drawable.bg_mate_tour3;
+                break;
+            case "mate4@korea.com":
+                drawableId = R.drawable.bg_mate_tour4;
+                break;
+            case "mate5@korea.com":
+                drawableId = R.drawable.bg_mate_tour5;
+                break;
+            case "mate6@korea.com":
+                drawableId = R.drawable.bg_mate_tour6;
+                break;
+            case "mate7@korea.com":
+                drawableId = R.drawable.bg_mate_tour7;
+                break;
+            case "mate8@korea.com":
+                drawableId = R.drawable.bg_mate_tour8;
+                break;
+            case "mate9@korea.com":
+                drawableId = R.drawable.bg_mate_tour9;
+                break;
+        }
+        Drawable drawable = resources.getDrawable(drawableId, null);
+        Glide.with(view.getContext())
+                .load(drawable)
+                .skipMemoryCache(false)
                 .into(view);
     }
 }

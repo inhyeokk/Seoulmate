@@ -49,6 +49,7 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.MyTripView
 
     public class MyTripViewHolder extends RecyclerView.ViewHolder {
 
+        private Tour tour;
         private ItemMyTripBinding binding;
 
         public MyTripViewHolder(@NonNull ItemMyTripBinding binding) {
@@ -57,6 +58,8 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.MyTripView
         }
 
         public void bind(Tour tour) {
+
+            this.tour = tour;
 
             /** 여행 이미지, 메이트 정보 있을 경우 데이터 셋
              */
@@ -73,7 +76,7 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.MyTripView
         }
 
         public void onLayoutClick(View v) {
-            listener.onLayoutClick(v, binding.tvTitle.getText().toString());
+            listener.onLayoutClick(v, tour);
         }
 
         public void onMenuClick(View v) {

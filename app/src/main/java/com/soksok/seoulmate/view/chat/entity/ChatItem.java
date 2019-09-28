@@ -25,6 +25,7 @@ public class ChatItem {
     private String content;
     private String image;
     private String time;
+    private String imagePath; // local cache path
 
     // user or user_image
     public ChatItem(Type type, String content, String time) {
@@ -99,5 +100,13 @@ public class ChatItem {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
