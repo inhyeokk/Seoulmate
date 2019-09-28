@@ -1,6 +1,8 @@
 package com.soksok.seoulmate.http.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     String email; // 유저의 이메일. 아이디로 사용되며 중복 불가.
     String nickname; // 유저의 닉네임
     String password; // 유저의 패스워드

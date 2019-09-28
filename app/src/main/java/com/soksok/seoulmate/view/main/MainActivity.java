@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int REQUEST_CHAT = 2001;
     public static String EXTRA_TOUR = "EXTRA_TOUR";
+    public static String EXTRA_USER_PROFILE = "EXTRA_USER_PROFILE";
 
     private MainViewModel viewModel = new MainViewModel(new MainRepositoryImpl());
     private ActivityMainBinding binding;
@@ -68,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         onDataBinding();
         setupViews();
         getProfile();
-
-//       new Test().testApiSet();
 
     }
 
@@ -213,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToSettingActivity() {
         Intent intent = new Intent(this, SettingActivity.class);
+        intent.putExtra(EXTRA_USER_PROFILE,user);
         startActivity(intent);
     }
 
@@ -301,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     private void showDeleteAlbumDialog(String idx) {
         DeleteAlbumDialog dialog = new DeleteAlbumDialog(this);
         dialog.show();
@@ -343,6 +344,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // 메인엑티비티접근시 가지고있는 token 으로 현재 유저의 정보를 가져옴
+    User user;
     private void getProfile(){
 
         System.out.println("#MainActivity !!!! #getProfile");
@@ -356,9 +358,12 @@ public class MainActivity extends AppCompatActivity {
                 if(response.code() == 200){
                     System.out.println("성공~!");
                     System.out.println("현재유저정보 : " + response.body().getMessage());
-                    User user = response.body().getMessage();
+                    user = response.body().getMessage();
 
-                    String title = BindUtils.setMainTitle(user.getNickname());
+                    String userEmail = user.getEmail();
+                    String userNickname = user.getNickname();
+
+                    String title = BindUtils.setMainTitle(userNickname);
                     String profileImage = user.getProfileImage();
 //                    System.out.println("현재유저이미지 : " + profileImage);
 

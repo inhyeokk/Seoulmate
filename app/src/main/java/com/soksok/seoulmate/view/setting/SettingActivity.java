@@ -11,12 +11,15 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivitySettingBinding;
+import com.soksok.seoulmate.http.model.User;
 import com.soksok.seoulmate.view.like.LikeActivity;
 import com.soksok.seoulmate.view.login.LoginActivity;
+import com.soksok.seoulmate.view.main.MainActivity;
 
 public class SettingActivity extends AppCompatActivity {
 
     public static final String EXTRA_LIKE = "EXTRA_LIKE";
+
     public static final String VALUE_LIKE_MATE = "VALUE_LIKE_MATE";
     public static final String VALUE_LIKE_SPOT = "VALUE_LIKE_SPOT";
     public static final String VALUE_LIKE_RESTAURANT = "VALUE_LIKE_RESTAURANT";
@@ -31,6 +34,8 @@ public class SettingActivity extends AppCompatActivity {
         onDataBinding();
         setupViews();
 
+
+
     }
 
     private void onDataBinding() {
@@ -38,6 +43,8 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
+
+        setUserInfo();
 
         behavior = BottomSheetBehavior.from(binding.clBottomSheet);
         setBottomClickable(false);
@@ -131,5 +138,15 @@ public class SettingActivity extends AppCompatActivity {
                 // do nothing
             }
         });
+    }
+
+    private void setUserInfo(){
+        User user = (User) getIntent().getSerializableExtra(MainActivity.EXTRA_USER_PROFILE);
+
+        binding.tvUserName.setText(user.getNickname());
+        binding.tvUserEmail.setText(user.getEmail());
+
+        System.out.println("#setUserInfo  user" + user);
+
     }
 }
