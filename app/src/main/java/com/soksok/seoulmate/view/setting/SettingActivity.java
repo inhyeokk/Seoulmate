@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import com.soksok.seoulmate.http.model.User;
 import com.soksok.seoulmate.view.like.LikeActivity;
 import com.soksok.seoulmate.view.login.LoginActivity;
 import com.soksok.seoulmate.view.main.MainActivity;
+import com.squareup.picasso.Picasso;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -142,6 +144,10 @@ public class SettingActivity extends AppCompatActivity {
 
         binding.tvUserName.setText(user.getNickname());
         binding.tvUserEmail.setText(user.getEmail());
+
+        if(user.getIskakao() != 1){
+            Picasso.get().load(Uri.parse(user.getProfileImage())).into(binding.civProfile);
+        }
 
         System.out.println("#setUserInfo  user" + user);
 

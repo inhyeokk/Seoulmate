@@ -79,7 +79,8 @@ public class SessionCallback implements ISessionCallback {
                         nickname,
                         20,
                         "M",
-                        thumbnailPath
+                        thumbnailPath,
+                        2
                 ));
 
 //                PrefUtils.setToken("eyJhbGciOiJIUzI1NiJ9.a3lzNjg3OUBuYXZlci5jb20.Jqb7ZtryZapuIbjYB4_bL8hPKB-jRRave1H9QYJYgMM");

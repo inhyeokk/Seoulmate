@@ -3,6 +3,7 @@ package com.soksok.seoulmate.view.main;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -35,6 +36,7 @@ import com.soksok.seoulmate.view.main.domain.MainViewModel;
 import com.soksok.seoulmate.view.match.MatchActivity;
 import com.soksok.seoulmate.view.recommend.RecommendActivity;
 import com.soksok.seoulmate.view.setting.SettingActivity;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -383,9 +385,11 @@ public class MainActivity extends AppCompatActivity {
 
                     String title = BindUtils.setMainTitle(userNickname);
                     String profileImage = user.getProfileImage();
-//                    System.out.println("현재유저이미지 : " + profileImage);
 
                     binding.tvTitle.setText(title);
+                    if(user.getIskakao() != 1){ // 카카오 로그인이면
+                        Picasso.get().load(Uri.parse(profileImage)).into(binding.civProfile);
+                    }
 
                 } else {
                     BasicUtils.showToast(getApplicationContext(),"유저 정보 로딩 실패");

@@ -67,6 +67,8 @@ dependencies {
 
     // View
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 
     // Kakao
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.22.0'

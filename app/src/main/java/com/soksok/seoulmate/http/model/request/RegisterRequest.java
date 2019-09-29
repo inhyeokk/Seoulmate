@@ -7,13 +7,15 @@ public class RegisterRequest {
     int age; // 유저의 나이
     String gender; // 유저의 성별 M or W 남자는 M 여자는 W
     String profileImage; // 프로필 이미지 String (base64)
+    int iskakao; // 카카오로그인이면 1 아니면 0
 
-    public RegisterRequest(String email, String password, String nickname, int age, String gender , String profileImage) {
+    public RegisterRequest(String email, String password, String nickname, int age, String gender , String profileImage , int iskakao) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.age = age;
         this.gender = gender;
         this.profileImage = profileImage;
+        this.iskakao = iskakao;
     }
 }

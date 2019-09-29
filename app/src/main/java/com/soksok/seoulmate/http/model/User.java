@@ -11,6 +11,7 @@ public class User implements Serializable {
     String type; // 유저의 타입. USR 은 일반유저 , MAT 는 메이트
     String cred_dt; // 생성일
     String profile_image;
+    int iskakao; // 1 : normal , 2 : kakao
 
     public String getProfileImage() {
         return profile_image;
@@ -76,6 +77,22 @@ public class User implements Serializable {
         this.cred_dt = cred_dt;
     }
 
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
+    }
+
+    public int getIskakao() {
+        return iskakao;
+    }
+
+    public void setIskakao(int iskakao) {
+        this.iskakao = iskakao;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -86,6 +103,8 @@ public class User implements Serializable {
                 ", gender='" + gender + '\'' +
                 ", type='" + type + '\'' +
                 ", cred_dt='" + cred_dt + '\'' +
+                ", profile_image='" + profile_image + '\'' +
+                ", iskakao='" + iskakao + '\'' +
                 '}';
     }
 }

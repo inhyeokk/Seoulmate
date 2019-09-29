@@ -173,7 +173,8 @@ public class JoinActivity extends AppCompatActivity {
                 nickname,
                 age,
                 isMale,
-                profileImage
+                profileImage,
+                1
         ));
 
         registerCall.enqueue(new Callback<BaseResponse<String>>() {
