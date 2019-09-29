@@ -157,6 +157,13 @@ public class JoinActivity extends AppCompatActivity {
         String email = binding.edEmail.getText().toString();
         String nickname = binding.edNickname.getText().toString();
         String password = binding.edPassword.getText().toString();
+        String passwordCheck = binding.edPasswordCheck.getText().toString();
+
+        if( !(password.equals(passwordCheck))){
+            BasicUtils.showToast(this,"입력하신 비밀번호가 일치하지 않습니다.");
+            return ;
+        }
+
 
         System.out.println("#JoinActiviy !!!!");
         System.out.println("#profileImage " +profileImage);
