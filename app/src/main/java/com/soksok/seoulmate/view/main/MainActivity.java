@@ -387,14 +387,13 @@ public class MainActivity extends AppCompatActivity {
                     String profileImage = user.getProfileImage();
 
                     binding.tvTitle.setText(title);
-                    if (!profileImage.equals("")) {
-                        if(user.getIskakao() != 1){ // 카카오 로그인이면
+                    if (profileImage != null && !profileImage.equals("")) {
+                        if (user.getIskakao() != 1) { // 카카오 로그인이면
                             Picasso.get().load(Uri.parse(profileImage)).into(binding.civProfile);
                         } else { // 일반로그인 이면
-                            BindUtils.setImageBase64(binding.civProfile,user.getProfileImage());
+                            BindUtils.setImageBase64(binding.civProfile, user.getProfileImage());
                         }
                     }
-
                 } else {
                     BasicUtils.showToast(getApplicationContext(),"유저 정보 로딩 실패");
                     System.out.println(response.code());
