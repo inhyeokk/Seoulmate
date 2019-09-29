@@ -36,6 +36,7 @@ public class JoinActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION = 1001;
     private static final int REQUEST_GALLERY = 5001;
 
+    private boolean isProfileSet = false;
     private int age = 20;
 //    private boolean isMale = true;
     private String isMale = "M";
@@ -68,6 +69,7 @@ public class JoinActivity extends AppCompatActivity {
                     case RESULT_OK:
                         Uri uri = data.getData();
                         BindUtils.setCircleGalleryURI(binding.ivProfile, uri);
+                        isProfileSet = true;
                         break;
                     case RESULT_CANCELED:
                         // do nothing
@@ -153,7 +155,10 @@ public class JoinActivity extends AppCompatActivity {
          *  성별:         isMale       / Type: boolean / true(남성) false(여성)
          *  성별:         isMale       / Type: string / M(남성) W(여성) / by yskim
          */
-        String profileImage = BasicUtils.toBase64(binding.ivProfile);
+        String profileImage = "";
+        if (isProfileSet) {
+            profileImage = BasicUtils.toBase64(binding.ivProfile);
+        }
         String email = binding.edEmail.getText().toString();
         String nickname = binding.edNickname.getText().toString();
         String password = binding.edPassword.getText().toString();

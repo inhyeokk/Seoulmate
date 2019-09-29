@@ -146,10 +146,12 @@ public class SettingActivity extends AppCompatActivity {
         binding.tvUserName.setText(user.getNickname());
         binding.tvUserEmail.setText(user.getEmail());
 
-        if(user.getIskakao() != 1){
-            Picasso.get().load(Uri.parse(user.getProfileImage())).into(binding.civProfile);
-        }else { // 일반로그인 이면
-            BindUtils.setImageBase64(binding.civProfile,user.getProfileImage());
+        if (!user.getProfileImage().equals("")) {
+            if(user.getIskakao() != 1){
+                Picasso.get().load(Uri.parse(user.getProfileImage())).into(binding.civProfile);
+            }else { // 일반로그인 이면
+                BindUtils.setImageBase64(binding.civProfile,user.getProfileImage());
+            }
         }
 
         System.out.println("#setUserInfo  user" + user);
