@@ -48,7 +48,7 @@ public class ChatMenuFragment extends Fragment {
 
     private void setupViews() {
         initViews();
-        setDaysVisibility();
+//        setDaysVisibility();
         setValue();
     }
 
