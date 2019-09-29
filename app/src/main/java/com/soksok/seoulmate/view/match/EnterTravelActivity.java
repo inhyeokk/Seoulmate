@@ -44,6 +44,7 @@ public class EnterTravelActivity extends AppCompatActivity {
 
     private String travelTitle = "";
     private String travelImage = "";
+    private boolean isSetImage = false;
 
     private static final int REQUEST_PERMISSION = 1001;
     private static final int REQUEST_GALLERY = 5001;
@@ -88,6 +89,7 @@ public class EnterTravelActivity extends AppCompatActivity {
                         Uri uri = data.getData();
                         BindUtils.setGalleryURI(binding.ivGallery, uri);
                         binding.ivGallery.setScaleType(ImageView.ScaleType.FIT_XY);
+                        isSetImage = true;
                         break;
 
                     case RESULT_CANCELED:
@@ -157,7 +159,11 @@ public class EnterTravelActivity extends AppCompatActivity {
 
         // 현재 탭 데이터
         travelTitle = binding.edEnterTravelTitle.getText().toString();
-        travelImage = BasicUtils.toBase64(binding.ivGallery);
+        if (isSetImage) {
+            travelImage = BasicUtils.toBase64(binding.ivGallery);
+        } else {
+            travelImage = "";
+        }
         intent.putExtra(EXTRA_TRAVEL_TITLE, travelTitle);
         intent.putExtra(EXTRA_TRAVEL_IMAGE, travelImage);
         startActivity(intent);
