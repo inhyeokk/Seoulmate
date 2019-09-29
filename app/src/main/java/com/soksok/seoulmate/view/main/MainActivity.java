@@ -388,7 +388,9 @@ public class MainActivity extends AppCompatActivity {
 
                     binding.tvTitle.setText(title);
                     if(user.getIskakao() != 1){ // 카카오 로그인이면
-                        Picasso.get().load(Uri.parse(profileImage)).into(binding.civProfile);
+                        if(user.getProfileImage() != null){
+                            Picasso.get().load(Uri.parse(profileImage)).into(binding.civProfile);
+                        }
                     } else { // 일반로그인 이면
                         BindUtils.setImageBase64(binding.civProfile,user.getProfileImage());
                     }
