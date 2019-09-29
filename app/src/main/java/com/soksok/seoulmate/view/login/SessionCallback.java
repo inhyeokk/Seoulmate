@@ -100,42 +100,7 @@ public class SessionCallback implements ISessionCallback {
                                     email,
                                     "1234"
                             ));
-
-                            loginCall.enqueue(new Callback<BaseResponse<String>>() {
-                                @Override
-                                public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                                    if(response.code() == 200){
-                                        String token = response.body().getMessage();
-                                        System.out.println("loginCall 성공~! token --->" + token);
-                                        PrefUtils.setToken(token);
-                                        // 로그인 성공시 결과 전송
-                                        isLogin.postValue(true);
-                                        // 서버와 통신하여 로그인 성공시
-                                    } else {
-                                        // 그밖에 실패시.
-//                                        BasicUtils.showToast(,"로그인 실패");
-                                        System.out.println("loginCall 실패! token " );
-
-                                        System.out.println(response.code());
-                                        System.out.println(response.errorBody().toString());
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
-
-                                    try {
-                                        System.out.println("loginCall 실패!!");
-                                        System.out.println(response.code());
-                                        System.out.println(response.errorBody().string());
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                }
-                            });
-
-
+                            login(loginCall);
                         } else if(response.code() == 409){
                             // 서버에 유저가 없으면 회원가입
                             registerCall.enqueue(new Callback<BaseResponse<String>>() {
@@ -145,6 +110,12 @@ public class SessionCallback implements ISessionCallback {
                                         // 서버와 통신하여 회원가입 성공시
                                         System.out.println("성공~!~!");
                                         System.out.println("성공~!~! :" +response.body().getMessage() );
+
+                                        Call<BaseResponse<String>> loginCall = apiService.login(new LoginRequest(
+                                                email,
+                                                "1234"
+                                        ));
+                                        login(loginCall);
                                     } else {
                                         // 그밖에 실패시.
                                         try {
@@ -192,6 +163,38 @@ public class SessionCallback implements ISessionCallback {
             @Override
             public void onFailure(ErrorResult errorResult) {
                 Log.e("SessionCallback :: ", "onFailure : " + errorResult.getErrorMessage());
+                isLogin.postValue(false);
+            }
+        });
+    }
+
+    private void login(Call<BaseResponse<String>> loginCall) {
+
+        loginCall.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if(response.code() == 200){
+                    String token = response.body().getMessage();
+                    System.out.println("loginCall 성공~! token --->" + token);
+                    PrefUtils.setToken(token);
+                    // 로그인 성공시 결과 전송
+                    isLogin.postValue(true);
+                    // 서버와 통신하여 로그인 성공시
+                } else {
+                    // 그밖에 실패시.
+//                                        BasicUtils.showToast(,"로그인 실패");
+                    System.out.println("loginCall 실패! token " );
+
+                    System.out.println(response.code());
+                    System.out.println(response.errorBody().toString());
+
+                    isLogin.postValue(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                System.out.println("#login : "+ t.getMessage());
                 isLogin.postValue(false);
             }
         });

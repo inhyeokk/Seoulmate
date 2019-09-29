@@ -156,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                 // 로그인 성공
                 goToMainActivity();
             } else {
+                BasicUtils.showToast(this,"로그인실패!");
                 // 실패
                 // do nothing
             }
