@@ -2,6 +2,7 @@ package com.soksok.seoulmate.view.login;
 
 import android.util.Log;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kakao.auth.ISessionCallback;
@@ -10,8 +11,10 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
+import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.PrefUtils;
+import com.soksok.seoulmate.databinding.ActivityJoinBinding;
 import com.soksok.seoulmate.http.model.BaseResponse;
 import com.soksok.seoulmate.http.model.User;
 import com.soksok.seoulmate.http.model.request.LoginRequest;
@@ -54,6 +57,9 @@ public class SessionCallback implements ISessionCallback {
             // 사용자정보 요청에 성공한 경우,
             @Override
             public void onSuccess(MeV2Response userProfile) {
+
+
+
                 Log.e("SessionCallback :: ", "onSuccess");
                 String nickname = userProfile.getNickname();
                 String email = userProfile.getKakaoAccount().getEmail();
@@ -68,7 +74,11 @@ public class SessionCallback implements ISessionCallback {
                 System.out.println("#onSuccess : " +nickname);
                 System.out.println("#onSuccess : " +email);
                 System.out.println("#onSuccess : " +profileImagePath);
+
+                /* 프로필 사진 빈 문자열 */
+                thumbnailPath = "";
                 System.out.println("#onSuccess : " +thumbnailPath);
+
                 System.out.println("#onSuccess : " +id);
 
                 ApiService apiService = ApiService.retrofit.create(ApiService.class);

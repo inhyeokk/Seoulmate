@@ -395,8 +395,6 @@ public class MainActivity extends AppCompatActivity {
                         BindUtils.setImageBase64(binding.civProfile,user.getProfileImage());
                     }
 
-
-
                 } else {
                     BasicUtils.showToast(getApplicationContext(),"유저 정보 로딩 실패");
                     System.out.println(response.code());
