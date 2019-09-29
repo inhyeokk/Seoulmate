@@ -50,7 +50,7 @@
     <string name="setting_like_restaurant">좋아요 하는 맛집</string>
     <string name="setting_logout">로그아웃</string>
     <string name="setting_bottom_title">서울메이트가 되고 싶으신가요?</string>
-    <string name="setting_bottom_mail">smej201@naver.com으로 자신의 여행코스와 프로필 정보를 보내주세요.</string>
+    <string name="setting_bottom_mail"><b>\'smej201@naver.com\'</b>으로\n자신의 여행코스와 프로필 정보를 보내주세요.</string>
     <string name="setting_bottom_description">
         당신이 만든 여행 일정과 노하우를\n
         서울에 놀러온 관광객에게 공유해주세요.\n

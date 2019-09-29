@@ -164,20 +164,34 @@
                 android:id="@+id/tv_bottom_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="40dp"
                 android:text="@string/setting_bottom_title"
                 android:textColor="@color/colorText"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_bottom_description"
+                app:layout_constraintBottom_toTopOf="@+id/tv_bottom_mail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/civ_logo" />
 
             <TextView
+                android:id="@+id/tv_bottom_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="@string/setting_bottom_mail"
+                android:textColor="@color/colorTextGray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_bottom_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bottom_title" />
+
+            <TextView
                 android:id="@+id/tv_bottom_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:text="@string/setting_bottom_description"
                 android:textColor="@color/colorTextGray"
@@ -185,13 +199,13 @@
                 app:layout_constraintBottom_toTopOf="@+id/tv_bottom_cancel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_bottom_title" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_bottom_mail" />
 
             <TextView
                 android:id="@+id/tv_bottom_cancel"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
@@ -209,7 +223,7 @@
                 android:id="@+id/tv_bottom_contact"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:background="@color/colorPrimary"
                 android:clickable="true"
                 android:focusable="true"

@@ -87,6 +87,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void onBottomContactClick(View v) {
+        goToEmailApp();
         setBottomClickable(false);
     }
 
@@ -124,6 +125,13 @@ public class SettingActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void goToEmailApp() {
+
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_APP_EMAIL);
         startActivity(intent);
     }
 
