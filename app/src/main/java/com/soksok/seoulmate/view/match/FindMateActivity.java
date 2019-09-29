@@ -165,8 +165,8 @@ public class FindMateActivity extends AppCompatActivity {
         System.out.println("#travelTitle " +travelTitle);
         System.out.println("#travelImage " +travelImage);
         System.out.println("#matePosition " +matePosition);
-//        String mateEmail = getString(R.string.common_mate_email, matePosition);
-        String mateEmail = "kys6879@naver.com";
+        String mateEmail = getString(R.string.common_mate_email, matePosition);
+//        String mateEmail = "kys6879@naver.com";
 
         ApiService apiService = ApiService.retrofit.create(ApiService.class);
         Call<BaseResponse<String>> addTourCall = apiService.addTour(new TourRequest(

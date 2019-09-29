@@ -58,35 +58,50 @@ public class MatchActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH)+1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
+
+        String monthh = String.valueOf(month);
+        if (month / 10 == 0) {
+            monthh = "0" + month;
+        }
 
         String dayy = String.valueOf(day);
         if (day / 10 == 0) {
             dayy = "0" + day;
         }
 
-        setFirstDate(year, month+1, dayy);
-        setFirstTime(hour, minute);
-        setLastDate(year, month+1, dayy);
-        setLastTime(hour, minute);
+        String hourr = String.valueOf(hour);
+        if (hour / 10 == 0) {
+            hourr = "0" + hour;
+        }
+
+        String minutee = String.valueOf(minute);
+        if (minute / 10 == 0) {
+            minutee = "0" + minute;
+        }
+
+        setFirstDate(year, monthh, dayy);
+        setFirstTime(hourr, minutee);
+        setLastDate(year, monthh, dayy);
+        setLastTime(hourr, minutee);
     }
 
-    private void setFirstDate(int year, int month, String day) {
+    private void setFirstDate(int year, String month, String day) {
         binding.tvDateFirst.setText(getString(R.string.match_tv_date, year, month, day));
     }
 
-    private void setFirstTime(int hour, int minute) {
+    private void setFirstTime(String hour, String minute) {
         binding.tvTimeFirst.setText(getString(R.string.match_tv_time, hour, minute));
     }
 
-    private void setLastDate(int year, int month, String day) {
+    private void setLastDate(int year, String month, String day) {
         binding.tvDateLast.setText(getString(R.string.match_tv_date, year, month, day));
     }
 
-    private void setLastTime(int hour, int minute) {
+    private void setLastTime(String hour, String minute) {
         binding.tvTimeLast.setText(getString(R.string.match_tv_time, hour, minute));
     }
 
@@ -100,11 +115,18 @@ public class MatchActivity extends AppCompatActivity {
         DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                month += 1;
+                String monthh = String.valueOf(month);
+                if (month / 10 == 0) {
+                    monthh = "0" + month;
+                }
+
                 String dayy = String.valueOf(dayOfMonth);
                 if (dayOfMonth / 10 == 0) {
                     dayy = "0" + dayOfMonth;
                 }
-                setFirstDate(year, month+1, dayy);
+                setFirstDate(year, monthh, dayy);
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         dialog.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -119,7 +141,18 @@ public class MatchActivity extends AppCompatActivity {
                 new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                setFirstTime(hourOfDay, minute);
+
+                String hourr = String.valueOf(hourOfDay);
+                if (hourOfDay / 10 == 0) {
+                    hourr = "0" + hourOfDay;
+                }
+
+                String minutee = String.valueOf(minute);
+                if (minute / 10 == 0) {
+                    minutee = "0" + minute;
+                }
+
+                setFirstTime(hourr, minutee);
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
         dialog.show();
@@ -131,11 +164,18 @@ public class MatchActivity extends AppCompatActivity {
         DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                month += 1;
+                String monthh = String.valueOf(month);
+                if (month / 10 == 0) {
+                    monthh = "0" + month;
+                }
+
                 String dayy = String.valueOf(dayOfMonth);
                 if (dayOfMonth / 10 == 0) {
                     dayy = "0" + dayOfMonth;
                 }
-                setLastDate(year, month+1, dayy);
+                setLastDate(year, monthh, dayy);
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         dialog.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -150,7 +190,17 @@ public class MatchActivity extends AppCompatActivity {
                 new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                setLastTime(hourOfDay, minute);
+
+                String hourr = String.valueOf(hourOfDay);
+                if (hourOfDay / 10 == 0) {
+                    hourr = "0" + hourOfDay;
+                }
+
+                String minutee = String.valueOf(minute);
+                if (minute / 10 == 0) {
+                    minutee = "0" + minute;
+                }
+                setLastTime(hourr, minutee);
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
         dialog.show();

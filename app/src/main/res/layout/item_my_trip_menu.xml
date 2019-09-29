@@ -5,20 +5,21 @@
 
     <androidx.cardview.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="30dp"
         card_view:cardElevation="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp">
+            android:layout_width="150dp"
+            android:layout_height="90dp">
 
             <TextView
                 android:id="@+id/tv_change_album_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:paddingTop="5dp"
+                android:gravity="center"
                 android:text="@string/menu_tv_change_album_title"
                 android:textColor="@color/colorTextGray"
                 android:textSize="12sp"
@@ -33,7 +34,6 @@
                 android:id="@+id/view_first"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="12dp"
                 android:background="@color/colorTextLightGray"
                 app:layout_constraintBottom_toTopOf="@+id/tv_delete_album"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -43,8 +43,9 @@
             <TextView
                 android:id="@+id/tv_delete_album"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_height="0dp"
+                android:paddingBottom="5dp"
+                android:gravity="center"
                 android:text="@string/menu_tv_delete_album"
                 android:textColor="@color/colorTextGray"
                 android:textSize="12sp"
