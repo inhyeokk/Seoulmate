@@ -65,7 +65,10 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.MyTripView
              */
             if (tour.getImage() != null) {
                 BindUtils.setImageBase64(binding.ivImage, tour.getImage());
+            } else {
+                binding.ivImage.setImageResource(R.drawable.ic_trip);
             }
+
             if (!tour.getMate().equals("")) {
                 BindUtils.setImageMateProfile(binding.civProfile, tour.getMate());
             }
