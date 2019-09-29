@@ -117,7 +117,7 @@
 
     <!-- activity_enter_travel -->
     <string name="enter_travel_tv_title">여행 제목 입력</string>
-    <string name="enter_travel_tv_description">* 여행 제목과 커버 사진은 추후에도 변경할 수 있어요.</string>
+    <string name="enter_travel_tv_description">* 커버 사진은 추후 변경이 불가하니 신중히 선택해주세요.</string>
     <string name="enter_travel_tv_find_mate">메이트 찾기</string>
 
     <!-- activity_find_mate -->
