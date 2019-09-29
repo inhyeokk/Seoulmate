@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -53,6 +54,10 @@ public class SettingActivity extends AppCompatActivity {
     /*
      * 클릭 이벤트
      */
+    public void onUserClick(View v) {
+        showChangeUserNameDialog();
+    }
+
     public void onLayoutClick(View v) {
         setBottomClickable(false);
     }
@@ -120,6 +125,17 @@ public class SettingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    private void showChangeUserNameDialog() {
+
+        ChangeUserNameDialog dialog = new ChangeUserNameDialog(this);
+        dialog.show();
+
+        dialog.userName.observe(this, userName -> {
+            // 변경된 닉네임
+            Log.d("SETTING_NICKNAME", userName);
+        }) ;
     }
 
     private void showLogoutDialog() {

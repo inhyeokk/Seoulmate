@@ -5,6 +5,7 @@
     <string name="common_date">%1$s-%2$s-%3$s %4$s</string>
     <string name="common_toast_back_press">\'뒤로\'버튼 한번 더 누르시면 종료됩니다.</string>
     <string name="common_mate_email">mate%1$d@korea.com</string>
+    <string name="common_pref_chat_item">%1$s_%2$s_%3$s</string>
 
     <!-- activity_main -->
     <string name="main_tv_title"><b>%1$s</b>님,\n서울여행을 계획해보세요!</string>
@@ -19,10 +20,10 @@
     <string name="my_trip_tv_date_ex">10월 1일 1PM-6PM</string>
     <string name="my_trip_tv_date_short">%1$d월 %2$d일 %3$d%4$s-%5$d%6$s</string>
     <string name="my_trip_tv_date_long">%1$d월 %2$d일 %3$d%4$s - %5$d월 %6$d일 %7$d%8$s</string>
-    <string name="my_trip_tv_member_ex">성인 2명</string>
-    <string name="my_trip_tv_member_adult">성인 %1$d명</string>
-    <string name="my_trip_tv_member_children">어린이 %1$d명</string>
-    <string name="my_trip_tv_member_baby">유아 %1$d명</string>
+    <string name="my_trip_tv_member_ex">성인 2</string>
+    <string name="my_trip_tv_member_adult">성인 %1$d</string>
+    <string name="my_trip_tv_member_children">어린이 %1$d</string>
+    <string name="my_trip_tv_member_baby">유아 %1$d</string>
     <string name="my_trip_tv_with_mate_ex">with 메이트 수진</string>
     <string name="my_trip_tv_with_mate">with 메이트 %1$s</string>
 
@@ -49,6 +50,7 @@
     <string name="setting_like_restaurant">좋아요 하는 맛집</string>
     <string name="setting_logout">로그아웃</string>
     <string name="setting_bottom_title">서울메이트가 되고 싶으신가요?</string>
+    <string name="setting_bottom_mail">smej201@naver.com으로 자신의 여행코스와 프로필 정보를 보내주세요.</string>
     <string name="setting_bottom_description">
         당신이 만든 여행 일정과 노하우를\n
         서울에 놀러온 관광객에게 공유해주세요.\n
@@ -165,6 +167,7 @@
 
     <!-- item_chat -->
     <string name="chat_tv_content">hello breeze!</string>
+    <string name="chat_tv_content_partner">안녕하세요 %1$s님 메이트%2$s입니다!</string>
     <string name="chat_tv_time">10:24</string>
 
     <!-- fragment_chat_menu -->
@@ -180,4 +183,8 @@
 
     <!-- activity_chat_partner -->
     <string name="partner_tv_title">대화상대 정보보기</string>
+
+    <!-- dialog_change_user_name -->
+    <string name="dialog_tv_user_name">닉네임 변경</string>
+    <string name="dialog_ed_user_name">Breeze</string>
 </resources>

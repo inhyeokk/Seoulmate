@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ItemChatPartnerBinding;
 import com.soksok.seoulmate.databinding.ItemChatTempBinding;
 import com.soksok.seoulmate.databinding.ItemChatUserBinding;
@@ -96,6 +97,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         return items.get(position).getType().getValue();
+    }
+
+    public ArrayList<ChatItem> getItems() {
+        return items;
     }
 
     public void add(ChatItem item) {

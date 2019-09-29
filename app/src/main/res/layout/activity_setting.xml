@@ -46,6 +46,7 @@
                 android:text="@string/setting_user_name_ex"
                 android:textColor="@color/colorPrimary"
                 android:textSize="21sp"
+                android:onClick="onUserClick"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintBottom_toTopOf="@+id/tv_user_email"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,12 +55,13 @@
 
             <ImageView
                 android:id="@+id/iv_modify"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_marginStart="7dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_marginTop="8dp"
+                android:padding="10dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_modify"
+                android:onClick="onUserClick"
                 app:layout_constraintBottom_toTopOf="@+id/tv_user_email"
                 app:layout_constraintStart_toEndOf="@+id/tv_user_name"
                 app:layout_constraintTop_toBottomOf="@+id/civ_profile" />
@@ -71,6 +73,7 @@
                 android:text="@string/setting_user_email_ex"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
+                android:onClick="onUserClick"
                 app:layout_constraintBottom_toTopOf="@+id/tv_certify_seoul_mate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -91,13 +91,13 @@ public class BindUtils {
         }
         if (children > 0) {
             if (!member.equals("")) {
-                member += " ";
+                member += ", ";
             }
             member += resources.getString(R.string.my_trip_tv_member_children, children);
         }
         if (baby > 0) {
             if (!member.equals("")) {
-                member += " ";
+                member += ", ";
             }
             member += resources.getString(R.string.my_trip_tv_member_baby, baby);
         }
@@ -108,6 +108,44 @@ public class BindUtils {
         }
 
         return member;
+    }
+
+    public static String getMateName(@NotNull String mateEmail) {
+
+        String mate = "다은";
+        switch (mateEmail) {
+            case "mate0@korea.com":
+                mate = "다은";
+                break;
+            case "mate1@korea.com":
+                mate = "수연";
+                break;
+            case "mate2@korea.com":
+                mate = "은미";
+                break;
+            case "mate3@korea.com":
+                mate = "형규";
+                break;
+            case "mate4@korea.com":
+                mate = "원서";
+                break;
+            case "mate5@korea.com":
+                mate = "창윤";
+                break;
+            case "mate6@korea.com":
+                mate = "은지";
+                break;
+            case "mate7@korea.com":
+                mate = "용준";
+                break;
+            case "mate8@korea.com":
+                mate = "예린";
+                break;
+            case "mate9@korea.com":
+                mate = "유정";
+                break;
+        }
+        return mate;
     }
 
     @NotNull

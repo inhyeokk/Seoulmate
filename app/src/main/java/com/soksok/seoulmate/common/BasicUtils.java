@@ -119,7 +119,18 @@ public class BasicUtils {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        return resources.getString(R.string.match_tv_time, hour, minute);
+
+        String hourr = String.valueOf(hour);
+        if (hour / 10 == 0) {
+            hourr = "0" + hour;
+        }
+
+        String minutee = String.valueOf(minute);
+        if (minute / 10 == 0) {
+            minutee = "0" + minute;
+        }
+
+        return resources.getString(R.string.match_tv_time, hourr, minutee);
     }
 
     @NotNull

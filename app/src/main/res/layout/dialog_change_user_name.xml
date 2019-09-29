@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="240dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    tools:context=".view.main.ChangeAlbumTitleDialog">
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="18dp"
+        android:contentDescription="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toTopOf="@+id/tv_user_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="14dp"
+        android:text="@string/dialog_tv_user_name"
+        android:textColor="@color/colorTextGray"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/ed_user_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_close" />
+
+    <EditText
+        android:id="@+id/ed_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="18dp"
+        android:hint="@string/dialog_ed_user_name"
+        android:inputType="text"
+        android:textColorHint="@color/colorTextLightGray"
+        android:textColor="@color/colorTextGray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_apply_ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
+
+    <TextView
+        android:id="@+id/tv_apply_ok"
+        android:layout_width="84dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/button_yes_background"
+        android:gravity="center"
+        android:text="@string/dialog_tv_apply_ok"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed_user_name" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,8 +19,10 @@ import android.view.inputmethod.EditorInfo;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.BindUtils;
+import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivityChatBinding;
 import com.soksok.seoulmate.http.model.Tour;
+import com.soksok.seoulmate.http.model.User;
 import com.soksok.seoulmate.view.chat.adapter.ChatAdapter;
 import com.soksok.seoulmate.view.chat.adapter.ChatItemListener;
 import com.soksok.seoulmate.view.chat.domain.ChatViewModel;
@@ -40,6 +42,7 @@ public class ChatActivity extends AppCompatActivity {
     public static String EXTRA_CHAT_PARTNER_EMAIL = "EXTRA_CHAT_PARTNER_EMAIL";
 
     private Tour tour;
+    private User user;
 
     private ActivityChatBinding binding;
 
@@ -96,6 +99,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void getData() {
         tour = (Tour) getIntent().getSerializableExtra(MainActivity.EXTRA_TOUR);
+        user = (User) getIntent().getSerializableExtra(MainActivity.EXTRA_USER);
     }
 
     private void onDataBinding() {
@@ -161,40 +165,18 @@ public class ChatActivity extends AppCompatActivity {
 
     private ArrayList<ChatItem> getChatItems() {
 
-        ArrayList<ChatItem> items = new ArrayList<>();
-
-        items.add(new ChatItem(
-                ChatItem.Type.TEMP,
-                BindUtils.getImageMateProfile(tour.getMate()), // 메이트 프로필 이미지
-                "hello breeze! welcome to seoul",
-                "10:24")
-        );
-
-        items.add(new ChatItem(
-                ChatItem.Type.USER,
-                "hello sujin~",
-                "10:31")
-        );
-
-        items.add(new ChatItem(
-                ChatItem.Type.TEMP,
-                BindUtils.getImageMateProfile(tour.getMate()),
-                "Can you give me a common mailbox? I will send you a road map.",
-                "10:37")
-        );
-
-        items.add(new ChatItem(
-                ChatItem.Type.USER,
-                "breeze0908@gmail.com",
-                "10:39")
-        );
-
-        items.add(new ChatItem(
-                ChatItem.Type.USER,
-                "please ;-)",
-                "10:39")
-        );
-
+        ArrayList<ChatItem> items = PrefUtils.getChatItems(user, tour.getIdx());
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        if (items.size() == 0) {
+            items.add(new ChatItem(
+                    ChatItem.Type.TEMP,
+                    BindUtils.getImageMateProfile(tour.getMate()), // 메이트 프로필 이미지
+                    getString(R.string.chat_tv_content_partner, user.getNickname(), BindUtils.getMateName(tour.getMate())),
+                    BasicUtils.getTime())
+            );
+        }
         return items;
     }
 
@@ -205,6 +187,7 @@ public class ChatActivity extends AppCompatActivity {
             chatAdapter.add(new ChatItem(ChatItem.Type.USER, content, BasicUtils.getTime()));
             binding.edMessage.setText("");
             binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+            PrefUtils.setChatItems(user, tour.getIdx(), chatAdapter.getItems());
         }
     }
 
@@ -223,6 +206,7 @@ public class ChatActivity extends AppCompatActivity {
             // 캐싱된 이미지 주소가 set 된 item add
             chatAdapter.add(chatItem);
             binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+            PrefUtils.setChatItems(user, tour.getIdx(), chatAdapter.getItems());
         });
     }
 

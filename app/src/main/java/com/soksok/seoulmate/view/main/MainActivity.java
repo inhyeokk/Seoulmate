@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int REQUEST_CHAT = 2001;
     public static String EXTRA_TOUR = "EXTRA_TOUR";
+    public static String EXTRA_USER = "EXTRA_USER";
     public static String EXTRA_USER_PROFILE = "EXTRA_USER_PROFILE";
 
     private MainViewModel viewModel = new MainViewModel(new MainRepositoryImpl());
@@ -240,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra(EXTRA_TOUR, tour);
+        intent.putExtra(EXTRA_USER, user);
         startActivity(intent);
     }
 
