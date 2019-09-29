@@ -220,12 +220,14 @@ public class BasicUtils {
                 md.update(signature.toByteArray());
                 keyHash = new String(Base64.encode(md.digest(), 0));
                 Log.d(TAG, keyHash);
+                System.out.println("Hash -> " + keyHash);
             }
         } catch (Exception e) {
             Log.e("name not found", e.toString());
         }
         if (keyHash != null) {
             Log.d("KEY_HASH", keyHash);
+            System.out.println("Hash -> " + keyHash);
         }
     }
 }

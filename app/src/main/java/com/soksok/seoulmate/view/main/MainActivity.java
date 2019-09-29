@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         setupViews();
         getProfile();
 
+        BasicUtils.getHashKey(getApplicationContext());
+
+
     }
 
     private void onDataBinding() {

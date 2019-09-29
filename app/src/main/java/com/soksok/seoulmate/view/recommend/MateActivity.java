@@ -2,9 +2,7 @@ package com.soksok.seoulmate.view.recommend;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-
 import android.os.Bundle;
-
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BindUtils;
 import com.soksok.seoulmate.databinding.ActivityMateBinding;
