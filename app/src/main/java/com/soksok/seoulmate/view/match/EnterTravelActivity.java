@@ -159,6 +159,9 @@ public class EnterTravelActivity extends AppCompatActivity {
 
         // 현재 탭 데이터
         travelTitle = binding.edEnterTravelTitle.getText().toString();
+        if (travelTitle.equals("")) {
+            travelTitle = "서울메이트 여행앨범";
+        }
         if (isSetImage) {
             travelImage = BasicUtils.toBase64(binding.ivGallery);
         } else {

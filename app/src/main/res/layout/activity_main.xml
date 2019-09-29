@@ -18,18 +18,34 @@
         android:layout_height="match_parent"
         android:background="@drawable/ic_main_bg">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civ_profile"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="28dp"
+        <FrameLayout
+            android:id="@+id/fl_profile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginTop="42dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_profile"
             android:onClick="onProfileClick"
-            app:layout_constraintEnd_toStartOf="@+id/tv_title"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintEnd_toStartOf="@+id/iv_bg_top"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_profile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_mate_profile2"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/colorDivide" />
+            
+            <ImageView
+                android:id="@+id/iv_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_setting"
+                android:layout_gravity="bottom|end"/>
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tv_title"
@@ -40,7 +56,7 @@
             android:text="@string/main_tv_title_ex"
             android:textColor="@color/colorText"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/civ_profile"
+            app:layout_constraintStart_toEndOf="@+id/fl_profile"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -51,7 +67,8 @@
             android:layout_marginTop="42dp"
             android:contentDescription="@null"
             android:src="@drawable/ic_main_bg_top"
-            app:layout_constraintStart_toEndOf="@+id/civ_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/fl_profile"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.core.widget.NestedScrollView
@@ -132,7 +149,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:background="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -143,7 +160,6 @@
                 android:id="@+id/iv_my_trip"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="11dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_my_trip"
                 android:onClick="onMyTripClick"
@@ -157,7 +173,6 @@
                 android:id="@+id/tv_my_trip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/main_tv_my_trip"
                 android:textColor="@color/colorPrimary"
@@ -169,8 +184,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civ_search"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/ic_search"
                 android:onClick="onSearchClick"
                 app:layout_constraintBottom_toBottomOf="parent"

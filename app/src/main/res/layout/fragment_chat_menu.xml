@@ -18,7 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/bg_chat_menu"
+            android:background="@drawable/border_layout_topleft"
             app:layout_constraintHeight_percent="0.98"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,32 +36,52 @@
                 android:textColor="@color/colorTextGray"
                 android:textSize="16sp"
                 android:onClick="@{view::onShowChatPartnerClick}"
-                app:layout_constraintBottom_toTopOf="@+id/tv_album"
+                app:layout_constraintBottom_toTopOf="@+id/view_first"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_first"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivide"
+                app:layout_constraintBottom_toTopOf="@+id/tv_album"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_show_chat_partner" />
 
             <TextView
                 android:id="@+id/tv_album"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:padding="15dp"
+                android:padding="14dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="@string/chat_tv_album"
                 android:textColor="@color/colorTextGray"
                 android:textSize="16sp"
                 android:onClick="@{view::onAlbumClick}"
-                app:layout_constraintBottom_toTopOf="@+id/tv_date"
+                app:layout_constraintBottom_toTopOf="@+id/view_second"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_show_chat_partner" />
+                app:layout_constraintTop_toBottomOf="@+id/view_first" />
+
+            <View
+                android:id="@+id/view_second"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivide"
+                app:layout_constraintBottom_toTopOf="@+id/tv_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_album" />
 
             <TextView
                 android:id="@+id/tv_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:padding="15dp"
+                android:padding="14dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="@string/chat_tv_date"
@@ -69,7 +89,7 @@
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/iv_day_first"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_album" />
+                app:layout_constraintTop_toBottomOf="@+id/view_second" />
 
             <ImageView
                 android:id="@+id/iv_day_first"
@@ -131,8 +151,8 @@
             
             <ImageView
                 android:id="@+id/iv_tour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="220dp"
+                android:layout_height="400dp"
                 android:layout_marginBottom="12dp"
                 android:layout_marginStart="46dp"
                 android:layout_marginTop="18dp"

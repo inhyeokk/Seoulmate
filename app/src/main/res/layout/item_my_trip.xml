@@ -35,7 +35,7 @@
                 android:layout_height="180dp"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_trip"
+                android:src="@drawable/bg_album_default"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
