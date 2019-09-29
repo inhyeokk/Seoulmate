@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.BindUtils;
 import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivitySettingBinding;
 import com.soksok.seoulmate.http.model.User;
@@ -147,6 +148,8 @@ public class SettingActivity extends AppCompatActivity {
 
         if(user.getIskakao() != 1){
             Picasso.get().load(Uri.parse(user.getProfileImage())).into(binding.civProfile);
+        }else { // 일반로그인 이면
+            BindUtils.setImageBase64(binding.civProfile,user.getProfileImage());
         }
 
         System.out.println("#setUserInfo  user" + user);
