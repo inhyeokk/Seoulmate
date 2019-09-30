@@ -11,14 +11,22 @@ import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.BindUtils;
 import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivitySettingBinding;
+import com.soksok.seoulmate.http.model.BaseResponse;
 import com.soksok.seoulmate.http.model.User;
+import com.soksok.seoulmate.http.model.request.TourRequest;
+import com.soksok.seoulmate.http.service.ApiService;
 import com.soksok.seoulmate.view.like.LikeActivity;
 import com.soksok.seoulmate.view.login.LoginActivity;
 import com.soksok.seoulmate.view.main.MainActivity;
 import com.squareup.picasso.Picasso;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -129,9 +137,14 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void goToEmailApp() {
-
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+        startActivity(intent);
+    }
+
+    private void goMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -141,8 +154,60 @@ public class SettingActivity extends AppCompatActivity {
         dialog.show();
 
         dialog.userName.observe(this, userName -> {
-            // 변경된 닉네임
             Log.d("SETTING_NICKNAME", userName);
+            // 변경된 닉네임
+            ApiService apiService = ApiService.retrofit.create(ApiService.class);
+
+            Call<BaseResponse<String>> updateTitleTour = apiService.updateUserNickname(userName);
+
+            updateTitleTour.enqueue(new Callback<BaseResponse<String>>() {
+                @Override
+                public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                    if(response.code() == 200){
+                        System.out.println("성공~!");
+                        BasicUtils.showToast(getApplicationContext(),"변경성공!");
+
+                        Call<BaseResponse<User>> myCall = apiService.getMyProfile();
+
+                        myCall.enqueue(new Callback<BaseResponse<User>>() {
+                            @Override
+                            public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
+                                if(response.code() == 200){
+                                    System.out.println("성공~!");
+                                    System.out.println("현재유저정보 : " + response.body().getMessage());
+                                    User user = response.body().getMessage();
+
+                                    binding.tvUserName.setText(user.getNickname());
+                                    binding.tvUserEmail.setText(user.getEmail());
+
+                                    goMainActivity();
+                                } else {
+                                    BasicUtils.showToast(getApplicationContext(),"유저 정보 로딩 실패");
+                                    System.out.println(response.code());
+                                    System.out.println(response.errorBody().toString());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
+                                System.out.println("실패!!");
+                            }
+                        });
+                    } else {
+                        // 그밖에 실패시.
+                        BasicUtils.showToast(getApplicationContext(),"변경실패");
+                        BasicUtils.showToast(getApplicationContext(),"삭제 실패");
+                        System.out.println(response.code());
+                        System.out.println(response.errorBody().toString());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                    System.out.println("실패!!");
+                }
+            });
+
         }) ;
     }
 
@@ -165,19 +230,49 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void setUserInfo(){
-        User user = (User) getIntent().getSerializableExtra(MainActivity.EXTRA_USER_PROFILE);
 
-        binding.tvUserName.setText(user.getNickname());
-        binding.tvUserEmail.setText(user.getEmail());
-        if (user.getProfileImage() != null && !user.getProfileImage().equals("")) {
-            if(user.getIskakao() != 1){
-                Picasso.get().load(Uri.parse(user.getProfileImage())).into(binding.civProfile);
-            }else { // 일반로그인 이면
-                BindUtils.setImageBase64(binding.civProfile,user.getProfileImage());
+        ApiService apiService = ApiService.retrofit.create(ApiService.class);
+
+        Call<BaseResponse<User>> myCall = apiService.getMyProfile();
+
+        myCall.enqueue(new Callback<BaseResponse<User>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
+                if(response.code() == 200){
+                    System.out.println("성공~!");
+                    System.out.println("현재유저정보 : " + response.body().getMessage());
+                    User user = response.body().getMessage();
+
+                    binding.tvUserName.setText(user.getNickname());
+                    binding.tvUserEmail.setText(user.getEmail());
+                    if (user.getProfileImage() != null && !user.getProfileImage().equals("")) {
+                        if(user.getIskakao() != 1){
+                            Picasso.get().load(Uri.parse(user.getProfileImage())).into(binding.civProfile);
+                        }else { // 일반로그인 이면
+                            BindUtils.setImageBase64(binding.civProfile,user.getProfileImage());
+                        }
+                    }
+
+
+                } else {
+                    BasicUtils.showToast(getApplicationContext(),"유저 정보 로딩 실패");
+                    System.out.println(response.code());
+                    System.out.println(response.errorBody().toString());
+                }
             }
-        }
 
-        System.out.println("#setUserInfo  user" + user);
+            @Override
+            public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
+                System.out.println("실패!!");
+            }
+        });
+
+
+
+//        User user = (User) getIntent().getSerializableExtra(MainActivity.EXTRA_USER_PROFILE);
+
+
+//        System.out.println("#setUserInfo  user" + user);
 
     }
 }

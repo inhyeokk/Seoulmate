@@ -69,6 +69,9 @@ public interface ApiService {
     @GET("admin/{email}")
     Call<BaseResponse<User>> getUseradmin(@Path("email") String email);
 
+    @PUT("user/nickname/{nickname}")
+    Call<BaseResponse<String>> updateUserNickname(@Path("nickname") String nickname);
+
     // # 메이트신청
     //   - 일반 유저를 메이트 유저로 변경한다. (즉시 변경됨)
     //   - Path 파라미터로 메이트로 변경할 이메일을 받는다.
