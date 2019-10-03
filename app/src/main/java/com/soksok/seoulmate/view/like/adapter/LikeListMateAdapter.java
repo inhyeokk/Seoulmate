@@ -1,4 +1,4 @@
-package com.soksok.seoulmate.view.recommend.adapter;
+package com.soksok.seoulmate.view.like.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,33 +10,34 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.databinding.ItemLikeListMateBinding;
 import com.soksok.seoulmate.databinding.ItemListMateBinding;
 
 import java.util.ArrayList;
 
-public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMateViewHolder> {
+public class LikeListMateAdapter extends RecyclerView.Adapter<LikeListMateAdapter.LikeListMateViewHolder> {
 
     private ArrayList<Integer> mates;
 
-    private ListItemListener listener;
+    private LikeListItemListener listener;
 
-    public ListMateAdapter(ArrayList<Integer> mates, ListItemListener listener) {
+    public LikeListMateAdapter(ArrayList<Integer> mates, LikeListItemListener listener) {
         this.mates = mates;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ListMateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public LikeListMateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ItemListMateBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_list_mate, parent, false);
+        ItemLikeListMateBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_like_list_mate, parent, false);
 
-        ListMateViewHolder viewHolder = new ListMateViewHolder(binding);
+        LikeListMateViewHolder viewHolder = new LikeListMateViewHolder(binding);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListMateViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LikeListMateViewHolder holder, int position) {
         holder.bind(mates.get(position));
     }
 
@@ -45,11 +46,11 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
         return mates.size();
     }
 
-    public class ListMateViewHolder extends RecyclerView.ViewHolder {
+    public class LikeListMateViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemListMateBinding binding;
+        private ItemLikeListMateBinding binding;
 
-        public ListMateViewHolder(@NonNull ItemListMateBinding binding) {
+        public LikeListMateViewHolder(@NonNull ItemLikeListMateBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -62,10 +63,6 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
 
         public void onLayoutClick(View v) {
             listener.onLayoutClick(v, getAdapterPosition());
-        }
-
-        public void onLikeClick(View v) {
-            listener.onLikeClick(v, getAdapterPosition());
         }
     }
 }

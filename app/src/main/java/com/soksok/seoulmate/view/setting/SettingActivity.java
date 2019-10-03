@@ -35,6 +35,7 @@ public class SettingActivity extends AppCompatActivity {
     public static final String VALUE_LIKE_MATE = "VALUE_LIKE_MATE";
     public static final String VALUE_LIKE_SPOT = "VALUE_LIKE_SPOT";
     public static final String VALUE_LIKE_RESTAURANT = "VALUE_LIKE_RESTAURANT";
+    public static final String VALUE_LIKE_INFORMATION = "VALUE_LIKE_INFORMATION";
 
     private ActivitySettingBinding binding;
 
@@ -84,6 +85,10 @@ public class SettingActivity extends AppCompatActivity {
 
     public void onLikeRestaurantClick(View v) {
         goToLikeActivity(VALUE_LIKE_RESTAURANT);
+    }
+
+    public void onLikeInformationClick(View v) {
+        goToLikeActivity(VALUE_LIKE_INFORMATION);
     }
 
     public void onLogoutClick(View v) {

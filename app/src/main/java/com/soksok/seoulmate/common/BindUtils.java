@@ -202,6 +202,9 @@ public class BindUtils {
             case SettingActivity.VALUE_LIKE_RESTAURANT:
                 result = resources.getString(R.string.setting_like_restaurant);
                 break;
+
+            case SettingActivity.VALUE_LIKE_INFORMATION:
+                result = resources.getString(R.string.setting_like_information);
         }
         return result;
     }
