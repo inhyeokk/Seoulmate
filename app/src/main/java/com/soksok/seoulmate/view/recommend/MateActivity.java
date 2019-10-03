@@ -9,7 +9,7 @@ import com.soksok.seoulmate.databinding.ActivityMateBinding;
 
 public class MateActivity extends AppCompatActivity {
 
-    private int position = 0;
+    private String mateEmail = "mate0@korea.com";
 
     private ActivityMateBinding binding;
 
@@ -22,7 +22,7 @@ public class MateActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        position = getIntent().getIntExtra(MateFragment.EXTRA_MATE_POSITION, 0);
+        mateEmail = getIntent().getStringExtra(MateFragment.EXTRA_MATE_EMAIL);
     }
 
     private void onDataBinding() {
@@ -30,6 +30,6 @@ public class MateActivity extends AppCompatActivity {
     }
 
     private void setupViews() {
-        BindUtils.setImageMate(binding.ivMate, position);
+        BindUtils.setImageMate(binding.ivMate, mateEmail);
     }
 }

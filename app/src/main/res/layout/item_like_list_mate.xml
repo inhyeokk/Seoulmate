@@ -6,7 +6,7 @@
     <data>
         <variable
             name="holder"
-            type="com.soksok.seoulmate.view.recommend.adapter.ListMateAdapter.ListMateViewHolder" />
+            type="com.soksok.seoulmate.view.like.adapter.LikeListMateAdapter.LikeListMateViewHolder" />
         <variable
             name="mate"
             type="int" />
@@ -29,18 +29,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-            android:id="@+id/iv_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:padding="10dp"
-            android:contentDescription="@null"
-            android:src="@drawable/selector_like"
-            android:onClick="@{holder::onLikeClick}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -10,6 +10,9 @@
         <variable
             name="value"
             type="String" />
+        <variable
+            name="count"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:contentDescription="@null"
+            android:src="@drawable/ic_like_selected"
             app:layout_constraintBottom_toTopOf="@+id/tv_count"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/like_tv_count"
+            android:text="@{count}"
             android:textColor="@color/colorTextRed"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/rcv_like"

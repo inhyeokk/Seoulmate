@@ -48,6 +48,7 @@
     <string name="setting_like_mate">좋아요 하는 메이트</string>
     <string name="setting_like_spot">좋아요 하는 관광지</string>
     <string name="setting_like_restaurant">좋아요 하는 맛집</string>
+    <string name="setting_like_information">좋아요 하는 정보</string>
     <string name="setting_logout">로그아웃</string>
     <string name="setting_bottom_title">서울메이트가 되고 싶으신가요?</string>
     <string name="setting_bottom_mail"><b>\'smej201@naver.com\'</b>으로\n자신의 여행코스와 프로필 정보를 보내주세요.</string>

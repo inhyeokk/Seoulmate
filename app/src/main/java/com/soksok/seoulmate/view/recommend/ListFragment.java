@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.soksok.seoulmate.databinding.FragmentListBinding;
 import com.soksok.seoulmate.http.model.Recommend;
 import com.soksok.seoulmate.view.recommend.adapter.ListAdapter;
+import com.soksok.seoulmate.view.recommend.adapter.ListItemListener;
 
 import java.util.ArrayList;
 
@@ -40,10 +41,19 @@ public class ListFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcvMate.setLayoutManager(layoutManager);
-        ListAdapter mateAdapter = new ListAdapter(recommends, (v, position) -> {
+        ListAdapter mateAdapter = new ListAdapter(recommends, new ListItemListener() {
+            @Override
+            public void onLayoutClick(View v, int position) {
+                goToExternalBrowser(recommends.get(position).getUrl());
+            }
 
-            goToExternalBrowser(recommends.get(position).getUrl());
-//            recommends.get(0).get
+            @Override
+            public void onLikeClick(View v, int position) {
+                /* TODO
+                 * 좋아요 선택 시 여부 반영
+                 */
+                v.setSelected(!v.isSelected());
+            }
         });
         binding.rcvMate.setAdapter(mateAdapter);
     }

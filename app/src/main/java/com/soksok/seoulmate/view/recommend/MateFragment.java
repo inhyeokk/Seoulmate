@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.databinding.FragmentMateBinding;
+import com.soksok.seoulmate.view.recommend.adapter.ListItemListener;
 import com.soksok.seoulmate.view.recommend.adapter.ListMateAdapter;
 
 import java.util.ArrayList;
 
 public class MateFragment extends Fragment {
 
-    public static final String EXTRA_MATE_POSITION = "EXTRA_MATE_POSITION";
+    public static final String EXTRA_MATE_EMAIL = "EXTRA_MATE_EMAIL";
 
     private FragmentMateBinding binding;
 
@@ -39,9 +40,20 @@ public class MateFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcvMate.setLayoutManager(layoutManager);
-        ListMateAdapter mateAdapter = new ListMateAdapter(
-                getMates(),
-                (v, position) -> goToMateActivity(position)
+        ListMateAdapter mateAdapter = new ListMateAdapter(getMates(), new ListItemListener() {
+            @Override
+            public void onLayoutClick(View v, int position) {
+                goToMateActivity(getString(R.string.common_mate_email, position));
+            }
+
+            @Override
+            public void onLikeClick(View v, int position) {
+                /* TODO
+                 * 좋아요 선택 시 여부 반영
+                 */
+                v.setSelected(!v.isSelected());
+            }
+        }
         );
         binding.rcvMate.setAdapter(mateAdapter);
     }
@@ -63,9 +75,9 @@ public class MateFragment extends Fragment {
         return mates;
     }
 
-    private void goToMateActivity(int position) {
+    private void goToMateActivity(String mateEmail) {
         Intent intent = new Intent(getActivity(), MateActivity.class);
-        intent.putExtra(EXTRA_MATE_POSITION, position);
+        intent.putExtra(EXTRA_MATE_EMAIL, mateEmail);
         startActivity(intent);
     }
 }
