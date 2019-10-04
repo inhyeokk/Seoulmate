@@ -69,8 +69,19 @@ public interface ApiService {
     @GET("admin/{email}")
     Call<BaseResponse<User>> getUseradmin(@Path("email") String email);
 
+    // # 유저의 닉네임 변경
+    //   - 특정 유저의 닉네임을 변경.
+    //   - 유저의 닉네임을 path 파라미터로 전송함.
+    //   - 200 정상 변경
     @PUT("user/nickname/{nickname}")
     Call<BaseResponse<String>> updateUserNickname(@Path("nickname") String nickname);
+
+    // # 메이트 좋아요
+    //   - 등록된 메이트의 좋아요 카운트를 +1
+    //   - 메이트의 이메일을 path 파라미터로 전송함.
+    //   - 200 정상 처리
+    @PUT("user/email/like/{email}")
+    Call<BaseResponse<String>> likeMate(@Path("email") String email);
 
     // # 메이트신청
     //   - 일반 유저를 메이트 유저로 변경한다. (즉시 변경됨)

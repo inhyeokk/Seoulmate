@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         BasicUtils.getHashKey(getApplicationContext());
 
+        BasicUtils.getHashKey(this);
+
 
     }
 
