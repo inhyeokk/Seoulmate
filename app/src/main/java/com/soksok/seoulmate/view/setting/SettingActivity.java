@@ -1,9 +1,14 @@
 package com.soksok.seoulmate.view.setting;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +34,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SettingActivity extends AppCompatActivity {
+
+    private static final int REQUEST_PERMISSION = 1001;
+    private static final int REQUEST_GALLERY = 5001;
 
     public static final String EXTRA_LIKE = "EXTRA_LIKE";
 
@@ -60,9 +68,59 @@ public class SettingActivity extends AppCompatActivity {
         setBottomClickable(false);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_GALLERY:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        Uri uri = data.getData();
+                        BindUtils.setCircleGalleryURI(binding.civProfile, uri);
+
+                        /* TODO
+                         * 프로필 이미지 변경
+                         */
+                        BasicUtils.fromURIToBase64(uri);
+                        break;
+                    case RESULT_CANCELED:
+                        // do nothing
+                        break;
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0]
+                        == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted
+                    goToGallery();
+                } else {
+                    // permission denied
+                    // do nothing
+                }
+                break;
+        }
+    }
+
     /*
      * 클릭 이벤트
      */
+    public void onProfileClick(View v) {
+
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            goToGallery();
+        } else {
+            requestPermission();
+        }
+    }
+
     public void onUserClick(View v) {
         showChangeUserNameDialog();
     }
@@ -125,6 +183,21 @@ public class SettingActivity extends AppCompatActivity {
             binding.clBackground.setClickable(false);
             binding.clBackground.setFocusable(false);
         }
+    }
+
+    private void requestPermission() {
+
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                REQUEST_PERMISSION
+        );
+    }
+
+    private void goToGallery() {
+
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intent, REQUEST_GALLERY);
     }
 
     private void goToLikeActivity(String value) {
