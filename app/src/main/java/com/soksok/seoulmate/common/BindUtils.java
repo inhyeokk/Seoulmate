@@ -276,7 +276,7 @@ public class BindUtils {
         Glide.with(view.getContext())
                 .load(drawable)
                 .skipMemoryCache(false)
-//                .override(Target.SIZE_ORIGINAL)
+                .override(Target.SIZE_ORIGINAL)
                 .into(view);
     }
 

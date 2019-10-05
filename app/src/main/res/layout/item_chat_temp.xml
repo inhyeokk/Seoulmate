@@ -26,6 +26,7 @@
             android:contentDescription="@null"
             android:elevation="1dp"
             android:onClick="@{holder::onProfileClick}"
+            android:scaleType="fitXY"
             app:bind_image_drawable="@{item.profileDrawable}"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintHorizontal_bias="0"
