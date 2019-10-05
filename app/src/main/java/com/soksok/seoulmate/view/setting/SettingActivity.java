@@ -90,10 +90,13 @@ public class SettingActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                                 BindUtils.setCircleGalleryURI(binding.civProfile, uri);
+                                System.out.println("onResponse");
                             }
                             @Override
                             public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
                                 BasicUtils.showToast(getApplicationContext(),t.getMessage());
+                                System.out.println("onFailure");
+
                             }
                         });
                         break;

@@ -48,8 +48,6 @@ public class MateFragment extends Fragment {
     private void setupView() {
         ApiService apiService = ApiService.retrofit.create(ApiService.class);
 
-
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcvMate.setLayoutManager(layoutManager);
         ListMateAdapter mateAdapter = new ListMateAdapter(getMates(), new ListItemListener() {
