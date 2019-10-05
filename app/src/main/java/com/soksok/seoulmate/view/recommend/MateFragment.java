@@ -50,7 +50,7 @@ public class MateFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcvMate.setLayoutManager(layoutManager);
-        ListMateAdapter mateAdapter = new ListMateAdapter(getMates(), new ListItemListener() {
+        ListMateAdapter mateAdapter = new ListMateAdapter(getMates(), getIsLikes(), new ListItemListener() {
             @Override
             public void onLayoutClick(View v, int position) {
                 goToMateActivity(getString(R.string.common_mate_email, position));
@@ -107,6 +107,7 @@ public class MateFragment extends Fragment {
     private ArrayList<Integer> getMates() {
 
         ArrayList<Integer> mates = new ArrayList<>();
+
         mates.add(R.drawable.img_list_mate7); // 다은
         mates.add(R.drawable.img_list_mate9); // 수연
         mates.add(R.drawable.img_list_mate1); // 은미
@@ -119,6 +120,27 @@ public class MateFragment extends Fragment {
         mates.add(R.drawable.img_list_mate6); // 유정
 
         return mates;
+    }
+
+    private ArrayList<Boolean> getIsLikes() {
+
+        /* TODO
+         * ListMateAdapter의 mates의 count와 일치해야함
+         */
+        ArrayList<Boolean> isLikes = new ArrayList<>();
+
+        isLikes.add(true); // 다은
+        isLikes.add(false); // 수연
+        isLikes.add(true); // 은미
+        isLikes.add(true); // 형규
+        isLikes.add(false); // 원서
+        isLikes.add(false); // 창윤
+        isLikes.add(false); // 은지
+        isLikes.add(false); // 용준
+        isLikes.add(false); // 예린
+        isLikes.add(false); // 유정
+
+        return isLikes;
     }
 
     private void goToMateActivity(String mateEmail) {

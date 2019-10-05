@@ -17,11 +17,13 @@ import java.util.ArrayList;
 public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMateViewHolder> {
 
     private ArrayList<Integer> mates;
+    private ArrayList<Boolean> isLikes;
 
     private ListItemListener listener;
 
-    public ListMateAdapter(ArrayList<Integer> mates, ListItemListener listener) {
+    public ListMateAdapter(ArrayList<Integer> mates, ArrayList<Boolean> isLikes, ListItemListener listener) {
         this.mates = mates;
+        this.isLikes = isLikes;
         this.listener = listener;
     }
 
@@ -37,7 +39,7 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
 
     @Override
     public void onBindViewHolder(@NonNull ListMateViewHolder holder, int position) {
-        holder.bind(mates.get(position));
+        holder.bind(mates.get(position), isLikes.get(position));
     }
 
     @Override
@@ -54,9 +56,10 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
             this.binding = binding;
         }
 
-        public void bind(int position) {
+        public void bind(int mate, boolean isLike) {
             binding.setHolder(this);
-            binding.setMate(position);
+            binding.setMate(mate);
+            binding.ivLike.setSelected(isLike);
             binding.executePendingBindings();
         }
 

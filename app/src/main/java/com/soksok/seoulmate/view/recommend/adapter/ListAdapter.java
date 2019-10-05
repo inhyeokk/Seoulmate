@@ -14,16 +14,20 @@ import com.soksok.seoulmate.common.BindUtils;
 import com.soksok.seoulmate.databinding.ItemListBinding;
 import com.soksok.seoulmate.http.model.Recommend;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
 
     private ArrayList<Recommend> recommends;
+    private ArrayList<Boolean> isLikes;
 
     private ListItemListener listener;
 
-    public ListAdapter(ArrayList<Recommend> recommends, ListItemListener listener) {
+    public ListAdapter(ArrayList<Recommend> recommends, ArrayList<Boolean> isLikes, ListItemListener listener) {
         this.recommends = recommends;
+        this.isLikes = isLikes;
         this.listener = listener;
     }
 
@@ -39,7 +43,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        holder.bind(recommends.get(position));
+        holder.bind(recommends.get(position), isLikes.get(position));
     }
 
     @Override
@@ -56,7 +60,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             this.binding = binding;
         }
 
-        public void bind(Recommend recommend) {
+        public void bind(@NotNull Recommend recommend, boolean isLike) {
             /** 이미지 정보 있을 경우 데이터 셋
              */
             if (!recommend.getImage().equals("")) {
@@ -64,6 +68,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             }
             binding.setHolder(this);
             binding.setRecommend(recommend);
+            binding.ivLike.setSelected(isLike);
             binding.executePendingBindings();
         }
 

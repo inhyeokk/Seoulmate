@@ -41,7 +41,7 @@ public class ListFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcvMate.setLayoutManager(layoutManager);
-        ListAdapter mateAdapter = new ListAdapter(recommends, new ListItemListener() {
+        ListAdapter mateAdapter = new ListAdapter(recommends, getIsLikes(), new ListItemListener() {
             @Override
             public void onLayoutClick(View v, int position) {
                 goToExternalBrowser(recommends.get(position).getUrl());
@@ -57,6 +57,21 @@ public class ListFragment extends Fragment {
             }
         });
         binding.rcvMate.setAdapter(mateAdapter);
+    }
+
+    private ArrayList<Boolean> getIsLikes() {
+        /* TODO
+         * ListAdapter의 recommends의 count와 일치해야함
+         * 좋아요 선택 여부를 어디서 처리하실지 몰라서 여기에 임시로 작성해둡니다.
+         * Recommend 클래스에서 관리하시면 해당 메소드는 필요없고 ListAdapter의 생성자에
+         * isLikes 지워주시고 ViewHolder 내 bind 메소드에 recommend.isLike() 쓰시면됩니다.
+         * RecommendActivity에서부터 처리하실거면 ListFragment 생성자에 인자 추가해주세요.
+         */
+        ArrayList<Boolean> isLikes = new ArrayList<>();
+        for (int i = 0; i < recommends.size(); i++) {
+            isLikes.add(false);
+        }
+        return isLikes;
     }
 
     // 외부 링크 연결
