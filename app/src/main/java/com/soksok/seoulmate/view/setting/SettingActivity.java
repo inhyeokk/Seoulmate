@@ -49,6 +49,9 @@ public class SettingActivity extends AppCompatActivity {
 
     private BottomSheetBehavior behavior;
 
+    private ApiService apiService = ApiService.retrofit.create(ApiService.class);
+    private Call<BaseResponse<String>> updateUserProfileImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,17 +79,23 @@ public class SettingActivity extends AppCompatActivity {
                 switch (resultCode) {
                     case RESULT_OK:
                         Uri uri = data.getData();
-                        BindUtils.setCircleGalleryURI(binding.civProfile, uri);
-
-
-
                         /* TODO
                          * 프로필 이미지 변경
                          */
                         String imageString = BasicUtils.fromURIToBase64(uri);
-                        System.out.println(imageString);
 
+                        updateUserProfileImage = apiService.updateUserProfileImage(imageString);
 
+                        updateUserProfileImage.enqueue(new Callback<BaseResponse<String>>() {
+                            @Override
+                            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                                BindUtils.setCircleGalleryURI(binding.civProfile, uri);
+                            }
+                            @Override
+                            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                                BasicUtils.showToast(getApplicationContext(),t.getMessage());
+                            }
+                        });
                         break;
                     case RESULT_CANCELED:
                         // do nothing
