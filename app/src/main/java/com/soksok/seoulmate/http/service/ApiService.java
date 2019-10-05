@@ -83,6 +83,14 @@ public interface ApiService {
     @PUT("user/email/like/{email}")
     Call<BaseResponse<String>> likeMate(@Path("email") String email);
 
+    // # 메이트 좋아요취소
+    //   - 등록된 메이트의 좋아요 카운트를 -1
+    //   - 메이트의 이메일을 path 파라미터로 전송함.
+    //   - 200 정상 처리
+    @PUT("user/email/unlike/{email}")
+    Call<BaseResponse<String>> unlikeMate(@Path("email") String email);
+
+
     // # 메이트신청
     //   - 일반 유저를 메이트 유저로 변경한다. (즉시 변경됨)
     //   - Path 파라미터로 메이트로 변경할 이메일을 받는다.
@@ -179,7 +187,7 @@ public interface ApiService {
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .client(client)
-            .baseUrl(aws)
+            .baseUrl(localhost)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

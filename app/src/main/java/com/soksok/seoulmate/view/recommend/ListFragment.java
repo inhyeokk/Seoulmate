@@ -52,6 +52,7 @@ public class ListFragment extends Fragment {
                 /* TODO
                  * 좋아요 선택 시 여부 반영
                  */
+                System.out.println("like!");
                 v.setSelected(!v.isSelected());
             }
         });

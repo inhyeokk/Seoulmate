@@ -93,7 +93,6 @@ public class SessionCallback implements ISessionCallback {
 //                PrefUtils.setToken("eyJhbGciOiJIUzI1NiJ9.a3lzNjg3OUBuYXZlci5jb20.Jqb7ZtryZapuIbjYB4_bL8hPKB-jRRave1H9QYJYgMM");
                 // 서버에 있는지 확인
                 getUserCall.enqueue(new Callback<BaseResponse<User>>() {
-
                     @Override
                     public void onResponse(Call<BaseResponse<User>> call, Response<BaseResponse<User>> response) {
 //                        PrefUtils.setToken("");

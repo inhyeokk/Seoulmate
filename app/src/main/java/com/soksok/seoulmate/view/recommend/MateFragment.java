@@ -12,16 +12,25 @@ import android.view.ViewGroup;
 
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.databinding.FragmentMateBinding;
+import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.service.ApiService;
 import com.soksok.seoulmate.view.recommend.adapter.ListItemListener;
 import com.soksok.seoulmate.view.recommend.adapter.ListMateAdapter;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MateFragment extends Fragment {
 
     public static final String EXTRA_MATE_EMAIL = "EXTRA_MATE_EMAIL";
 
     private FragmentMateBinding binding;
+
+    Call<BaseResponse<String>> likeMateCall;
+    Call<BaseResponse<String>> unlikeMateCall;
 
     public MateFragment() {
     }
@@ -37,6 +46,9 @@ public class MateFragment extends Fragment {
     }
 
     private void setupView() {
+        ApiService apiService = ApiService.retrofit.create(ApiService.class);
+
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcvMate.setLayoutManager(layoutManager);
@@ -51,6 +63,42 @@ public class MateFragment extends Fragment {
                 /* TODO
                  * 좋아요 선택 시 여부 반영
                  */
+                System.out.println("mate like : " +position);
+                System.out.println("isSelected : " +v.isSelected());
+                boolean isSel = v.isSelected();
+
+//                if(!isSel){
+//                    // 그 메이트에게 좋아요
+//
+//                    likeMateCall = apiService.likeMate(String.format("mate%d@korea.com",position));
+//                    likeMateCall.enqueue(new Callback<BaseResponse<String>>() {
+//                        @Override
+//                        public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+//
+//                        }
+//                    });
+//
+//                } else {
+//                    // 그 메이트에게 좋아요 취소
+//                    likeMateCall = apiService.unlikeMate(String.format("mate%d@korea.com",position));
+//                    likeMateCall.enqueue(new Callback<BaseResponse<String>>() {
+//                        @Override
+//                        public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+//
+//                        }
+//                    });
+//                }
+
                 v.setSelected(!v.isSelected());
             }
         }
