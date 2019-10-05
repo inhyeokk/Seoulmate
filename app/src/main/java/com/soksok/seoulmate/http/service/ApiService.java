@@ -90,6 +90,12 @@ public interface ApiService {
     @PUT("user/email/unlike/{email}")
     Call<BaseResponse<String>> unlikeMate(@Path("email") String email);
 
+    // # 유저 프로필 이미지 변경
+    //   - 등록된 유저의 프로필 사진을 변경한다.
+    //   - 사진의 base64 문자열을 body 로 전달한다.
+    //   - 200 정상 처리
+    @PUT("user/profile/image")
+    Call<BaseResponse<String>> updateUserProfileImage(@Body String image);
 
     // # 메이트신청
     //   - 일반 유저를 메이트 유저로 변경한다. (즉시 변경됨)
@@ -187,7 +193,7 @@ public interface ApiService {
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .client(client)
-            .baseUrl(aws)
+            .baseUrl(localhost)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

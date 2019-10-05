@@ -78,10 +78,15 @@ public class SettingActivity extends AppCompatActivity {
                         Uri uri = data.getData();
                         BindUtils.setCircleGalleryURI(binding.civProfile, uri);
 
+
+
                         /* TODO
                          * 프로필 이미지 변경
                          */
-                        BasicUtils.fromURIToBase64(uri);
+                        String imageString = BasicUtils.fromURIToBase64(uri);
+                        System.out.println(imageString);
+
+
                         break;
                     case RESULT_CANCELED:
                         // do nothing
