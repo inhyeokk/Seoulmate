@@ -13,6 +13,13 @@ public class User implements Serializable {
     String profile_image;
     int iskakao; // 1 : normal , 2 : kakao
 
+    public User() {
+    }
+
+    public User(String profile_image) {
+        this.profile_image = profile_image;
+    }
+
     public String getProfileImage() {
         return profile_image;
     }

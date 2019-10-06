@@ -2,6 +2,7 @@ package com.soksok.seoulmate.http.service;
 
 import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.http.model.BaseResponse;
+import com.soksok.seoulmate.http.model.MateMap;
 import com.soksok.seoulmate.http.model.Recommend;
 import com.soksok.seoulmate.http.model.TitleRecommend;
 import com.soksok.seoulmate.http.model.Tour;
@@ -94,8 +95,8 @@ public interface ApiService {
     //   - 등록된 유저의 프로필 사진을 변경한다.
     //   - 사진의 base64 문자열을 body 로 전달한다.
     //   - 200 정상 처리
-    @PUT("user/profile/image")
-    Call<BaseResponse<String>> updateUserProfileImage(@Body String image);
+    @HTTP(method = "PUT",path = "/user/profile/image", hasBody = true)
+    Call<BaseResponse<String>> updateUserProfileImage(@Body User body);
 
     // # 메이트신청
     //   - 일반 유저를 메이트 유저로 변경한다. (즉시 변경됨)
@@ -105,6 +106,12 @@ public interface ApiService {
     //   - 200 - 정상변경 ,  406 - 이미 메이트인데 변경 할 경우 , 409 - 일치하는 정보가 없음 (없는 이메일) ,
     @PUT("user/mate/{email}")
     Call<BaseResponse<String>> setMate(@Path("email") String email);
+
+    // # 유저의 메이트 불러오기
+    //   - 유저의 메이트를 불러온다. (map)
+    //   - 200 - 정상 불러오기
+    @PUT("user/map/mate")
+    Call<BaseResponse<MateMap>> getMatebyUser();
 
     // # 모든 여행 불러오기
     //   - 저장된 모든 유저의 여행을 불러옴.

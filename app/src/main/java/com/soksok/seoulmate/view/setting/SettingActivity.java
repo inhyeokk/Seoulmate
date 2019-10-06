@@ -22,6 +22,7 @@ import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivitySettingBinding;
 import com.soksok.seoulmate.http.model.BaseResponse;
 import com.soksok.seoulmate.http.model.User;
+import com.soksok.seoulmate.http.model.request.LoginRequest;
 import com.soksok.seoulmate.http.model.request.TourRequest;
 import com.soksok.seoulmate.http.service.ApiService;
 import com.soksok.seoulmate.view.like.LikeActivity;
@@ -32,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.HEAD;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -86,7 +88,7 @@ public class SettingActivity extends AppCompatActivity {
                          */
                         String imageString = BasicUtils.fromURIToBase64(uri);
 
-                        updateUserProfileImage = apiService.updateUserProfileImage(imageString);
+                        updateUserProfileImage = apiService.updateUserProfileImage(new User(imageString));
 
                         updateUserProfileImage.enqueue(new Callback<BaseResponse<String>>() {
                             @Override
@@ -94,6 +96,7 @@ public class SettingActivity extends AppCompatActivity {
                                 BindUtils.setCircleGalleryURI(binding.civProfile, uri);
                                 isProfileChanged = true;
                                 System.out.println("onResponse");
+                                System.out.println("onResponse -->" + response.errorBody());
                             }
                             @Override
                             public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
@@ -101,6 +104,7 @@ public class SettingActivity extends AppCompatActivity {
                                 System.out.println("onFailure");
 
                             }
+
                         });
                         break;
                     case RESULT_CANCELED:
