@@ -76,7 +76,10 @@ public class ListFragment extends Fragment {
 
     // 외부 링크 연결
     private void goToExternalBrowser(String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        getActivity().startActivity(intent);
+
+        if (url != null && !url.equals("")) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            getActivity().startActivity(intent);
+        }
     }
 }

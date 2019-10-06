@@ -43,7 +43,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        holder.bind(recommends.get(position), isLikes.get(position));
+        holder.bind(position, recommends.get(position), isLikes.get(position));
     }
 
     @Override
@@ -53,6 +53,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
 
+        private int position = getAdapterPosition();
         private ItemListBinding binding;
 
         public ListViewHolder(@NonNull ItemListBinding binding) {
@@ -60,7 +61,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             this.binding = binding;
         }
 
-        public void bind(@NotNull Recommend recommend, boolean isLike) {
+        public void bind(int position, @NotNull Recommend recommend, boolean isLike) {
+
+            this.position = position;
             /** 이미지 정보 있을 경우 데이터 셋
              */
             if (!recommend.getImage().equals("")) {
@@ -73,11 +76,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         }
 
         public void onLayoutClick(View v) {
-            listener.onLayoutClick(v, getAdapterPosition());
+            listener.onLayoutClick(v, position);
         }
 
         public void onLikeClick(View v) {
-            listener.onLikeClick(v, getAdapterPosition());
+            listener.onLikeClick(v, position);
         }
     }
 }

@@ -45,6 +45,8 @@ public class SettingActivity extends AppCompatActivity {
     public static final String VALUE_LIKE_RESTAURANT = "VALUE_LIKE_RESTAURANT";
     public static final String VALUE_LIKE_INFORMATION = "VALUE_LIKE_INFORMATION";
 
+    private boolean isProfileChanged = false;
+
     private ActivitySettingBinding binding;
 
     private BottomSheetBehavior behavior;
@@ -90,6 +92,7 @@ public class SettingActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                                 BindUtils.setCircleGalleryURI(binding.civProfile, uri);
+                                isProfileChanged = true;
                                 System.out.println("onResponse");
                             }
                             @Override
@@ -128,6 +131,14 @@ public class SettingActivity extends AppCompatActivity {
     /*
      * 클릭 이벤트
      */
+    @Override
+    public void onBackPressed() {
+        if (isProfileChanged) {
+            setResult(RESULT_OK);
+        }
+        super.onBackPressed();
+    }
+
     public void onProfileClick(View v) {
 
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)

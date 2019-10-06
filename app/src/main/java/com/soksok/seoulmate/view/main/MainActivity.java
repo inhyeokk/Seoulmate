@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private long backPressedTime = 0L;
 
     public static int REQUEST_CHAT = 2001;
+    private static final int REQUEST_SETTING = 3001;
     public static String EXTRA_TOUR = "EXTRA_TOUR";
     public static String EXTRA_USER = "EXTRA_USER";
     public static String EXTRA_USER_PROFILE = "EXTRA_USER_PROFILE";
@@ -197,6 +199,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**
+         * 설정창에서 프로필 이미지 변경 시
+         * 변경된 프로필 반영
+         */
+        switch (requestCode) {
+            case REQUEST_SETTING:
+                switch (resultCode) {
+                    case RESULT_OK:
+                        getProfile();
+                        break;
+                }
+                break;
+        }
+    }
+
     /**
      * 뒤로가기 버튼 연속 두번 클릭 시 앱 종료
      */
@@ -236,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
     private void goToSettingActivity() {
         Intent intent = new Intent(this, SettingActivity.class);
         intent.putExtra(EXTRA_USER_PROFILE,user);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_SETTING);
     }
 
     private void goToChatActivity(Tour tour) {

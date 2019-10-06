@@ -39,7 +39,7 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
 
     @Override
     public void onBindViewHolder(@NonNull ListMateViewHolder holder, int position) {
-        holder.bind(mates.get(position), isLikes.get(position));
+        holder.bind(position, mates.get(position), isLikes.get(position));
     }
 
     @Override
@@ -49,6 +49,7 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
 
     public class ListMateViewHolder extends RecyclerView.ViewHolder {
 
+        private int position = getAdapterPosition();
         private ItemListMateBinding binding;
 
         public ListMateViewHolder(@NonNull ItemListMateBinding binding) {
@@ -56,7 +57,8 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
             this.binding = binding;
         }
 
-        public void bind(int mate, boolean isLike) {
+        public void bind(int position, int mate, boolean isLike) {
+            this.position = position;
             binding.setHolder(this);
             binding.setMate(mate);
             binding.ivLike.setSelected(isLike);
@@ -64,11 +66,11 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
         }
 
         public void onLayoutClick(View v) {
-            listener.onLayoutClick(v, getAdapterPosition());
+            listener.onLayoutClick(v, position);
         }
 
         public void onLikeClick(View v) {
-            listener.onLikeClick(v, getAdapterPosition());
+            listener.onLikeClick(v, position);
         }
     }
 }
