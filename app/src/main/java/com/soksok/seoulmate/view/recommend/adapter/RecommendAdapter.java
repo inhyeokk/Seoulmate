@@ -38,13 +38,13 @@ public class RecommendAdapter extends FragmentStatePagerAdapter {
                 return new MateFragment();
 
             case 1: // 관광지
-                return new ListFragment(spots);
+                return new ListFragment(spots, 1);
 
             case 2: // 맛집
-                return new ListFragment(restaurants);
+                return new ListFragment(restaurants, 2);
 
             case 3: // 정보
-                return new ListFragment(informations);
+                return new ListFragment(informations, 3);
 
             default:
                 throw new IllegalArgumentException("unexpected position: " + position);

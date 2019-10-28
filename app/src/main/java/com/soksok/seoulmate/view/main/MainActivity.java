@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     public static String EXTRA_USER = "EXTRA_USER";
     public static String EXTRA_USER_PROFILE = "EXTRA_USER_PROFILE";
 
-    private MainViewModel viewModel = new MainViewModel(new MainRepositoryImpl());
     private ActivityMainBinding binding;
 
     private MyTripAdapter upcomingTripAdapter;
@@ -74,12 +73,6 @@ public class MainActivity extends AppCompatActivity {
         onDataBinding();
         setupViews();
         getProfile();
-
-        BasicUtils.getHashKey(getApplicationContext());
-
-        BasicUtils.getHashKey(this);
-
-
     }
 
     private void onDataBinding() {
@@ -413,7 +406,11 @@ public class MainActivity extends AppCompatActivity {
                     binding.tvTitle.setText(title);
                     if (profileImage != null && !profileImage.equals("")) {
                         if (user.getIskakao() != 1) { // 카카오 로그인이면
-                            Picasso.get().load(Uri.parse(profileImage)).into(binding.civProfile);
+                            if(profileImage.substring(0,1).equals("/")){
+                                BindUtils.setImageBase64(binding.civProfile, user.getProfileImage());
+                            } else {
+                                Picasso.get().load(Uri.parse(profileImage)).into(binding.civProfile);
+                            }
                         } else { // 일반로그인 이면
                             BindUtils.setImageBase64(binding.civProfile, user.getProfileImage());
                         }

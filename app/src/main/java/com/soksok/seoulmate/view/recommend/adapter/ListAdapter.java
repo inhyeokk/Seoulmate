@@ -51,6 +51,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         return recommends.size();
     }
 
+    public void setIsLikeByPosition(int position, boolean isLike) {
+        isLikes.set(position, isLike);
+    }
+
     public class ListViewHolder extends RecyclerView.ViewHolder {
 
         private int position = getAdapterPosition();
@@ -79,7 +83,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             listener.onLayoutClick(v, position);
         }
 
-        public void onLikeClick(View v) {
+        public void onLikeClick(@NotNull View v) {
+            setIsLikeByPosition(position, !v.isSelected());
             listener.onLikeClick(v, position);
         }
     }

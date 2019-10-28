@@ -81,14 +81,14 @@ public interface ApiService {
     //   - 등록된 메이트의 좋아요 카운트를 +1
     //   - 메이트의 이메일을 path 파라미터로 전송함.
     //   - 200 정상 처리
-    @PUT("user/email/like/{email}")
+    @PUT("user/mate/like/{email}")
     Call<BaseResponse<String>> likeMate(@Path("email") String email);
 
     // # 메이트 좋아요취소
     //   - 등록된 메이트의 좋아요 카운트를 -1
     //   - 메이트의 이메일을 path 파라미터로 전송함.
     //   - 200 정상 처리
-    @PUT("user/email/unlike/{email}")
+    @PUT("user/mate/unlike/{email}")
     Call<BaseResponse<String>> unlikeMate(@Path("email") String email);
 
     // # 유저 프로필 이미지 변경
@@ -110,8 +110,8 @@ public interface ApiService {
     // # 유저의 메이트 불러오기
     //   - 유저의 메이트를 불러온다. (map)
     //   - 200 - 정상 불러오기
-    @PUT("user/map/mate")
-    Call<BaseResponse<MateMap>> getMatebyUser();
+    @GET("user/map/mate")
+    Call<BaseResponse<List<MateMap>>> getMatebyUser();
 
     // # 모든 여행 불러오기
     //   - 저장된 모든 유저의 여행을 불러옴.
@@ -182,6 +182,38 @@ public interface ApiService {
     @GET("tourist/attr")
     Call<BaseResponse<Recommend>> getAllattrs();
 
+    // # 유저의 맛집 불러오기
+    //   - 유저의 맛집 불러온다. (map)
+    //   - 200 - 정상 불러오기
+    @GET("tourist/map/eat")
+    Call<BaseResponse<List<Recommend>>> getEatbyUser();
+
+    // # 유저의 명소 불러오기
+    //   - 유저의 명소 불러온다. (map)
+    //   - 200 - 정상 불러오기
+    @GET("tourist/map/attr")
+    Call<BaseResponse<List<Recommend>>> getAttrbyUser();
+
+    // # 유저의 정보 불러오기
+    //   - 유저의 정보 불러온다. (map)
+    //   - 200 - 정상 불러오기
+    @GET("tourist/map/info")
+    Call<BaseResponse<List<Recommend>>> getInfobyUser();
+
+    // # 추천리스트 좋아요
+    //   - 추천리스트 좋아요
+    //   - 200 - 정상처리
+    @PUT("tourist/like/{kind}/{num}")
+    Call<BaseResponse<List<String>>> likeRecommend(@Path("kind") String kind ,
+                                                   @Path("num") int num);
+
+    // # 추천리스트 좋아요 취소
+    //   - 추천리스트 좋아요 취소
+    //   - 200 - 정상처리
+    @PUT("tourist/unlike/{kind}/{num}")
+    Call<BaseResponse<List<String>>> unlikeRecommend(@Path("kind") String kind ,
+                                                     @Path("num") int num);
+
     // 자동으로 API 요청시 토큰을 담을 수 있도로 Intercepter 설정
     OkHttpClient client = new OkHttpClient.Builder()
             .addInterceptor(new Interceptor() {
@@ -200,7 +232,7 @@ public interface ApiService {
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .client(client)
-            .baseUrl(localhost)
+            .baseUrl(aws)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

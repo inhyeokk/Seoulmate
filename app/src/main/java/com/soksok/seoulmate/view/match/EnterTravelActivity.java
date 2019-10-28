@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.BindUtils;
+import com.soksok.seoulmate.common.ProgressCircleDialog;
 import com.soksok.seoulmate.databinding.ActivityEnterTravelBinding;
 
 /**
@@ -130,7 +131,7 @@ public class EnterTravelActivity extends AppCompatActivity {
     }
 
     public void onFindClick(View v) {
-        goToFindMateActivity();
+        showProgressCircleDialog();
     }
 
     private void requestPermission() {
@@ -139,6 +140,17 @@ public class EnterTravelActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 REQUEST_PERMISSION
         );
+    }
+
+    private void showProgressCircleDialog() {
+
+        ProgressCircleDialog dialog = new ProgressCircleDialog(this);
+        dialog.show();
+        dialog.isShowing.observe(this, isShowing -> {
+            if (!isShowing) {
+                goToFindMateActivity();
+            }
+        });
     }
 
     private void goToGallery() {

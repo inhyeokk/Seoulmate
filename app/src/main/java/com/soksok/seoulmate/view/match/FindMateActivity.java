@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.soksok.seoulmate.R;
+import com.soksok.seoulmate.common.ProgressCircleDialog;
 import com.soksok.seoulmate.databinding.ActivityFindMateBinding;
 import com.soksok.seoulmate.http.model.BaseResponse;
 import com.soksok.seoulmate.http.model.request.TourRequest;
@@ -133,8 +134,8 @@ public class FindMateActivity extends AppCompatActivity {
         /*
          * 다이어로그 확인버튼 선택되면 액티비티 종료
          */
-        dialog.isShowing.observe(this, aBoolean -> {
-            if (!aBoolean) {
+        dialog.isShowing.observe(this, isShowing  -> {
+            if (!isShowing ) {
                 goToMainActivity();
             }
         });

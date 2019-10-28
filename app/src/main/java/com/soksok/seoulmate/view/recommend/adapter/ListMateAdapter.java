@@ -12,17 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.databinding.ItemListMateBinding;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMateViewHolder> {
 
-    private ArrayList<Integer> mates;
+    private ArrayList<Integer> mates = new ArrayList<>();
     private ArrayList<Boolean> isLikes;
 
     private ListItemListener listener;
 
-    public ListMateAdapter(ArrayList<Integer> mates, ArrayList<Boolean> isLikes, ListItemListener listener) {
-        this.mates = mates;
+    public ListMateAdapter(ArrayList<Boolean> isLikes, ListItemListener listener) {
         this.isLikes = isLikes;
         this.listener = listener;
     }
@@ -47,6 +48,10 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
         return mates.size();
     }
 
+    public void setIsLikeByPosition(int position, boolean isLike) {
+        isLikes.set(position, isLike);
+    }
+
     public class ListMateViewHolder extends RecyclerView.ViewHolder {
 
         private int position = getAdapterPosition();
@@ -69,7 +74,8 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
             listener.onLayoutClick(v, position);
         }
 
-        public void onLikeClick(View v) {
+        public void onLikeClick(@NotNull View v) {
+            setIsLikeByPosition(position, !v.isSelected());
             listener.onLikeClick(v, position);
         }
     }

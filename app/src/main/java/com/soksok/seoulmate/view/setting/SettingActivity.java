@@ -355,9 +355,14 @@ public class SettingActivity extends AppCompatActivity {
 
                     binding.tvUserName.setText(user.getNickname());
                     binding.tvUserEmail.setText(user.getEmail());
+
                     if (user.getProfileImage() != null && !user.getProfileImage().equals("")) {
                         if(user.getIskakao() != 1){
-                            Picasso.get().load(Uri.parse(user.getProfileImage())).into(binding.civProfile);
+                            if(user.getProfileImage().substring(0,1).equals("/")){
+                                BindUtils.setImageBase64(binding.civProfile, user.getProfileImage());
+                            } else {
+                                Picasso.get().load(Uri.parse(user.getProfileImage())).into(binding.civProfile);
+                            }
                         }else { // 일반로그인 이면
                             BindUtils.setImageBase64(binding.civProfile,user.getProfileImage());
                         }
@@ -376,13 +381,5 @@ public class SettingActivity extends AppCompatActivity {
                 System.out.println("실패!!");
             }
         });
-
-
-
-//        User user = (User) getIntent().getSerializableExtra(MainActivity.EXTRA_USER_PROFILE);
-
-
-//        System.out.println("#setUserInfo  user" + user);
-
     }
 }

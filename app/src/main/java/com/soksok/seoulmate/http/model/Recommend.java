@@ -1,13 +1,18 @@
 package com.soksok.seoulmate.http.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Recommend {
     String classname;
+
+    @SerializedName("idx")
     int num;
     String name;
     String addr;
     String tag;
     String image;
     String url;
+    private TouristMap touristMap;
 
     public Recommend(String classname, int num, String name, String addr, String tag, String image , String url) {
         this.classname = classname;
@@ -75,6 +80,14 @@ public class Recommend {
         this.url = url;
     }
 
+    public TouristMap getTouristMap() {
+        return touristMap;
+    }
+
+    public void setTouristMap(TouristMap touristMap) {
+        this.touristMap = touristMap;
+    }
+
     @Override
     public String toString() {
         return "Recommend{" +
@@ -85,6 +98,7 @@ public class Recommend {
                 ", tag='" + tag + '\'' +
                 ", image='" + image + '\'' +
                 ", url='" + url + '\'' +
+                ", touristMap=" + touristMap +
                 '}';
     }
 }
