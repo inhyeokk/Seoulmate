@@ -6,6 +6,7 @@
     <string name="common_toast_back_press">\'뒤로\'버튼 한번 더 누르시면 종료됩니다.</string>
     <string name="common_mate_email">mate%1$d@korea.com</string>
     <string name="common_pref_chat_item">%1$s_%2$s_%3$s</string>
+    <string name="common_chat_connect_error">네트워크 에러입니다. 재전송해주세요.</string>
 
     <!-- activity_main -->
     <string name="main_tv_title"><b>%1$s</b>님,\n서울여행을 계획해보세요!</string>

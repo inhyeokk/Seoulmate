@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
@@ -23,6 +24,8 @@ import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivityChatBinding;
 import com.soksok.seoulmate.http.model.Tour;
 import com.soksok.seoulmate.http.model.User;
+import com.soksok.seoulmate.services.socket.SocketConst;
+import com.soksok.seoulmate.services.socket.SocketHelper;
 import com.soksok.seoulmate.view.chat.adapter.ChatAdapter;
 import com.soksok.seoulmate.view.chat.adapter.ChatItemListener;
 import com.soksok.seoulmate.view.chat.domain.ChatViewModel;
@@ -30,11 +33,17 @@ import com.soksok.seoulmate.view.chat.entity.ChatItem;
 import com.soksok.seoulmate.view.main.MainActivity;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
+
 public class ChatActivity extends AppCompatActivity {
 
+    private static final String TAG = ChatActivity.class.getName();
     private static final int REQUEST_PERMISSION = 1001;
     private static final int REQUEST_GALLERY = 5001;
 
@@ -45,10 +54,11 @@ public class ChatActivity extends AppCompatActivity {
     private User user;
 
     private ActivityChatBinding binding;
-
     private ChatViewModel chatViewModel = new ChatViewModel();
 
     private ChatAdapter chatAdapter;
+
+    private Socket socket = SocketHelper.getSocket();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,21 +67,19 @@ public class ChatActivity extends AppCompatActivity {
         onDataBinding();
         setupViews();
         subscribe();
+        enterChannel();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-
             case REQUEST_GALLERY:
                 switch (resultCode) {
-
                     case RESULT_OK:
                         Uri uri = data.getData();
                         sendImage(uri);
                         break;
-
                     case RESULT_CANCELED:
                         // do nothing
                         break;
@@ -95,6 +103,12 @@ public class ChatActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        leaveChannel();
+        super.onDestroy();
     }
 
     private void getData() {
@@ -139,7 +153,7 @@ public class ChatActivity extends AppCompatActivity {
         binding.edMessage.setOnEditorActionListener((v, actionId, event) -> {
             switch (actionId) {
                 case EditorInfo.IME_ACTION_SEND:
-                    sendMessage();
+                    attemptSend();
                     break;
                 default:
                     break;
@@ -178,6 +192,42 @@ public class ChatActivity extends AppCompatActivity {
             );
         }
         return items;
+    }
+
+    /* Socket.io
+     * 채팅 채널로 메시지 전송
+     */
+    private void attemptSend() {
+
+        String msg = binding.edMessage.getText().toString();
+        if (!"".equals(msg)) {
+            binding.edMessage.setText("");
+            addMessage(user.getNickname(), msg, 0);
+            socket.emit("new message", msg);
+        }
+    }
+
+    /* Socket.io
+     * 수신받은 메시지 추가
+     */
+    private void addMessage(String userName, String msg, int type) {
+
+        if (user.getNickname().equals(userName)) {
+            chatAdapter.add(new ChatItem(
+                    ChatItem.Type.USER,
+                    msg,
+                    BasicUtils.getTime()
+            ));
+        } else {
+            chatAdapter.add(new ChatItem(
+                    ChatItem.Type.TEMP,
+                    BindUtils.getImageMateProfile(tour.getMate()),
+                    msg,
+                    BasicUtils.getTime()
+            ));
+        }
+        binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+        PrefUtils.setChatItems(user, tour.getIdx(), chatAdapter.getItems());
     }
 
     private void sendMessage() {
@@ -242,7 +292,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void onSendClick(View v) {
-        sendMessage();
+        attemptSend();
     }
 
     private void requestPermission() {
@@ -273,4 +323,64 @@ public class ChatActivity extends AppCompatActivity {
         intent.putStringArrayListExtra(ChatActivity.EXTRA_ALBUM, chatAdapter.getImages());
         startActivity(intent);
     }
+
+    /* Socket.io
+     * 채널에 진입
+     */
+    public void enterChannel() {
+
+        socket.on(Socket.EVENT_CONNECT, onConnect);
+        socket.on(Socket.EVENT_DISCONNECT, onDisconnect);
+        socket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        socket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        socket.on(SocketConst.NEW_MESSAGE, onNewMessage);
+        socket.connect();
+        SocketHelper.login();
+    }
+
+    private void leaveChannel() {
+
+        socket.disconnect();
+        socket.off(Socket.EVENT_CONNECT, onConnect);
+        socket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+        socket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+        socket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+        socket.off(SocketConst.NEW_MESSAGE, onNewMessage);
+    }
+
+    private Emitter.Listener onConnect = connect ->
+            runOnUiThread(() ->
+                socket.emit(SocketConst.ADD_USER, user.getNickname())
+            );
+
+    private Emitter.Listener onDisconnect = disconnect ->
+        runOnUiThread(() ->
+            Log.e(TAG, "disconnected")
+        );
+
+    private Emitter.Listener onConnectError = error ->
+        runOnUiThread(() -> {
+            Log.e(TAG, "Error connecting");
+            BasicUtils.showToast(getApplicationContext(),
+                    getString(R.string.common_chat_connect_error));
+        });
+
+    private Emitter.Listener onNewMessage = newMessage ->
+        runOnUiThread(() -> {
+            JSONObject data = (JSONObject) newMessage[0];
+            String username;
+            String message;
+            try {
+                username = data.getString("username");
+                message = data.getString("message");
+            } catch (JSONException e) {
+                Log.e(TAG, e.getMessage());
+                return;
+            }
+            /* TODO 메시지 타입
+             * 0: 입력 텍스트
+             * 1: 갤러리 이미지
+             */
+            addMessage(username, message, 0);
+        });
 }

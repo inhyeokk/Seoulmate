@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.soksok.seoulmate.http.model.User;
 import com.soksok.seoulmate.http.model.request.LoginRequest;
 import com.soksok.seoulmate.http.model.request.TourRequest;
 import com.soksok.seoulmate.http.service.ApiService;
+import com.soksok.seoulmate.services.socket.SocketHelper;
 import com.soksok.seoulmate.view.chat.ChatActivity;
 import com.soksok.seoulmate.view.main.adapter.MyTripAdapter;
 import com.soksok.seoulmate.view.main.adapter.MyTripItemListener;
@@ -220,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
         long intervalTime = tempTime - backPressedTime;
 
         if (!(0 > intervalTime || FINISH_INTERVAL_TIME < intervalTime)) {
+            SocketHelper.logout();
             super.onBackPressed();
         } else {
             backPressedTime = tempTime;
@@ -414,6 +417,7 @@ public class MainActivity extends AppCompatActivity {
                         } else { // 일반로그인 이면
                             BindUtils.setImageBase64(binding.civProfile, user.getProfileImage());
                         }
+                        SocketHelper.attemptLogin(user.getNickname());
                     }
                 } else {
                     BasicUtils.showToast(getApplicationContext(),"유저 정보 로딩 실패");
