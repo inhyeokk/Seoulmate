@@ -14,6 +14,7 @@ import com.nhn.android.naverlogin.OAuthLogin;
 import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.BindUtils;
 import com.soksok.seoulmate.common.PrefUtils;
+import com.soksok.seoulmate.services.socket.SocketHelper;
 import com.soksok.seoulmate.view.login.KakaoSDKAdapter;
 
 import java.lang.ref.WeakReference;
@@ -40,6 +41,7 @@ public class SeoulmateApplication extends Application {
         BasicUtils.init(this);
         BindUtils.init(this);
         PrefUtils.init(this);
+        SocketHelper.init();
     }
 
     private void initNaverLoginModule() {

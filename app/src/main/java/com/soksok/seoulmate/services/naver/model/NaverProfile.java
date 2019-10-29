@@ -1,4 +1,4 @@
-package com.soksok.seoulmate.api.naver.model;
+package com.soksok.seoulmate.services.naver.model;
 
 public class NaverProfile {
 

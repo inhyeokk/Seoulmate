@@ -5,33 +5,20 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.kakao.auth.AuthType;
-import com.kakao.auth.ErrorCode;
-import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
-import com.kakao.auth.authorization.authcode.KakaoWebViewActivity;
-import com.kakao.network.ErrorResult;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.MeResponseCallback;
-import com.kakao.usermgmt.callback.MeV2ResponseCallback;
-import com.kakao.usermgmt.response.MeV2Response;
-import com.kakao.usermgmt.response.model.UserProfile;
-import com.kakao.util.exception.KakaoException;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.OAuthLoginHandler;
 import com.soksok.seoulmate.R;
-import com.soksok.seoulmate.api.naver.NaverAPI;
+import com.soksok.seoulmate.services.naver.NaverAPI;
 import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.PrefUtils;
 import com.soksok.seoulmate.databinding.ActivityLoginBinding;
 import com.soksok.seoulmate.view.login.domain.LoginViewModel;
 import com.soksok.seoulmate.http.model.BaseResponse;
 import com.soksok.seoulmate.http.model.request.LoginRequest;
-import com.soksok.seoulmate.http.model.request.TourRequest;
 import com.soksok.seoulmate.http.service.ApiService;
 import com.soksok.seoulmate.view.main.MainActivity;
 

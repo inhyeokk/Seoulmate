@@ -1,4 +1,4 @@
-package com.soksok.seoulmate.api.naver;
+package com.soksok.seoulmate.services.naver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

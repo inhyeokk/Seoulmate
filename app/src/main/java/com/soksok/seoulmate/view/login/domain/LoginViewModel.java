@@ -1,12 +1,10 @@
 package com.soksok.seoulmate.view.login.domain;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
-import com.soksok.seoulmate.api.naver.NaverAPI;
-import com.soksok.seoulmate.api.naver.model.NaverProfile;
+import com.soksok.seoulmate.services.naver.NaverAPI;
+import com.soksok.seoulmate.services.naver.model.NaverProfile;
 import com.soksok.seoulmate.base.BaseViewModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
