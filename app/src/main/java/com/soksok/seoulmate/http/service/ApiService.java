@@ -8,6 +8,7 @@ import com.soksok.seoulmate.http.model.TitleRecommend;
 import com.soksok.seoulmate.http.model.Tour;
 import com.soksok.seoulmate.http.model.Tourist;
 import com.soksok.seoulmate.http.model.User;
+import com.soksok.seoulmate.http.model.request.ChatRequest;
 import com.soksok.seoulmate.http.model.request.LoginRequest;
 import com.soksok.seoulmate.http.model.request.RegisterRequest;
 import com.soksok.seoulmate.http.model.request.TourRequest;
@@ -212,6 +213,16 @@ public interface ApiService {
     //   - 200 - 정상처리
     @PUT("tourist/unlike/{kind}/{num}")
     Call<BaseResponse<List<String>>> unlikeRecommend(@Path("kind") String kind ,
+                                                     @Path("num") int num);
+
+
+    // 채팅보내기
+    @POST("chat/send")
+    Call<BaseResponse<List<String>>> sendChat(@Body ChatRequest body);
+
+    // 채팅받기
+    @GET("tourist/unlike/{kind}/{num}")
+    Call<BaseResponse<List<String>>> recvChat(@Path("kind") String kind ,
                                                      @Path("num") int num);
 
     // 자동으로 API 요청시 토큰을 담을 수 있도로 Intercepter 설정

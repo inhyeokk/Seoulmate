@@ -37,6 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -60,6 +62,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private Socket socket = SocketHelper.getSocket();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +70,7 @@ public class ChatActivity extends AppCompatActivity {
         onDataBinding();
         setupViews();
         subscribe();
-        enterChannel();
+//        enterChannel();
     }
 
     @Override
@@ -78,7 +81,7 @@ public class ChatActivity extends AppCompatActivity {
                 switch (resultCode) {
                     case RESULT_OK:
                         Uri uri = data.getData();
-                        sendImage(uri);
+//                        sendImage(uri);
                         break;
                     case RESULT_CANCELED:
                         // do nothing
@@ -107,7 +110,7 @@ public class ChatActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        leaveChannel();
+//        leaveChannel();
         super.onDestroy();
     }
 
@@ -153,7 +156,7 @@ public class ChatActivity extends AppCompatActivity {
         binding.edMessage.setOnEditorActionListener((v, actionId, event) -> {
             switch (actionId) {
                 case EditorInfo.IME_ACTION_SEND:
-                    attemptSend();
+//                    attemptSend();
                     break;
                 default:
                     break;
@@ -203,7 +206,7 @@ public class ChatActivity extends AppCompatActivity {
         if (!"".equals(msg)) {
             binding.edMessage.setText("");
             addMessage(user.getNickname(), msg, 0);
-            socket.emit("new message", msg);
+//            socket.emit("new message", msg);
         }
     }
 
@@ -230,25 +233,25 @@ public class ChatActivity extends AppCompatActivity {
         PrefUtils.setChatItems(user, tour.getIdx(), chatAdapter.getItems());
     }
 
-    private void sendMessage() {
+//    private void sendMessage() {
+//
+//        String content = binding.edMessage.getText().toString();
+//        if (!content.equals("")) {
+//            chatAdapter.add(new ChatItem(ChatItem.Type.USER, content, BasicUtils.getTime()));
+//            binding.edMessage.setText("");
+//            binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+//            PrefUtils.setChatItems(user, tour.getIdx(), chatAdapter.getItems());
+//        }
+//    }
 
-        String content = binding.edMessage.getText().toString();
-        if (!content.equals("")) {
-            chatAdapter.add(new ChatItem(ChatItem.Type.USER, content, BasicUtils.getTime()));
-            binding.edMessage.setText("");
-            binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
-            PrefUtils.setChatItems(user, tour.getIdx(), chatAdapter.getItems());
-        }
-    }
-
-    private void sendImage(@NotNull Uri uri) {
-
-        String image = BasicUtils.fromURIToBase64(uri);
-        if (!image.equals("")) {
-            ChatItem item = new ChatItem(ChatItem.Type.USER_IMAGE, image, BasicUtils.getTime());
-            chatViewModel.getImageCachePath(item, uri);
-        }
-    }
+//    private void sendImage(@NotNull Uri uri) {
+//
+//        String image = BasicUtils.fromURIToBase64(uri);
+//        if (!image.equals("")) {
+//            ChatItem item = new ChatItem(ChatItem.Type.USER_IMAGE, image, BasicUtils.getTime());
+//            chatViewModel.getImageCachePath(item, uri);
+//        }
+//    }
 
     private void subscribe() {
 
@@ -327,60 +330,62 @@ public class ChatActivity extends AppCompatActivity {
     /* Socket.io
      * 채널에 진입
      */
-    public void enterChannel() {
+//    public void enterChannel() {
+//
+//        socket.on(Socket.EVENT_CONNECT, onConnect);
+//        socket.on(Socket.EVENT_DISCONNECT, onDisconnect);
+//        socket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        socket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        socket.on(SocketConst.NEW_MESSAGE, onNewMessage);
+//        socket.connect();
+//        SocketHelper.login();
+//    }
 
-        socket.on(Socket.EVENT_CONNECT, onConnect);
-        socket.on(Socket.EVENT_DISCONNECT, onDisconnect);
-        socket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
-        socket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-        socket.on(SocketConst.NEW_MESSAGE, onNewMessage);
-        socket.connect();
-        SocketHelper.login();
-    }
+//    private void leaveChannel() {
+//
+//        socket.disconnect();
+//        socket.off(Socket.EVENT_CONNECT, onConnect);
+//        socket.off(Socket.EVENT_DISCONNECT, onDisconnect);
+//        socket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
+//        socket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
+//        socket.off(SocketConst.NEW_MESSAGE, onNewMessage);
+//    }
 
-    private void leaveChannel() {
+//    private Emitter.Listener onConnect = connect ->
+//            runOnUiThread(() ->
+//                socket.emit(SocketConst.ADD_USER, user.getNickname())
+//            );
+//
+//    private Emitter.Listener onDisconnect = disconnect ->
+//        runOnUiThread(() ->
+//            Log.e(TAG, "disconnected")
+//        );
+//
+//    private Emitter.Listener onConnectError = error ->
+//        runOnUiThread(() -> {
+//            Log.e(TAG, "Error connecting");
+//            BasicUtils.showToast(getApplicationContext(),
+//                    getString(R.string.common_chat_connect_error));
+//        });
+//
+//    private Emitter.Listener onNewMessage = newMessage ->
+//        runOnUiThread(() -> {
+//            JSONObject data = (JSONObject) newMessage[0];
+//            String username;
+//            String message;
+//            try {
+//                username = data.getString("username");
+//                message = data.getString("message");
+//            } catch (JSONException e) {
+//                Log.e(TAG, e.getMessage());
+//                return;
+//            }
+//            /* TODO 메시지 타입
+//             * 0: 입력 텍스트
+//             * 1: 갤러리 이미지
+//             */
+//            addMessage(username, message, 0);
+//        });
 
-        socket.disconnect();
-        socket.off(Socket.EVENT_CONNECT, onConnect);
-        socket.off(Socket.EVENT_DISCONNECT, onDisconnect);
-        socket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-        socket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-        socket.off(SocketConst.NEW_MESSAGE, onNewMessage);
-    }
 
-    private Emitter.Listener onConnect = connect ->
-            runOnUiThread(() ->
-                socket.emit(SocketConst.ADD_USER, user.getNickname())
-            );
-
-    private Emitter.Listener onDisconnect = disconnect ->
-        runOnUiThread(() ->
-            Log.e(TAG, "disconnected")
-        );
-
-    private Emitter.Listener onConnectError = error ->
-        runOnUiThread(() -> {
-            Log.e(TAG, "Error connecting");
-            BasicUtils.showToast(getApplicationContext(),
-                    getString(R.string.common_chat_connect_error));
-        });
-
-    private Emitter.Listener onNewMessage = newMessage ->
-        runOnUiThread(() -> {
-            JSONObject data = (JSONObject) newMessage[0];
-            String username;
-            String message;
-            try {
-                username = data.getString("username");
-                message = data.getString("message");
-            } catch (JSONException e) {
-                Log.e(TAG, e.getMessage());
-                return;
-            }
-            /* TODO 메시지 타입
-             * 0: 입력 텍스트
-             * 1: 갤러리 이미지
-             */
-            addMessage(username, message, 0);
-        });
 }
