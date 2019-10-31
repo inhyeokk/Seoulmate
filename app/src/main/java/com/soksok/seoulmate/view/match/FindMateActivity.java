@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.ProgressCircleDialog;
 import com.soksok.seoulmate.databinding.ActivityFindMateBinding;
@@ -23,6 +25,8 @@ import com.soksok.seoulmate.view.match.adapter.MateAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +55,9 @@ public class FindMateActivity extends AppCompatActivity {
     private ActivityFindMateBinding binding;
 
     private MateAdapter mateAdapter;
+
+    private DatabaseReference root = FirebaseDatabase.getInstance().getReference().getRoot();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +192,11 @@ public class FindMateActivity extends AppCompatActivity {
             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                 if(response.code() == 200){
                     // 서버와 통신하여 여행 추가 성공시
+
+                    Map<String,Object> map = new HashMap<String,Object>();
+                    map.put(response.body().getMessage(),"");
+                    root.updateChildren(map);
+
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);

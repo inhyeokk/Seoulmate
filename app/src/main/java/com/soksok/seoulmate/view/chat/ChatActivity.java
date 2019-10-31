@@ -17,6 +17,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.soksok.seoulmate.R;
 import com.soksok.seoulmate.common.BasicUtils;
 import com.soksok.seoulmate.common.BindUtils;
@@ -37,6 +42,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -62,6 +70,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private Socket socket = SocketHelper.getSocket();
 
+    private DatabaseReference child;
+    private String temp_key;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +82,57 @@ public class ChatActivity extends AppCompatActivity {
         setupViews();
         subscribe();
 //        enterChannel();
+        addRoom();
+
+        child.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                Iterator i = dataSnapshot.getChildren().iterator();
+
+                while (i.hasNext()) {
+
+                    String chat_msg = (String) ((DataSnapshot) i.next()).getValue();
+                    String chat_user_name = (String) ((DataSnapshot) i.next()).getValue();
+
+                    if (user.getEmail().equals(chat_user_name)) {
+                        chatAdapter.add(new ChatItem(
+                                ChatItem.Type.USER,
+                                chat_msg,
+                                BasicUtils.getTime()
+                        ));
+                    } else {
+                    chatAdapter.add(new ChatItem(
+                            ChatItem.Type.TEMP,
+                            BindUtils.getImageMateProfile(tour.getMate()),
+                            chat_msg,
+                            BasicUtils.getTime()
+                    ));
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
@@ -143,13 +205,13 @@ public class ChatActivity extends AppCompatActivity {
                 goToChatPartnerActivity();
             }
         });
-        binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+        binding.rcvChat.scrollToPosition(chatAdapter.getItemCount() - 1);
         binding.rcvChat.setAdapter(chatAdapter);
         binding.rcvChat.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
             if (bottom < oldBottom) {
                 binding.rcvChat.postDelayed(() ->
-                    binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1)
-                , 100);
+                                binding.rcvChat.scrollToPosition(chatAdapter.getItemCount() - 1)
+                        , 100);
             }
         });
 
@@ -197,6 +259,10 @@ public class ChatActivity extends AppCompatActivity {
         return items;
     }
 
+    private void addRoom() {
+        child = FirebaseDatabase.getInstance().getReference().child(tour.getIdx());
+    }
+
     /* Socket.io
      * 채팅 채널로 메시지 전송
      */
@@ -214,52 +280,33 @@ public class ChatActivity extends AppCompatActivity {
      * 수신받은 메시지 추가
      */
     private void addMessage(String userName, String msg, int type) {
+        String username = user.getEmail();
+        String roomname = tour.getIdx();
 
-        if (user.getNickname().equals(userName)) {
-            System.out.println("내가친거임!");
-            chatAdapter.add(new ChatItem(
-                    ChatItem.Type.USER,
-                    msg,
-                    BasicUtils.getTime()
-            ));
-        } else {
-            chatAdapter.add(new ChatItem(
-                    ChatItem.Type.TEMP,
-                    BindUtils.getImageMateProfile(tour.getMate()),
-                    msg,
-                    BasicUtils.getTime()
-            ));
-        }
-        binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+        System.out.println("내가친거임!");
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        temp_key = child.push().getKey();
+        child.updateChildren(map);
+
+        DatabaseReference message_root = child.child(temp_key);
+        Map<String, Object> map2 = new HashMap<String, Object>();
+        map2.put("name", user.getEmail());
+        map2.put("msg", msg);
+
+        message_root.updateChildren(map2);
+        binding.rcvChat.scrollToPosition(chatAdapter.getItemCount() - 1);
         PrefUtils.setChatItems(user, tour.getIdx(), chatAdapter.getItems());
+
     }
 
-//    private void sendMessage() {
-//
-//        String content = binding.edMessage.getText().toString();
-//        if (!content.equals("")) {
-//            chatAdapter.add(new ChatItem(ChatItem.Type.USER, content, BasicUtils.getTime()));
-//            binding.edMessage.setText("");
-//            binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
-//            PrefUtils.setChatItems(user, tour.getIdx(), chatAdapter.getItems());
-//        }
-//    }
-
-//    private void sendImage(@NotNull Uri uri) {
-//
-//        String image = BasicUtils.fromURIToBase64(uri);
-//        if (!image.equals("")) {
-//            ChatItem item = new ChatItem(ChatItem.Type.USER_IMAGE, image, BasicUtils.getTime());
-//            chatViewModel.getImageCachePath(item, uri);
-//        }
-//    }
 
     private void subscribe() {
 
         chatViewModel.chatItem.observe(this, chatItem -> {
             // 캐싱된 이미지 주소가 set 된 item add
             chatAdapter.add(chatItem);
-            binding.rcvChat.scrollToPosition(chatAdapter.getItemCount()-1);
+            binding.rcvChat.scrollToPosition(chatAdapter.getItemCount() - 1);
             PrefUtils.setChatItems(user, tour.getIdx(), chatAdapter.getItems());
         });
     }
@@ -272,7 +319,7 @@ public class ChatActivity extends AppCompatActivity {
 
         if (binding.dlChat.isDrawerOpen(GravityCompat.END)) {
             binding.dlChat.closeDrawers();
-        }  else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -311,7 +358,7 @@ public class ChatActivity extends AppCompatActivity {
     private void goToGallery() {
 
         Intent intent = new Intent(Intent.ACTION_PICK);
-        intent. setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(intent, REQUEST_GALLERY);
     }
 
@@ -328,66 +375,5 @@ public class ChatActivity extends AppCompatActivity {
         intent.putStringArrayListExtra(ChatActivity.EXTRA_ALBUM, chatAdapter.getImages());
         startActivity(intent);
     }
-
-    /* Socket.io
-     * 채널에 진입
-     */
-//    public void enterChannel() {
-//
-//        socket.on(Socket.EVENT_CONNECT, onConnect);
-//        socket.on(Socket.EVENT_DISCONNECT, onDisconnect);
-//        socket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
-//        socket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-//        socket.on(SocketConst.NEW_MESSAGE, onNewMessage);
-//        socket.connect();
-//        SocketHelper.login();
-//    }
-
-//    private void leaveChannel() {
-//
-//        socket.disconnect();
-//        socket.off(Socket.EVENT_CONNECT, onConnect);
-//        socket.off(Socket.EVENT_DISCONNECT, onDisconnect);
-//        socket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
-//        socket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-//        socket.off(SocketConst.NEW_MESSAGE, onNewMessage);
-//    }
-
-//    private Emitter.Listener onConnect = connect ->
-//            runOnUiThread(() ->
-//                socket.emit(SocketConst.ADD_USER, user.getNickname())
-//            );
-//
-//    private Emitter.Listener onDisconnect = disconnect ->
-//        runOnUiThread(() ->
-//            Log.e(TAG, "disconnected")
-//        );
-//
-//    private Emitter.Listener onConnectError = error ->
-//        runOnUiThread(() -> {
-//            Log.e(TAG, "Error connecting");
-//            BasicUtils.showToast(getApplicationContext(),
-//                    getString(R.string.common_chat_connect_error));
-//        });
-//
-//    private Emitter.Listener onNewMessage = newMessage ->
-//        runOnUiThread(() -> {
-//            JSONObject data = (JSONObject) newMessage[0];
-//            String username;
-//            String message;
-//            try {
-//                username = data.getString("username");
-//                message = data.getString("message");
-//            } catch (JSONException e) {
-//                Log.e(TAG, e.getMessage());
-//                return;
-//            }
-//            /* TODO 메시지 타입
-//             * 0: 입력 텍스트
-//             * 1: 갤러리 이미지
-//             */
-//            addMessage(username, message, 0);
-//        });
-
 
 }
