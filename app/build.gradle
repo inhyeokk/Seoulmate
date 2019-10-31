@@ -73,6 +73,8 @@ dependencies {
     implementation ('io.socket:socket.io-client:0.8.3') {
         exclude group: 'org.json', module: 'json'
     }
+    implementation 'com.google.firebase:firebase-database:9.0.2'
+    implementation 'com.google.firebase:firebase-core:9.0.2'
 
     // Kakao
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.22.0'
@@ -87,3 +89,4 @@ dependencies {
     androidTestImplementation "androidx.test:runner:1.2.0"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
 }
+apply plugin: 'com.google.gms.google-services'

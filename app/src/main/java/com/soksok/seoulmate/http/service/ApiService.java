@@ -243,7 +243,7 @@ public interface ApiService {
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .client(client)
-            .baseUrl(aws)
+            .baseUrl(localhost)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 

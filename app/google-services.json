@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "78928562285",
+    "firebase_url": "https://seoulmate-9e4bb.firebaseio.com",
+    "project_id": "seoulmate-9e4bb",
+    "storage_bucket": "seoulmate-9e4bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78928562285:android:a53e96b4cc24e3414c1764",
+        "android_client_info": {
+          "package_name": "com.soksok.seoulmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78928562285-s8p0jhsu0u64na2r4540hp7lnufjemg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWn-FeiSsDiV8f1_dRCo4_Qh5ELzqqXWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78928562285-s8p0jhsu0u64na2r4540hp7lnufjemg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

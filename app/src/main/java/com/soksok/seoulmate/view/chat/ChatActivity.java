@@ -216,6 +216,7 @@ public class ChatActivity extends AppCompatActivity {
     private void addMessage(String userName, String msg, int type) {
 
         if (user.getNickname().equals(userName)) {
+            System.out.println("내가친거임!");
             chatAdapter.add(new ChatItem(
                     ChatItem.Type.USER,
                     msg,
@@ -295,6 +296,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void onSendClick(View v) {
+        System.out.println("onSendClick!!!");
         attemptSend();
     }
 
