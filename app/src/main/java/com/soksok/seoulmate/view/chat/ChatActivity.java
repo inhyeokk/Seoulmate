@@ -249,12 +249,12 @@ public class ChatActivity extends AppCompatActivity {
             items = new ArrayList<>();
         }
         if (items.size() == 0) {
-            items.add(new ChatItem(
-                    ChatItem.Type.TEMP,
-                    BindUtils.getImageMateProfile(tour.getMate()), // 메이트 프로필 이미지
-                    getString(R.string.chat_tv_content_partner, user.getNickname(), BindUtils.getMateName(tour.getMate())),
-                    BasicUtils.getTime())
-            );
+//            items.add(new ChatItem(
+//                    ChatItem.Type.TEMP,
+//                    BindUtils.getImageMateProfile(tour.getMate()), // 메이트 프로필 이미지
+//                    getString(R.string.chat_tv_content_partner, user.getNickname(), BindUtils.getMateName(tour.getMate())),
+//                    BasicUtils.getTime())
+//            );
         }
         return items;
     }
