@@ -23,7 +23,8 @@ public class ListMateAdapter extends RecyclerView.Adapter<ListMateAdapter.ListMa
 
     private ListItemListener listener;
 
-    public ListMateAdapter(ArrayList<Boolean> isLikes, ListItemListener listener) {
+    public ListMateAdapter(ArrayList<Integer> mates , ArrayList<Boolean> isLikes, ListItemListener listener) {
+        this.mates = mates;
         this.isLikes = isLikes;
         this.listener = listener;
     }

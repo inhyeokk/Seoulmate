@@ -55,11 +55,16 @@ public class MateFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         binding.rcvMate.setLayoutManager(layoutManager);
 
+        System.out.println("접근!!");
+
         ArrayList<Boolean> isLikes = new ArrayList<>();
         getMatebyUserCall = apiService.getMatebyUser();
+        System.out.println("접근!!");
         getMatebyUserCall.enqueue(new Callback<BaseResponse<List<MateMap>>>() {
+
             @Override
             public void onResponse(Call<BaseResponse<List<MateMap>>> call, Response<BaseResponse<List<MateMap>>> response) {
+
                 for(int i=0; i<response.body().getMessage().size(); i++){
                     if(response.body().getMessage().get(i).getMlike() < 1){
                         isLikes.add(false);
@@ -68,7 +73,7 @@ public class MateFragment extends Fragment {
                     }
                 }
 
-                final ListMateAdapter mateAdapter = new ListMateAdapter(isLikes, new ListItemListener() {
+                final ListMateAdapter mateAdapter = new ListMateAdapter(getMates(),isLikes, new ListItemListener() {
                     @Override
                     public void onLayoutClick(View v, int position) {
                         goToMateActivity(getString(R.string.common_mate_email, position));
@@ -125,6 +130,45 @@ public class MateFragment extends Fragment {
 
             }
         });
+    }
+
+    private ArrayList<Integer> getMates() {
+
+        ArrayList<Integer> mates = new ArrayList<>();
+
+        mates.add(R.drawable.img_list_mate7); // 다은
+        mates.add(R.drawable.img_list_mate9); // 수연
+        mates.add(R.drawable.img_list_mate1); // 은미
+        mates.add(R.drawable.img_list_mate10); // 형규
+        mates.add(R.drawable.img_list_mate4); // 원서
+        mates.add(R.drawable.img_list_mate8); // 창윤
+        mates.add(R.drawable.img_list_mate2); // 은지
+        mates.add(R.drawable.img_list_mate3); // 용준
+        mates.add(R.drawable.img_list_mate5); // 예린
+        mates.add(R.drawable.img_list_mate6); // 유정
+
+        return mates;
+    }
+
+    private ArrayList<Boolean> getIsLikes() {
+
+        /* TODO
+         * ListMateAdapter의 mates의 count와 일치해야함
+         */
+        ArrayList<Boolean> isLikes = new ArrayList<>();
+
+
+//        isLikes.add(true); // 다은
+//        isLikes.add(false); // 수연
+//        isLikes.add(true); // 은미
+//        isLikes.add(true); // 형규
+//        isLikes.add(false); // 원서
+//        isLikes.add(false); // 창윤
+//        isLikes.add(false); // 은지
+//        isLikes.add(false); // 용준
+//        isLikes.add(false); // 예린
+//        isLikes.add(false); // 유정
+        return isLikes;
     }
 
     private void goToMateActivity(String mateEmail) {
