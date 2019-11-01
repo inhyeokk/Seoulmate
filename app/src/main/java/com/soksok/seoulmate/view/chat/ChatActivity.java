@@ -94,7 +94,10 @@ public class ChatActivity extends AppCompatActivity {
 
                     String chat_msg = (String) ((DataSnapshot) i.next()).getValue();
                     String chat_user_name = (String) ((DataSnapshot) i.next()).getValue();
+                    String tempStr = chat_user_name.substring(0, 4);
 
+
+                    System.out.println(tempStr);
                     if (user.getEmail().equals(chat_user_name)) {
                         chatAdapter.add(new ChatItem(
                                 ChatItem.Type.USER,
@@ -102,12 +105,22 @@ public class ChatActivity extends AppCompatActivity {
                                 BasicUtils.getTime()
                         ));
                     } else {
-                    chatAdapter.add(new ChatItem(
-                            ChatItem.Type.TEMP,
-                            BindUtils.getImageMateProfile(tour.getMate()),
-                            chat_msg,
-                            BasicUtils.getTime()
-                    ));
+                        if (tempStr.equals("mate")){
+                            chatAdapter.add(new ChatItem(
+                                    ChatItem.Type.TEMP,
+                                    BindUtils.getImageMateProfile(tour.getMate()),
+                                    chat_msg,
+                                    BasicUtils.getTime()
+                            ));
+                        } else {
+                            chatAdapter.add(new ChatItem(
+                                    ChatItem.Type.TEMP,
+                                    R.drawable.ic_logo,
+                                    chat_msg,
+                                    BasicUtils.getTime()
+                            ));
+                        }
+
                     }
                 }
             }
