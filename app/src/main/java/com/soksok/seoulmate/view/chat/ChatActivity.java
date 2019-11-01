@@ -105,7 +105,7 @@ public class ChatActivity extends AppCompatActivity {
                                 BasicUtils.getTime()
                         ));
                     } else {
-                        if (tempStr.equals("mate")){
+                        if (tempStr.equals("mate")) {
                             chatAdapter.add(new ChatItem(
                                     ChatItem.Type.TEMP,
                                     BindUtils.getImageMateProfile(tour.getMate()),
@@ -257,7 +257,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private ArrayList<ChatItem> getChatItems() {
 
-        ArrayList<ChatItem> items = PrefUtils.getChatItems(user, tour.getIdx());
+//        ArrayList<ChatItem> items = PrefUtils.getChatItems(user, tour.getIdx());
+        ArrayList<ChatItem> items = new ArrayList<>();
+
         if (items == null) {
             items = new ArrayList<>();
         }
